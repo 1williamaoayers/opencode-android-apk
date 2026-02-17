@@ -60,10 +60,13 @@ jobs:
 
       - name: Decode Keystore (if available)
         id: decode_keystore
-        if: ${{ secrets.ANDROID_KEYSTORE != '' }}
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android-app/android/app/release.keystore
-          echo "KEYSTORE_EXISTS=true" >> $GITHUB_OUTPUT
+          if [ -n "${{ secrets.ANDROID_KEYSTORE }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android-app/android/app/release.keystore
+            echo "KEYSTORE_EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "KEYSTORE_EXISTS=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build Android APK
         id: build_apk
@@ -89,13 +92,15 @@ jobs:
         run: |
           cd android-app/android
           
-          # 使用 apksigner 签名
-          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
-            --ks app/release.keystore \
-            --ks-key-alias ${{ secrets.ANDROID_KEY_ALIAS }} \
-            --ks-pass pass:${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
-            --key-pass pass:${{ secrets.ANDROID_KEY_PASSWORD }} \
-            app/build/outputs/apk/release/app-release.apk
+          # 使用 apksigner 签名（仅在 keystore 可用时）
+          if [ -f "app/release.keystore" ]; then
+            $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+              --ks app/release.keystore \
+              --ks-key-alias "${{ secrets.ANDROID_KEY_ALIAS }}" \
+              --ks-pass pass:"${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
+              --key-pass pass:"${{ secrets.ANDROID_KEY_PASSWORD }}" \
+              app/build/outputs/apk/release/app-release.apk
+          fi
 
       - name: Upload APK to Release
         if: steps.build_apk.outputs.APK_BUILD_ENABLED == 'true'
