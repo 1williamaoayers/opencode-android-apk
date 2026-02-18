@@ -67,11 +67,20 @@ jobs:
           # 同步 Web 资源到 Android
           npx cap sync android
 
-          # 修改 AndroidManifest.xml 允许明文流量 (HTTP) - 使用更宽松的匹配
-          sed -i -E 's/<application(>| )/<application android:usesCleartextTraffic="true"\1/g' android/app/src/main/AndroidManifest.xml
+          # Debug: 打印原始 Manifest 内容
+          echo "=== Original AndroidManifest.xml ==="
+          cat android/app/src/main/AndroidManifest.xml
+          echo "=== End Original ==="
+
+          # 修改 AndroidManifest.xml 允许明文流量 (HTTP)
+          # Capacitor 模板中 <application 后面是换行符，所以用行尾匹配
+          sed -i 's/<application/<application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
           
           # 验证修改结果
-          grep "android:usesCleartextTraffic" android/app/src/main/AndroidManifest.xml || echo "Manifest modification FAILED"
+          echo "=== Modified AndroidManifest.xml ==="
+          cat android/app/src/main/AndroidManifest.xml
+          echo "=== End Modified ==="
+          grep "android:usesCleartextTraffic" android/app/src/main/AndroidManifest.xml || { echo "ERROR: Manifest modification FAILED"; exit 1; }
 
       - name: Build debug APK
         id: build_apk
