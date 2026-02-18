@@ -5,117 +5,304 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
-    <title>Connect to OpenCode</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; frame-src *;">
+    <title>OpenCode</title>
+    <style>
+        :root {
+            --primary: #007acc;
+            --bg: #1e1e1e;
+            --input-bg: #2d2d2d;
+            --border: #3e3e3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* === 连接页 === */
+        #connect-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 2rem;
+        }
+
+        #connect-page.hidden {
+            display: none;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            opacity: 0.6;
+            margin-bottom: 2rem;
+        }
+
+        .form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        input {
+            width: 100%;
+            margin-top: 0.4rem;
+            padding: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        button {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 1.2rem;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:active {
+            opacity: 0.8;
+        }
+
+        .history {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        .history h3 {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .history-item {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item:active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ver {
+            text-align: center;
+            color: #444;
+            font-size: 0.75rem;
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+
+        /* === 加载中 === */
+        #loading-page {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #loading-page.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: #888;
+        }
+
+        .loading-url {
+            margin-top: 0.5rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            word-break: break-all;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        /* === Webview 容器 === */
+        #webview-frame {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #webview-frame.show {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="logo-area">
-            <h1>OpenCode</h1>
-            <p>Remote Development Client</p>
-        </div>
 
-        <div class="form-group">
-            <label for="server-url">Server URL</label>
-            <input type="url" id="server-url" placeholder="http://192.168.1.x:8080" autocomplete="url" inputmode="url">
-            <p class="hint">Enter the full address including http:// or https://</p>
+    <!-- 连接页面 -->
+    <div id="connect-page">
+        <div class="logo">OpenCode</div>
+        <div class="subtitle">Remote Development Client</div>
+        <div class="form">
+            <label for="url">Server URL</label>
+            <input type="url" id="url" placeholder="http://192.168.1.x:9000" inputmode="url">
+            <div class="hint">输入完整地址，包含 http:// 或 https://</div>
         </div>
-
-        <button id="connect-btn" onclick="connect()">Connect</button>
-
-        <div id="history-list" class="history-list">
-            <!-- Recent servers will appear here -->
-        </div>
-
-        <div class="footer">
-            v0.7.0
-        </div>
+        <button onclick="doConnect()">Connect</button>
+        <div class="history" id="history"></div>
+        <div class="ver">v0.7.3</div>
     </div>
 
+    <!-- 加载中页面 -->
+    <div id="loading-page">
+        <div class="spinner"></div>
+        <div class="loading-text">Connecting...</div>
+        <div class="loading-url" id="loading-url"></div>
+    </div>
+
+    <!-- 远程 Web UI (iframe) -->
+    <iframe id="webview-frame"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads"
+        allow="*"></iframe>
+
     <script>
-        const STORAGE_KEY = 'opencode_server_url';
-        const HISTORY_KEY = 'opencode_server_history';
-        const urlInput = document.getElementById('server-url');
-        const historyList = document.getElementById('history-list');
+        const STORAGE_KEY = 'oc_url';
+        const HISTORY_KEY = 'oc_history';
+        const urlInput = document.getElementById('url');
+        const connectPage = document.getElementById('connect-page');
+        const loadingPage = document.getElementById('loading-page');
+        const loadingUrl = document.getElementById('loading-url');
+        const webviewFrame = document.getElementById('webview-frame');
 
-        // Load saved URL on startup
-        const savedUrl = localStorage.getItem(STORAGE_KEY);
-        if (savedUrl) {
-            urlInput.value = savedUrl;
-        }
-
-        // Load history
+        // 恢复上次 URL
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) urlInput.value = saved;
         renderHistory();
 
-        function connect(urlToConnect) {
-            let url = urlToConnect || urlInput.value.trim();
+        function doConnect(urlArg) {
+            let url = (urlArg || urlInput.value || '').trim();
+            if (!url) return alert('请输入服务器地址');
+            if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
+            try { new URL(url); } catch { return alert('URL 格式无效'); }
 
-            if (!url) {
-                alert('Please enter a server URL');
-                return;
-            }
-
-            // Auto-prepend http:// if missing
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'http://' + url;
-            }
-
-            // Validate URL roughly
-            try {
-                new URL(url);
-            } catch (e) {
-                alert('Invalid URL format');
-                return;
-            }
-
-            // Save to storage and history
+            // 保存
             localStorage.setItem(STORAGE_KEY, url);
-            addToHistory(url);
+            saveHistory(url);
 
-            // Redirect
-            window.location.href = url;
+            // 显示加载中
+            connectPage.classList.add('hidden');
+            loadingPage.classList.add('show');
+            loadingUrl.textContent = url;
+
+            // 使用 iframe 加载远程 UI
+            webviewFrame.onload = function () {
+                loadingPage.classList.remove('show');
+                webviewFrame.classList.add('show');
+            };
+            webviewFrame.onerror = function () {
+                loadingPage.classList.remove('show');
+                connectPage.classList.remove('hidden');
+                alert('无法连接到 ' + url);
+            };
+            webviewFrame.src = url;
+
+            // 超时保护：10秒后如果还在加载，也显示 iframe（可能是慢加载）
+            setTimeout(function () {
+                if (!webviewFrame.classList.contains('show')) {
+                    loadingPage.classList.remove('show');
+                    webviewFrame.classList.add('show');
+                }
+            }, 10000);
         }
 
-        function addToHistory(url) {
-            let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-            // Remove existing if any (to bump to top)
-            history = history.filter(item => item !== url);
-            // Add to front
-            history.unshift(url);
-            // Limit to 5
-            if (history.length > 5) history.pop();
-
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-            renderHistory();
+        function saveHistory(url) {
+            let h = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+            h = h.filter(i => i !== url);
+            h.unshift(url);
+            if (h.length > 5) h.pop();
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
         }
 
         function renderHistory() {
-            const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-            if (history.length === 0) {
-                historyList.style.display = 'none';
-                return;
-            }
-
-            historyList.style.display = 'block';
-            historyList.innerHTML = '<h3>Recent</h3>';
-
-            history.forEach(url => {
-                const item = document.createElement('div');
-                item.className = 'history-item';
-                item.textContent = url;
-                item.onclick = () => connect(url);
-                historyList.appendChild(item);
-            });
+            const h = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+            const el = document.getElementById('history');
+            if (!h.length) { el.style.display = 'none'; return; }
+            el.style.display = 'block';
+            el.innerHTML = '<h3>最近连接</h3>' + h.map(u =>
+                '<div class="history-item" onclick="doConnect(\'' + u.replace(/'/g, "\\'") + '\')">' + u + '</div>'
+            ).join('');
         }
 
-        // Handle Enter key
-        urlInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                connect();
-            }
-        });
+        urlInput.addEventListener('keypress', e => { if (e.key === 'Enter') doConnect(); });
     </script>
 </body>
 
