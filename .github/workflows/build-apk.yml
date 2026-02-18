@@ -54,10 +54,23 @@ jobs:
         run: |
           cd android-app
           
-          # 初始化 Capacitor（如果还没有）
-          if [ ! -f "capacitor.config.ts" ]; then
+          # 初始化 Capacitor（仅当没有任何 config 文件时）
+          if [ ! -f "capacitor.config.ts" ] && [ ! -f "capacitor.config.json" ]; then
             npx cap init "OpenCode" "com.opencode.android" --web-dir=dist
+          else
+            echo "Capacitor config already exists, skipping init"
           fi
+          
+          # 确保不存在 .ts 配置（.json 优先）
+          if [ -f "capacitor.config.ts" ] && [ -f "capacitor.config.json" ]; then
+            rm capacitor.config.ts
+            echo "Removed .ts config in favor of .json"
+          fi
+          
+          # Debug: 打印当前使用的配置
+          echo "=== Capacitor Config ==="
+          cat capacitor.config.json 2>/dev/null || cat capacitor.config.ts 2>/dev/null || echo "NO CONFIG FOUND"
+          echo "=== End Config ==="
           
           # 添加 Android 平台（如果还没有）
           if [ ! -d "android" ]; then

@@ -32,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* === 连接页 === */
         #connect-page {
             display: flex;
             flex-direction: column;
@@ -148,67 +147,11 @@
             margin-top: auto;
             padding-top: 2rem;
         }
-
-        /* === 加载中 === */
-        #loading-page {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        #loading-page.show {
-            display: flex;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #333;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-text {
-            margin-top: 1rem;
-            color: #888;
-        }
-
-        .loading-url {
-            margin-top: 0.5rem;
-            color: var(--primary);
-            font-size: 0.85rem;
-            word-break: break-all;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        /* === Webview 容器 === */
-        #webview-frame {
-            display: none;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        #webview-frame.show {
-            display: block;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- 连接页面 -->
     <div id="connect-page">
         <div class="logo">OpenCode</div>
         <div class="subtitle">Remote Development Client</div>
@@ -219,29 +162,13 @@
         </div>
         <button onclick="doConnect()">Connect</button>
         <div class="history" id="history"></div>
-        <div class="ver">v0.7.3</div>
+        <div class="ver">v0.7.4</div>
     </div>
-
-    <!-- 加载中页面 -->
-    <div id="loading-page">
-        <div class="spinner"></div>
-        <div class="loading-text">Connecting...</div>
-        <div class="loading-url" id="loading-url"></div>
-    </div>
-
-    <!-- 远程 Web UI (iframe) -->
-    <iframe id="webview-frame"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads"
-        allow="*"></iframe>
 
     <script>
         const STORAGE_KEY = 'oc_url';
         const HISTORY_KEY = 'oc_history';
         const urlInput = document.getElementById('url');
-        const connectPage = document.getElementById('connect-page');
-        const loadingPage = document.getElementById('loading-page');
-        const loadingUrl = document.getElementById('loading-url');
-        const webviewFrame = document.getElementById('webview-frame');
 
         // 恢复上次 URL
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -258,30 +185,9 @@
             localStorage.setItem(STORAGE_KEY, url);
             saveHistory(url);
 
-            // 显示加载中
-            connectPage.classList.add('hidden');
-            loadingPage.classList.add('show');
-            loadingUrl.textContent = url;
-
-            // 使用 iframe 加载远程 UI
-            webviewFrame.onload = function () {
-                loadingPage.classList.remove('show');
-                webviewFrame.classList.add('show');
-            };
-            webviewFrame.onerror = function () {
-                loadingPage.classList.remove('show');
-                connectPage.classList.remove('hidden');
-                alert('无法连接到 ' + url);
-            };
-            webviewFrame.src = url;
-
-            // 超时保护：10秒后如果还在加载，也显示 iframe（可能是慢加载）
-            setTimeout(function () {
-                if (!webviewFrame.classList.contains('show')) {
-                    loadingPage.classList.remove('show');
-                    webviewFrame.classList.add('show');
-                }
-            }, 10000);
+            // 直接导航到目标 URL
+            // 在 Capacitor 中，需要 allowNavigation: ["*"] 配置才能正常工作
+            window.location.href = url;
         }
 
         function saveHistory(url) {
