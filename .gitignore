@@ -1,3 +1,7 @@
+# External projects (not tracked in git)
+opencode/
+portal/
+
 # Dependencies
 node_modules/
 bun.lockb
