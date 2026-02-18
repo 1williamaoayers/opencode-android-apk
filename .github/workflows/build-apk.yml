@@ -40,6 +40,7 @@ jobs:
 
       - name: Install Monorepo Dependencies
         run: |
+          cd opencode
           bun install
 
       - name: Build Frontend
