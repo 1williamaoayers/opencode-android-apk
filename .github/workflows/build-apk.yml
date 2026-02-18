@@ -38,23 +38,17 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install Monorepo Dependencies
-        run: |
-          cd opencode
-          bun install
-
-      - name: Build Frontend
-        run: |
-          cd opencode/packages/app
-          bun run build
       
-      - name: Prepare Android App
+      # 移除 Monorepo 依赖安装和前端构建，仅部署 Shell
+      - name: Deploy Shell Files
         run: |
           mkdir -p android-app/dist
-          cp -r opencode/packages/app/dist/* android-app/dist/
+          cp -r shell/* android-app/dist/
           
           cd android-app
+          # 仅安装必要的 CI 依赖 (如果有)
           npm install
+
 
       - name: Initialize Capacitor and Add Android
         run: |

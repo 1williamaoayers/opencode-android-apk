@@ -6,7 +6,8 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     androidScheme: 'http',
-    cleartext: true
+    cleartext: true,
+    allowNavigation: ['*']
   },
   android: {
     allowMixedContent: true,

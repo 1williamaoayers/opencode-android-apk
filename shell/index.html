@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Connect to OpenCode</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-area">
+            <h1>OpenCode</h1>
+            <p>Remote Development Client</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="server-url">Server URL</label>
+            <input type="url" id="server-url" placeholder="http://192.168.1.x:8080" autocomplete="url" inputmode="url">
+            <p class="hint">Enter the full address including http:// or https://</p>
+        </div>
+
+        <button id="connect-btn" onclick="connect()">Connect</button>
+        
+        <div id="history-list" class="history-list">
+            <!-- Recent servers will appear here -->
+        </div>
+
+        <div class="footer">
+            v0.7.0
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'opencode_server_url';
+        const HISTORY_KEY = 'opencode_server_history';
+        const urlInput = document.getElementById('server-url');
+        const historyList = document.getElementById('history-list');
+
+        // Load saved URL on startup
+        const savedUrl = localStorage.getItem(STORAGE_KEY);
+        if (savedUrl) {
+            urlInput.value = savedUrl;
+        }
+
+        // Load history
+        renderHistory();
+
+        function connect(urlToConnect) {
+            let url = urlToConnect || urlInput.value.trim();
+            
+            if (!url) {
+                alert('Please enter a server URL');
+                return;
+            }
+
+            // Auto-prepend http:// if missing
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'http://' + url;
+            }
+
+            // Validate URL roughly
+            try {
+                new URL(url);
+            } catch (e) {
+                alert('Invalid URL format');
+                return;
+            }
+
+            // Save to storage and history
+            localStorage.setItem(STORAGE_KEY, url);
+            addToHistory(url);
+
+            // Redirect
+            window.location.href = url;
+        }
+
+        function addToHistory(url) {
+            let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+            // Remove existing if any (to bump to top)
+            history = history.filter(item => item !== url);
+            // Add to front
+            history.unshift(url);
+            // Limit to 5
+            if (history.length > 5) history.pop();
+            
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+            if (history.length === 0) {
+                historyList.style.display = 'none';
+                return;
+            }
+
+            historyList.style.display = 'block';
+            historyList.innerHTML = '<h3>Recent</h3>';
+            
+            history.forEach(url => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.textContent = url;
+                item.onclick = () => connect(url);
+                historyList.appendChild(item);
+            });
+        }
+
+        // Handle Enter key
+        urlInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                connect();
+            }
+        });
+    </script>
+</body>
+</html>
