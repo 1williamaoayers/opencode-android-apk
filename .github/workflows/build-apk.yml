@@ -77,25 +77,16 @@ jobs:
           ./gradlew assembleRelease
           
           # 检查 APK 是否生成（优先 release，备选 debug）
-          RELEASE_APK="app/build/outputs/apk/release/app-release.apk"
-          DEBUG_APK="app/build/outputs/apk/debug/app-debug.apk"
-          
-          if [ -f "$RELEASE_APK" ]; then
+          if [ -f "app/build/outputs/apk/release/app-release.apk" ]; then
             echo "APK_BUILD_ENABLED=true" >> $GITHUB_OUTPUT
-            echo "APK_PATH=$RELEASE_APK" >> $GITHUB_OUTPUT
-            echo "APK_NAME=opencode-android-${GITHUB_REF_NAME}.apk" >> $GITHUB_OUTPUT
-          elif [ -f "$DEBUG_APK" ]; then
+            echo "APK_PATH=app/build/outputs/apk/release/app-release.apk" >> $GITHUB_OUTPUT
+          elif [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
             echo "APK_BUILD_ENABLED=true" >> $GITHUB_OUTPUT
-            echo "APK_PATH=$DEBUG_APK" >> $GITHUB_OUTPUT
-            echo "APK_NAME=opencode-android-${GITHUB_REF_NAME}-debug.apk" >> $GITHUB_OUTPUT
+            echo "APK_PATH=app/build/outputs/apk/debug/app-debug.apk" >> $GITHUB_OUTPUT
           else
             echo "APK_BUILD_ENABLED=false" >> $GITHUB_OUTPUT
-            echo "Error: No APK found"
             ls -la app/build/outputs/apk/ 2>/dev/null || echo "No apk directory"
           fi
-          
-          # 输出完整路径
-          echo "Full path: $(pwd)/$APK_PATH"
 
       - name: Sign APK (if keystore available)
         if: steps.decode_keystore.outputs.KEYSTORE_EXISTS == 'true' && steps.build_apk.outputs.APK_BUILD_ENABLED == 'true'
