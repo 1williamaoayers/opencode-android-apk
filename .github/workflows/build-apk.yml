@@ -73,6 +73,9 @@ jobs:
           # 同步 Web 资源到 Android
           npx cap sync android
 
+          # 修改 AndroidManifest.xml 允许明文流量 (HTTP)
+          sed -i 's/<application/<application android:usesCleartextTraffic="true"/g' android/app/src/main/AndroidManifest.xml
+
       - name: Build debug APK
         id: build_apk
         run: |
