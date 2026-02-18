@@ -33,15 +33,27 @@ jobs:
         with:
           packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
 
-      - name: Install dependencies
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Monorepo Dependencies
         run: |
+          bun install
+
+      - name: Build Frontend
+        run: |
+          cd opencode/packages/app
+          bun run build
+      
+      - name: Prepare Android App
+        run: |
+          mkdir -p android-app/dist
+          cp -r opencode/packages/app/dist/* android-app/dist/
+          
           cd android-app
           npm install
-
-      - name: Build Web UI
-        run: |
-          cd android-app
-          npm run build
 
       - name: Initialize Capacitor and Add Android
         run: |

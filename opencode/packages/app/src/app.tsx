@@ -154,10 +154,12 @@ export function AppBaseProviders(props: ParentProps) {
   )
 }
 
+import { ConnectServer } from "@/components/connect-server"
+
 function ServerKey(props: ParentProps) {
   const server = useServer()
   return (
-    <Show when={server.url} keyed>
+    <Show when={server.url} fallback={<ConnectServer />} keyed>
       {props.children}
     </Show>
   )
