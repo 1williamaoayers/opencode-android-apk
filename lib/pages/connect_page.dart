@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../utils/storage.dart';
 import 'webview_page.dart';
 
@@ -13,7 +12,6 @@ class ConnectPage extends StatefulWidget {
 class _ConnectPageState extends State<ConnectPage> {
   final _urlController = TextEditingController();
   List<String> _history = [];
-  bool _connecting = false;
 
   @override
   void initState() {
@@ -50,39 +48,19 @@ class _ConnectPageState extends State<ConnectPage> {
       return;
     }
 
-    setState(() => _connecting = true);
+    // 保存到历史
+    await Storage.addToHistory(url);
 
-    try {
-      // 检查服务器可达性
-      final uri = Uri.parse(url);
-      final response = await http.get(uri).timeout(
-        const Duration(seconds: 5),
-        onTimeout: () => throw Exception('连接超时'),
+    if (mounted) {
+      // 直接跳转 WebView，不做健康检查（WebView 自带加载进度条）
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => WebViewPage(url: url),
+        ),
       );
-
-      if (response.statusCode >= 200 && response.statusCode < 500) {
-        // 保存到历史
-        await Storage.addToHistory(url);
-
-        if (mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => WebViewPage(url: url),
-            ),
-          );
-        }
-      } else {
-        _showError('服务器返回错误: ${response.statusCode}');
-      }
-    } catch (e) {
-      _showError('无法连接: ${e.toString().replaceAll('Exception: ', '')}');
-    } finally {
-      if (mounted) {
-        setState(() => _connecting = false);
-        // 刷新历史
-        _loadData();
-      }
+      // 返回后刷新历史
+      _loadData();
     }
   }
 
@@ -154,7 +132,6 @@ class _ConnectPageState extends State<ConnectPage> {
                     keyboardType: TextInputType.url,
                     textInputAction: TextInputAction.go,
                     onSubmitted: (_) => _connect(),
-                    enabled: !_connecting,
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -168,17 +145,8 @@ class _ConnectPageState extends State<ConnectPage> {
 
                   // Connect Button
                   ElevatedButton(
-                    onPressed: _connecting ? null : () => _connect(),
-                    child: _connecting
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Text('Connect'),
+                    onPressed: () => _connect(),
+                    child: const Text('Connect'),
                   ),
                   const SizedBox(height: 32),
 

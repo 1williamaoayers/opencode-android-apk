@@ -12,7 +12,6 @@ dependencies:
   webview_flutter: ^4.13.0
   webview_flutter_android: ^4.3.0
   shared_preferences: ^2.2.2
-  http: ^1.2.0
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
