@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
     <title>Connect to OpenCode</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <div class="logo-area">
             <h1>OpenCode</h1>
             <p>Remote Development Client</p>
         </div>
-        
+
         <div class="form-group">
             <label for="server-url">Server URL</label>
             <input type="url" id="server-url" placeholder="http://192.168.1.x:8080" autocomplete="url" inputmode="url">
@@ -20,7 +24,7 @@
         </div>
 
         <button id="connect-btn" onclick="connect()">Connect</button>
-        
+
         <div id="history-list" class="history-list">
             <!-- Recent servers will appear here -->
         </div>
@@ -47,7 +51,7 @@
 
         function connect(urlToConnect) {
             let url = urlToConnect || urlInput.value.trim();
-            
+
             if (!url) {
                 alert('Please enter a server URL');
                 return;
@@ -82,7 +86,7 @@
             history.unshift(url);
             // Limit to 5
             if (history.length > 5) history.pop();
-            
+
             localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
             renderHistory();
         }
@@ -96,7 +100,7 @@
 
             historyList.style.display = 'block';
             historyList.innerHTML = '<h3>Recent</h3>';
-            
+
             history.forEach(url => {
                 const item = document.createElement('div');
                 item.className = 'history-item';
@@ -114,4 +118,5 @@
         });
     </script>
 </body>
+
 </html>
