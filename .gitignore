@@ -10,7 +10,6 @@ build/
 # Android
 android/.gradle/
 android/local.properties
-android/app/src/main/res/mipmap-*/*.png
 android/gradle/wrapper/gradle-wrapper.jar
 *.apk
 *.aab
