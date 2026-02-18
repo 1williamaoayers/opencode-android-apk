@@ -1,44 +1,36 @@
-# External projects (not tracked in git)
-
-portal/
-
-# Dependencies
-node_modules/
-bun.lockb
-package-lock.json
-yarn.lock
-
-# Build outputs
-dist/
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
 build/
-.output/
-.next/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/src/main/res/mipmap-*/*.png
+android/gradle/wrapper/gradle-wrapper.jar
+*.apk
+*.aab
 
 # IDE
 .idea/
+*.iml
 .vscode/
-*.swp
-*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Android
-android-app/.gradle/
-android-app/app/build/
-android-app/build/
-*.apk
-*.ap_
-*.aab
+# Old project files (Capacitor)
+android-app/
+shell/
+apk_content/
 
-# Capacitor
-node_modules/
-android/
-ios/
-
-# Temporary files
-*.log
-*.tmp
-.env
-.env.local
+# OpenCode submodule build artifacts
+opencode/node_modules/
+opencode/.turbo/
+opencode/packages/*/node_modules/
+opencode/packages/*/.turbo/

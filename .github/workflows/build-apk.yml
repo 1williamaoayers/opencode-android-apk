@@ -17,121 +17,43 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
+          flutter-version: '3.27.4'
+          channel: stable
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
+      - name: Flutter info
+        run: flutter --version
 
-      
-      # 移除 Monorepo 依赖安装和前端构建，仅部署 Shell
-      - name: Deploy Shell Files
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Release APK
+        run: flutter build apk --release
+
+      - name: Verify APK exists
         run: |
-          mkdir -p android-app/dist
-          cp -r shell/* android-app/dist/
-          
-          cd android-app
-          # 仅安装必要的 CI 依赖 (如果有)
-          npm install
-
-
-      - name: Initialize Capacitor and Add Android
-        run: |
-          cd android-app
-          
-          # 初始化 Capacitor（仅当没有任何 config 文件时）
-          if [ ! -f "capacitor.config.ts" ] && [ ! -f "capacitor.config.json" ]; then
-            npx cap init "OpenCode" "com.opencode.android" --web-dir=dist
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+          if [ -f "$APK_PATH" ]; then
+            echo "✅ APK built successfully"
+            ls -lh "$APK_PATH"
           else
-            echo "Capacitor config already exists, skipping init"
+            echo "❌ APK not found!"
+            find build/ -name "*.apk" 2>/dev/null || echo "No APK files found"
+            exit 1
           fi
-          
-          # 确保不存在 .ts 配置（.json 优先）
-          if [ -f "capacitor.config.ts" ] && [ -f "capacitor.config.json" ]; then
-            rm capacitor.config.ts
-            echo "Removed .ts config in favor of .json"
-          fi
-          
-          # Debug: 打印当前使用的配置
-          echo "=== Capacitor Config ==="
-          cat capacitor.config.json 2>/dev/null || cat capacitor.config.ts 2>/dev/null || echo "NO CONFIG FOUND"
-          echo "=== End Config ==="
-          
-          # 添加 Android 平台（如果还没有）
-          if [ ! -d "android" ]; then
-            npx cap add android
-          fi
-          
-          # 同步 Web 资源到 Android
-          npx cap sync android
-
-          # Debug: 打印原始 Manifest 内容
-          echo "=== Original AndroidManifest.xml ==="
-          cat android/app/src/main/AndroidManifest.xml
-          echo "=== End Original ==="
-
-          # 修改 AndroidManifest.xml 允许明文流量 (HTTP)
-          # Capacitor 模板中 <application 后面是换行符，所以用行尾匹配
-          sed -i 's/<application/<application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
-          
-          # 验证修改结果
-          echo "=== Modified AndroidManifest.xml ==="
-          cat android/app/src/main/AndroidManifest.xml
-          echo "=== End Modified ==="
-          grep "android:usesCleartextTraffic" android/app/src/main/AndroidManifest.xml || { echo "ERROR: Manifest modification FAILED"; exit 1; }
-
-      - name: Build debug APK
-        id: build_apk
-        run: |
-          cd android-app/android
-          
-          # 构建 Debug APK
-          chmod +x gradlew
-          ./gradlew assembleDebug
-          
-          # 检查 APK 是否生成
-          if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
-            echo "APK_BUILD_ENABLED=true" >> $GITHUB_OUTPUT
-            echo "APK_PATH=app/build/outputs/apk/debug/app-debug.apk" >> $GITHUB_OUTPUT
-          else
-            echo "APK_BUILD_ENABLED=false" >> $GITHUB_OUTPUT
-            ls -la app/build/outputs/apk/ 2>/dev/null || echo "No apk directory"
-          fi
-
-      - name: Generate Debug Keystore and Sign APK
-        id: sign_apk
-        run: |
-          cd android-app/android
-          
-          # 生成 debug keystore
-          keytool -genkey -v -keystore app/debug.keystore -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US" -noprompt
-          
-          # 签名 APK
-          $ANDROID_HOME/build-tools/34.0.0/apksigner sign --ks app/debug.keystore --ks-pass pass:android --key-pass pass:android app/build/outputs/apk/debug/app-debug.apk
-          
-          echo "APK_SIGNED=true" >> $GITHUB_OUTPUT
 
       - name: Upload APK to Release
-        if: steps.build_apk.outputs.APK_BUILD_ENABLED == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            android-app/android/app/build/outputs/apk/debug/app-debug.apk
+          files: build/app/outputs/flutter-apk/app-release.apk
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
           make_latest: true
