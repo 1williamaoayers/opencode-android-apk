@@ -76,15 +76,26 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease
           
-          # 检查 APK 是否生成
-          APK_PATH="app/build/outputs/apk/release/app-release.apk"
-          if [ -f "$APK_PATH" ]; then
+          # 检查 APK 是否生成（优先 release，备选 debug）
+          RELEASE_APK="app/build/outputs/apk/release/app-release.apk"
+          DEBUG_APK="app/build/outputs/apk/debug/app-debug.apk"
+          
+          if [ -f "$RELEASE_APK" ]; then
             echo "APK_BUILD_ENABLED=true" >> $GITHUB_OUTPUT
-            echo "APK_PATH=android-app/android/$APK_PATH" >> $GITHUB_OUTPUT
+            echo "APK_PATH=$RELEASE_APK" >> $GITHUB_OUTPUT
             echo "APK_NAME=opencode-android-${GITHUB_REF_NAME}.apk" >> $GITHUB_OUTPUT
+          elif [ -f "$DEBUG_APK" ]; then
+            echo "APK_BUILD_ENABLED=true" >> $GITHUB_OUTPUT
+            echo "APK_PATH=$DEBUG_APK" >> $GITHUB_OUTPUT
+            echo "APK_NAME=opencode-android-${GITHUB_REF_NAME}-debug.apk" >> $GITHUB_OUTPUT
           else
             echo "APK_BUILD_ENABLED=false" >> $GITHUB_OUTPUT
+            echo "Error: No APK found"
+            ls -la app/build/outputs/apk/ 2>/dev/null || echo "No apk directory"
           fi
+          
+          # 输出完整路径
+          echo "Full path: $(pwd)/$APK_PATH"
 
       - name: Sign APK (if keystore available)
         if: steps.decode_keystore.outputs.KEYSTORE_EXISTS == 'true' && steps.build_apk.outputs.APK_BUILD_ENABLED == 'true'
@@ -106,7 +117,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ steps.build_apk.outputs.APK_PATH }}
+            android-app/android/${{ steps.build_apk.outputs.APK_PATH }}
           name: Release ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
