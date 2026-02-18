@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; frame-src *;">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
     <title>OpenCode</title>
     <style>
         :root {
@@ -32,7 +31,7 @@
             overflow: hidden;
         }
 
-        #connect-page {
+        #page {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,10 +39,6 @@
             width: 100%;
             height: 100%;
             padding: 2rem;
-        }
-
-        #connect-page.hidden {
-            display: none;
         }
 
         .logo {
@@ -90,7 +85,7 @@
             margin-top: 0.3rem;
         }
 
-        button {
+        .btn {
             width: 100%;
             max-width: 400px;
             margin-top: 1.2rem;
@@ -104,7 +99,7 @@
             cursor: pointer;
         }
 
-        button:active {
+        .btn:active {
             opacity: 0.8;
         }
 
@@ -131,9 +126,6 @@
             margin-bottom: 6px;
             cursor: pointer;
             font-size: 0.85rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .history-item:active {
@@ -147,46 +139,116 @@
             margin-top: auto;
             padding-top: 2rem;
         }
+
+        /* 调试日志 */
+        #debug {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 30vh;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0f0;
+            font-family: monospace;
+            font-size: 0.7rem;
+            padding: 8px;
+            overflow-y: auto;
+            z-index: 9999;
+        }
     </style>
 </head>
 
 <body>
 
-    <div id="connect-page">
+    <div id="page">
         <div class="logo">OpenCode</div>
         <div class="subtitle">Remote Development Client</div>
         <div class="form">
             <label for="url">Server URL</label>
             <input type="url" id="url" placeholder="http://192.168.1.x:9000" inputmode="url">
-            <div class="hint">输入完整地址，包含 http:// 或 https://</div>
+            <div class="hint">输入地址后点击连接，将在应用内浏览器中打开</div>
         </div>
-        <button onclick="doConnect()">Connect</button>
+        <button class="btn" onclick="doConnect()">Connect</button>
         <div class="history" id="history"></div>
-        <div class="ver">v0.7.4</div>
+        <div class="ver">v0.7.5</div>
     </div>
+
+    <!-- 调试面板 -->
+    <div id="debug"></div>
 
     <script>
         const STORAGE_KEY = 'oc_url';
         const HISTORY_KEY = 'oc_history';
         const urlInput = document.getElementById('url');
+        const debugEl = document.getElementById('debug');
+
+        function log(msg) {
+            const t = new Date().toLocaleTimeString();
+            debugEl.innerHTML += '[' + t + '] ' + msg + '<br>';
+            debugEl.scrollTop = debugEl.scrollHeight;
+            console.log('[OpenCode]', msg);
+        }
+
+        // 启动诊断
+        log('Shell loaded');
+        log('userAgent: ' + navigator.userAgent.substring(0, 60) + '...');
+        log('Capacitor: ' + (typeof window.Capacitor !== 'undefined' ? 'YES' : 'NO'));
+
+        if (window.Capacitor) {
+            log('Capacitor.isNativePlatform: ' + window.Capacitor.isNativePlatform());
+            log('Plugins: ' + Object.keys(window.Capacitor.Plugins || {}).join(', '));
+        }
 
         // 恢复上次 URL
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) urlInput.value = saved;
         renderHistory();
 
-        function doConnect(urlArg) {
+        async function doConnect(urlArg) {
             let url = (urlArg || urlInput.value || '').trim();
             if (!url) return alert('请输入服务器地址');
             if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
             try { new URL(url); } catch { return alert('URL 格式无效'); }
 
-            // 保存
             localStorage.setItem(STORAGE_KEY, url);
             saveHistory(url);
 
-            // 直接导航到目标 URL
-            // 在 Capacitor 中，需要 allowNavigation: ["*"] 配置才能正常工作
+            log('Connecting to: ' + url);
+
+            // 策略 1: 使用 Capacitor Browser 插件 (Chrome Custom Tab)
+            if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+                log('Strategy: Capacitor Browser plugin');
+                try {
+                    const { Browser } = await import('https://cdn.jsdelivr.net/npm/@capacitor/browser@6/dist/esm/index.js').catch(() => {
+                        return { Browser: null };
+                    });
+
+                    // 尝试直接调用 Capacitor plugin
+                    if (window.Capacitor.Plugins && window.Capacitor.Plugins.Browser) {
+                        log('Using Capacitor.Plugins.Browser.open()');
+                        await window.Capacitor.Plugins.Browser.open({ url: url });
+                        log('Browser.open() called successfully');
+                        return;
+                    }
+                    log('Browser plugin not found in Plugins');
+                } catch (e) {
+                    log('Browser plugin error: ' + e.message);
+                }
+
+                // 策略 2: Android Intent (在系统浏览器中打开)
+                log('Strategy: Android Intent via window.open');
+                try {
+                    window.open(url, '_system');
+                    log('window.open(_system) called');
+                    // 给一点时间看看是否成功
+                    await new Promise(r => setTimeout(r, 2000));
+                } catch (e) {
+                    log('Window.open error: ' + e.message);
+                }
+            }
+
+            // 策略 3: 直接导航 (桌面浏览器或最后手段)
+            log('Strategy: window.location.href');
             window.location.href = url;
         }
 

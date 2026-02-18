@@ -1,0 +1,1127 @@
+build	Set up job	﻿2026-02-18T05:16:19.9776463Z Current runner version: '2.331.0'
+build	Set up job	2026-02-18T05:16:19.9800816Z ##[group]Runner Image Provisioner
+build	Set up job	2026-02-18T05:16:19.9801634Z Hosted Compute Agent
+build	Set up job	2026-02-18T05:16:19.9802334Z Version: 20260123.484
+build	Set up job	2026-02-18T05:16:19.9802902Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+build	Set up job	2026-02-18T05:16:19.9803609Z Build Date: 2026-01-23T19:41:17Z
+build	Set up job	2026-02-18T05:16:19.9804328Z Worker ID: {02d031d0-177d-4190-8b82-9d4121ffc338}
+build	Set up job	2026-02-18T05:16:19.9805015Z Azure Region: westus
+build	Set up job	2026-02-18T05:16:19.9805575Z ##[endgroup]
+build	Set up job	2026-02-18T05:16:19.9807027Z ##[group]Operating System
+build	Set up job	2026-02-18T05:16:19.9807699Z Ubuntu
+build	Set up job	2026-02-18T05:16:19.9808164Z 24.04.3
+build	Set up job	2026-02-18T05:16:19.9808703Z LTS
+build	Set up job	2026-02-18T05:16:19.9809176Z ##[endgroup]
+build	Set up job	2026-02-18T05:16:19.9809749Z ##[group]Runner Image
+build	Set up job	2026-02-18T05:16:19.9810628Z Image: ubuntu-24.04
+build	Set up job	2026-02-18T05:16:19.9811175Z Version: 20260209.23.1
+build	Set up job	2026-02-18T05:16:19.9812209Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260209.23/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2026-02-18T05:16:19.9814332Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260209.23
+build	Set up job	2026-02-18T05:16:19.9815276Z ##[endgroup]
+build	Set up job	2026-02-18T05:16:19.9816355Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-02-18T05:16:19.9818362Z Contents: write
+build	Set up job	2026-02-18T05:16:19.9818880Z Metadata: read
+build	Set up job	2026-02-18T05:16:19.9819535Z ##[endgroup]
+build	Set up job	2026-02-18T05:16:19.9821841Z Secret source: Actions
+build	Set up job	2026-02-18T05:16:19.9822540Z Prepare workflow directory
+build	Set up job	2026-02-18T05:16:20.0141325Z Prepare all required actions
+build	Set up job	2026-02-18T05:16:20.0191117Z Getting action download info
+build	Set up job	2026-02-18T05:16:20.5931888Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+build	Set up job	2026-02-18T05:16:20.7503686Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+build	Set up job	2026-02-18T05:16:20.8424645Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
+build	Set up job	2026-02-18T05:16:21.9752393Z Download action repository 'android-actions/setup-android@v3' (SHA:9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407)
+build	Set up job	2026-02-18T05:16:22.8089584Z Download action repository 'oven-sh/setup-bun@v1' (SHA:f4d14e03ff726c06358e5557344e1da148b56cf7)
+build	Set up job	2026-02-18T05:16:23.6405938Z Download action repository 'softprops/action-gh-release@v2' (SHA:a06a81a03ee405af7f2048a818ed3f03bbf83c7b)
+build	Set up job	2026-02-18T05:16:24.5569525Z Complete job name: build
+build	Checkout code	﻿2026-02-18T05:16:24.6246205Z ##[group]Run actions/checkout@v4
+build	Checkout code	2026-02-18T05:16:24.6247034Z with:
+build	Checkout code	2026-02-18T05:16:24.6247377Z   repository: 1williamaoayers/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:24.6247933Z   token: ***
+build	Checkout code	2026-02-18T05:16:24.6248238Z   ssh-strict: true
+build	Checkout code	2026-02-18T05:16:24.6248599Z   ssh-user: git
+build	Checkout code	2026-02-18T05:16:24.6248860Z   persist-credentials: true
+build	Checkout code	2026-02-18T05:16:24.6249225Z   clean: true
+build	Checkout code	2026-02-18T05:16:24.6249508Z   sparse-checkout-cone-mode: true
+build	Checkout code	2026-02-18T05:16:24.6249870Z   fetch-depth: 1
+build	Checkout code	2026-02-18T05:16:24.6250230Z   fetch-tags: false
+build	Checkout code	2026-02-18T05:16:24.6250859Z   show-progress: true
+build	Checkout code	2026-02-18T05:16:24.6251181Z   lfs: false
+build	Checkout code	2026-02-18T05:16:24.6251403Z   submodules: false
+build	Checkout code	2026-02-18T05:16:24.6251784Z   set-safe-directory: true
+build	Checkout code	2026-02-18T05:16:24.6252477Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:24.7401544Z Syncing repository: 1williamaoayers/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:24.7404476Z ##[group]Getting Git version info
+build	Checkout code	2026-02-18T05:16:24.7405560Z Working directory is '/home/runner/work/opencode-android-apk/opencode-android-apk'
+build	Checkout code	2026-02-18T05:16:24.7407341Z [command]/usr/bin/git version
+build	Checkout code	2026-02-18T05:16:24.7407945Z git version 2.52.0
+build	Checkout code	2026-02-18T05:16:24.7425708Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:24.7438996Z Temporarily overriding HOME='/home/runner/work/_temp/57a2af59-9f29-4561-ac73-b693a5a77e0c' before making global git config changes
+build	Checkout code	2026-02-18T05:16:24.7440035Z Adding repository directory to the temporary git global config as a safe directory
+build	Checkout code	2026-02-18T05:16:24.7453805Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/opencode-android-apk/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:24.7493545Z Deleting the contents of '/home/runner/work/opencode-android-apk/opencode-android-apk'
+build	Checkout code	2026-02-18T05:16:24.7497241Z ##[group]Initializing the repository
+build	Checkout code	2026-02-18T05:16:24.7502319Z [command]/usr/bin/git init /home/runner/work/opencode-android-apk/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:24.7595762Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Checkout code	2026-02-18T05:16:24.7597076Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Checkout code	2026-02-18T05:16:24.7597768Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Checkout code	2026-02-18T05:16:24.7598221Z hint: call:
+build	Checkout code	2026-02-18T05:16:24.7598544Z hint:
+build	Checkout code	2026-02-18T05:16:24.7599329Z hint: 	git config --global init.defaultBranch <name>
+build	Checkout code	2026-02-18T05:16:24.7600059Z hint:
+build	Checkout code	2026-02-18T05:16:24.7601090Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Checkout code	2026-02-18T05:16:24.7602205Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Checkout code	2026-02-18T05:16:24.7603158Z hint:
+build	Checkout code	2026-02-18T05:16:24.7603799Z hint: 	git branch -m <name>
+build	Checkout code	2026-02-18T05:16:24.7604408Z hint:
+build	Checkout code	2026-02-18T05:16:24.7605174Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Checkout code	2026-02-18T05:16:24.7606558Z Initialized empty Git repository in /home/runner/work/opencode-android-apk/opencode-android-apk/.git/
+build	Checkout code	2026-02-18T05:16:24.7613644Z [command]/usr/bin/git remote add origin https://github.com/1williamaoayers/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:24.7647186Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:24.7648092Z ##[group]Disabling automatic garbage collection
+build	Checkout code	2026-02-18T05:16:24.7652607Z [command]/usr/bin/git config --local gc.auto 0
+build	Checkout code	2026-02-18T05:16:24.7681512Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:24.7682488Z ##[group]Setting up auth
+build	Checkout code	2026-02-18T05:16:24.7688896Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Checkout code	2026-02-18T05:16:24.7720599Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Checkout code	2026-02-18T05:16:24.8071052Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Checkout code	2026-02-18T05:16:24.8101862Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Checkout code	2026-02-18T05:16:24.8332705Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Checkout code	2026-02-18T05:16:24.8364334Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Checkout code	2026-02-18T05:16:24.8604284Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Checkout code	2026-02-18T05:16:24.8640832Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:24.8641768Z ##[group]Fetching the repository
+build	Checkout code	2026-02-18T05:16:24.8649791Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +3d386795e1ee66eeaa7a12445f41b5070a0d20ca:refs/tags/v0.6.6
+build	Checkout code	2026-02-18T05:16:27.0984763Z From https://github.com/1williamaoayers/opencode-android-apk
+build	Checkout code	2026-02-18T05:16:27.0985700Z  * [new ref]         3d386795e1ee66eeaa7a12445f41b5070a0d20ca -> v0.6.6
+build	Checkout code	2026-02-18T05:16:27.1013399Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:27.1014021Z ##[group]Determining the checkout info
+build	Checkout code	2026-02-18T05:16:27.1022240Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:27.1023443Z [command]/usr/bin/git sparse-checkout disable
+build	Checkout code	2026-02-18T05:16:27.1069208Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Checkout code	2026-02-18T05:16:27.1096523Z ##[group]Checking out the ref
+build	Checkout code	2026-02-18T05:16:27.1102252Z [command]/usr/bin/git checkout --progress --force refs/tags/v0.6.6
+build	Checkout code	2026-02-18T05:16:27.5105391Z Note: switching to 'refs/tags/v0.6.6'.
+build	Checkout code	2026-02-18T05:16:27.5105939Z 
+build	Checkout code	2026-02-18T05:16:27.5106411Z You are in 'detached HEAD' state. You can look around, make experimental
+build	Checkout code	2026-02-18T05:16:27.5107455Z changes and commit them, and you can discard any commits you make in this
+build	Checkout code	2026-02-18T05:16:27.5108857Z state without impacting any branches by switching back to a branch.
+build	Checkout code	2026-02-18T05:16:27.5109479Z 
+build	Checkout code	2026-02-18T05:16:27.5109920Z If you want to create a new branch to retain commits you create, you may
+build	Checkout code	2026-02-18T05:16:27.5111120Z do so (now or later) by using -c with the switch command. Example:
+build	Checkout code	2026-02-18T05:16:27.5111699Z 
+build	Checkout code	2026-02-18T05:16:27.5111903Z   git switch -c <new-branch-name>
+build	Checkout code	2026-02-18T05:16:27.5112250Z 
+build	Checkout code	2026-02-18T05:16:27.5112381Z Or undo this operation with:
+build	Checkout code	2026-02-18T05:16:27.5112588Z 
+build	Checkout code	2026-02-18T05:16:27.5112700Z   git switch -
+build	Checkout code	2026-02-18T05:16:27.5112872Z 
+build	Checkout code	2026-02-18T05:16:27.5113098Z Turn off this advice by setting config variable advice.detachedHead to false
+build	Checkout code	2026-02-18T05:16:27.5113436Z 
+build	Checkout code	2026-02-18T05:16:27.5113606Z HEAD is now at 3d38679 fix: monorepo install path in workflow
+build	Checkout code	2026-02-18T05:16:27.5157725Z ##[endgroup]
+build	Checkout code	2026-02-18T05:16:27.5200854Z [command]/usr/bin/git log -1 --format=%H
+build	Checkout code	2026-02-18T05:16:27.5226142Z 3d386795e1ee66eeaa7a12445f41b5070a0d20ca
+build	Set up Node.js	﻿2026-02-18T05:16:27.5461938Z ##[group]Run actions/setup-node@v4
+build	Set up Node.js	2026-02-18T05:16:27.5462214Z with:
+build	Set up Node.js	2026-02-18T05:16:27.5462396Z   node-version: 20
+build	Set up Node.js	2026-02-18T05:16:27.5462586Z   always-auth: false
+build	Set up Node.js	2026-02-18T05:16:27.5462793Z   check-latest: false
+build	Set up Node.js	2026-02-18T05:16:27.5463112Z   token: ***
+build	Set up Node.js	2026-02-18T05:16:27.5463288Z ##[endgroup]
+build	Set up Node.js	2026-02-18T05:16:27.7220771Z Found in cache @ /opt/hostedtoolcache/node/20.20.0/x64
+build	Set up Node.js	2026-02-18T05:16:27.7226901Z ##[group]Environment details
+build	Set up Node.js	2026-02-18T05:16:28.0622554Z node: v20.20.0
+build	Set up Node.js	2026-02-18T05:16:28.0622958Z npm: 10.8.2
+build	Set up Node.js	2026-02-18T05:16:28.0623321Z yarn: 1.22.22
+build	Set up Node.js	2026-02-18T05:16:28.0624604Z ##[endgroup]
+build	Set up JDK 17	﻿2026-02-18T05:16:28.0793318Z ##[group]Run actions/setup-java@v4
+build	Set up JDK 17	2026-02-18T05:16:28.0793594Z with:
+build	Set up JDK 17	2026-02-18T05:16:28.0793770Z   java-version: 17
+build	Set up JDK 17	2026-02-18T05:16:28.0793965Z   distribution: temurin
+build	Set up JDK 17	2026-02-18T05:16:28.0794184Z   java-package: jdk
+build	Set up JDK 17	2026-02-18T05:16:28.0794373Z   check-latest: false
+build	Set up JDK 17	2026-02-18T05:16:28.0794580Z   server-id: github
+build	Set up JDK 17	2026-02-18T05:16:28.0794776Z   server-username: GITHUB_ACTOR
+build	Set up JDK 17	2026-02-18T05:16:28.0795010Z   server-password: GITHUB_TOKEN
+build	Set up JDK 17	2026-02-18T05:16:28.0795231Z   overwrite-settings: true
+build	Set up JDK 17	2026-02-18T05:16:28.0795442Z   job-status: success
+build	Set up JDK 17	2026-02-18T05:16:28.0795758Z   token: ***
+build	Set up JDK 17	2026-02-18T05:16:28.0795928Z ##[endgroup]
+build	Set up JDK 17	2026-02-18T05:16:28.2784771Z ##[group]Installed distributions
+build	Set up JDK 17	2026-02-18T05:16:28.2849117Z Resolved Java 17.0.18+8 from tool-cache
+build	Set up JDK 17	2026-02-18T05:16:28.2849849Z Setting Java 17.0.18+8 as the default
+build	Set up JDK 17	2026-02-18T05:16:28.2857753Z Creating toolchains.xml for JDK version 17 from temurin
+build	Set up JDK 17	2026-02-18T05:16:28.2934638Z Writing to /home/runner/.m2/toolchains.xml
+build	Set up JDK 17	2026-02-18T05:16:28.2935038Z 
+build	Set up JDK 17	2026-02-18T05:16:28.2935311Z Java configuration:
+build	Set up JDK 17	2026-02-18T05:16:28.2936614Z   Distribution: temurin
+build	Set up JDK 17	2026-02-18T05:16:28.2936998Z   Version: 17.0.18+8
+build	Set up JDK 17	2026-02-18T05:16:28.2937883Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Set up JDK 17	2026-02-18T05:16:28.2938357Z 
+build	Set up JDK 17	2026-02-18T05:16:28.2938763Z ##[endgroup]
+build	Set up JDK 17	2026-02-18T05:16:28.2942845Z Creating settings.xml with server-id: github
+build	Set up JDK 17	2026-02-18T05:16:28.2959215Z Writing to /home/runner/.m2/settings.xml
+build	Set up Android SDK	﻿2026-02-18T05:16:28.3074036Z ##[group]Run android-actions/setup-android@v3
+build	Set up Android SDK	2026-02-18T05:16:28.3074338Z with:
+build	Set up Android SDK	2026-02-18T05:16:28.3074611Z   packages: platform-tools platforms;android-34 build-tools;34.0.0
+build	Set up Android SDK	2026-02-18T05:16:28.3074968Z   cmdline-tools-version: 12266719
+build	Set up Android SDK	2026-02-18T05:16:28.3075222Z   accept-android-sdk-licenses: true
+build	Set up Android SDK	2026-02-18T05:16:28.3075484Z   log-accepted-android-sdk-licenses: true
+build	Set up Android SDK	2026-02-18T05:16:28.3075732Z env:
+build	Set up Android SDK	2026-02-18T05:16:28.3075992Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Set up Android SDK	2026-02-18T05:16:28.3076461Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Set up Android SDK	2026-02-18T05:16:28.3076817Z ##[endgroup]
+build	Set up Android SDK	2026-02-18T05:16:28.4180570Z Found preinstalled sdkmanager in /usr/local/lib/android/sdk/cmdline-tools/latest with following source.properties:
+build	Set up Android SDK	2026-02-18T05:16:28.4181793Z Pkg.Revision=12.0
+build	Set up Android SDK	2026-02-18T05:16:28.4182232Z Pkg.Path=cmdline-tools;12.0
+build	Set up Android SDK	2026-02-18T05:16:28.4182800Z Pkg.Desc=Android SDK Command-line Tools
+build	Set up Android SDK	2026-02-18T05:16:28.4183148Z 
+build	Set up Android SDK	2026-02-18T05:16:28.4183501Z Wrong version in preinstalled sdkmanager
+build	Set up Android SDK	2026-02-18T05:16:28.4184674Z Downloading commandline tools from https://dl.google.com/android/repository/commandlinetools-linux-12266719_latest.zip
+build	Set up Android SDK	2026-02-18T05:16:29.7296281Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/88e41764-ff4d-4782-9801-efccb3b6f6dc
+build	Set up Android SDK	2026-02-18T05:16:30.5469018Z Accepting Android SDK licenses
+build	Set up Android SDK	2026-02-18T05:16:30.5473602Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager --licenses
+build	Set up Android SDK	2026-02-18T05:16:35.3867026Z Loading local repository...                                                     
+build	Set up Android SDK	2026-02-18T05:16:35.3868220Z [=========                              ] 25% Loading local repository...       
+build	Set up Android SDK	2026-02-18T05:16:36.9418326Z [=========                              ] 25% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4076756Z [==========                             ] 26% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4082549Z [============                           ] 31% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4576040Z [============                           ] 32% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4581529Z [=============                          ] 33% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4969143Z [=============                          ] 35% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.4982088Z [==============                         ] 36% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5140513Z [==============                         ] 37% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5146011Z [===============                        ] 38% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5208597Z [===============                        ] 39% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5216626Z [================                       ] 40% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5451418Z [================                       ] 41% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5456582Z [================                       ] 42% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5760725Z [=================                      ] 44% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5764517Z [=================                      ] 45% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5936684Z [==================                     ] 46% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.5940052Z [==================                     ] 47% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6117038Z [===================                    ] 48% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6117908Z [===================                    ] 49% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6219417Z [====================                   ] 50% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6223078Z [====================                   ] 51% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6345186Z [====================                   ] 53% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6346837Z [=====================                  ] 54% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6444674Z [=====================                  ] 55% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6446960Z [======================                 ] 56% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6564251Z [======================                 ] 57% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6565135Z [=======================                ] 58% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6701426Z [=======================                ] 59% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6702653Z [========================               ] 60% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6802750Z [========================               ] 61% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.6826992Z [=========================              ] 63% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7083155Z [=========================              ] 64% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7086423Z [=========================              ] 65% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7183920Z [==========================             ] 66% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7187194Z [==========================             ] 67% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7287308Z [===========================            ] 68% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.7292986Z [===========================            ] 69% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8000016Z [============================           ] 70% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8006265Z [============================           ] 72% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8579456Z [=============================          ] 73% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8580547Z [=============================          ] 74% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8641250Z [=============================          ] 75% Fetch remote repository...        
+build	Set up Android SDK	2026-02-18T05:16:37.8785405Z [=============================          ] 75% Computing updates...              
+build	Set up Android SDK	2026-02-18T05:16:37.8786583Z [=======================================] 100% Computing updates...             
+build	Set up Android SDK	2026-02-18T05:16:37.9214422Z 6 of 7 SDK package licenses not accepted.
+build	Set up Android SDK	2026-02-18T05:16:37.9220640Z Review licenses that have not been accepted (y/N)? 
+build	Set up Android SDK	2026-02-18T05:16:37.9225395Z 1/6: License android-googletv-license:
+build	Set up Android SDK	2026-02-18T05:16:37.9229897Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9235454Z Terms and Conditions
+build	Set up Android SDK	2026-02-18T05:16:37.9245935Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9248020Z This is the Google TV Add-on for the Android Software Development Kit License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9249187Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9249540Z 1. Introduction
+build	Set up Android SDK	2026-02-18T05:16:37.9250067Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9254049Z 1.1 The Google TV Add-on for the Android Software Development Kit (referred to in this License Agreement as the "Google TV Add-on" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of this License Agreement. This License Agreement forms a legally binding contract between you and Google in relation to your use of the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9257392Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9258743Z 1.2 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+build	Set up Android SDK	2026-02-18T05:16:37.9259938Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9260479Z 2. Accepting this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9260955Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9262469Z 2.1 In order to use the Google TV Add-on, you must first agree to this License Agreement. You may not use the Google TV Add-on if you do not accept this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9263815Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9265286Z 2.2 You can accept this License Agreement by:
+build	Set up Android SDK	2026-02-18T05:16:37.9265869Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9266805Z (A) clicking to accept or agree to this License Agreement, where this option is made available to you; or
+build	Set up Android SDK	2026-02-18T05:16:37.9267926Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9269436Z (B) by actually using the Google TV Add-on. In this case, you agree that use of the Google TV Add-on constitutes acceptance of the License Agreement from that point onwards.
+build	Set up Android SDK	2026-02-18T05:16:37.9271018Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9273387Z 2.3 You may not use the Google TV Add-on and may not accept the Licensing Agreement if you are a person barred from receiving the Google TV Add-on under the laws of the United States or other countries including the country in which you are resident or from which you use the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9275701Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9278767Z 2.4 If you are agreeing to be bound by this License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to this License Agreement. If you do not have the requisite authority, you may not accept the Licensing Agreement or use the Google TV Add-on on behalf of your employer or other entity.
+build	Set up Android SDK	2026-02-18T05:16:37.9324555Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9325116Z 3. Google TV Add-on License from Google
+build	Set up Android SDK	2026-02-18T05:16:37.9325728Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9327806Z 3.1 Subject to the terms of this License Agreement, Google grants you a limited, worldwide, royalty-free, non- assignable and non-exclusive license to use the Google TV Add-on solely to develop applications to run on the Google TV platform.
+build	Set up Android SDK	2026-02-18T05:16:37.9329650Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9333261Z 3.2 You agree that Google or third parties own all legal right, title and interest in and to the Google TV Add-on, including any Intellectual Property Rights that subsist in the Google TV Add-on. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9336250Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9341671Z 3.3 Except to the extent required by applicable third party licenses, you may not copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the Google TV Add-on or any part of the Google TV Add-on. Except to the extent required by applicable third party licenses, you may not load any part of the Google TV Add-on onto a mobile handset, television, or any other hardware device except a personal computer, combine any part of the Google TV Add-on with other software, or distribute any software or device incorporating a part of the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9345865Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9347898Z 3.4 Use, reproduction and distribution of components of the Google TV Add-on licensed under an open source software license are governed solely by the terms of that open source software license and not this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9350781Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9354720Z 3.5 You agree that the form and nature of the Google TV Add-on that Google provides may change without prior notice to you and that future versions of the Google TV Add-on may be incompatible with applications developed on previous versions of the Google TV Add-on. You agree that Google may stop (permanently or temporarily) providing the Google TV Add-on (or any features within the Google TV Add-on) to you or to users generally at Google's sole discretion, without prior notice to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9357847Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9359983Z 3.6 Nothing in this License Agreement gives you a right to use any of Google's or it’s licensors’ trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+build	Set up Android SDK	2026-02-18T05:16:37.9361872Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9363628Z 3.7 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9365399Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9365859Z 4. Use of the Google TV Add-on by You
+build	Set up Android SDK	2026-02-18T05:16:37.9366372Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9368726Z 4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under this License Agreement in or to any software applications that you develop using the Google TV Add-on, including any intellectual property rights that subsist in those applications.
+build	Set up Android SDK	2026-02-18T05:16:37.9371017Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9388182Z 4.2 You agree to use the Google TV Add-on and write applications only for purposes that are permitted by (a) this License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+build	Set up Android SDK	2026-02-18T05:16:37.9390848Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9397044Z 4.3 You agree that if you use the Google TV Add-on to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, your must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you explicit permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9416102Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9419375Z 4.4 You agree that you will not engage in any activity with the Google TV Add-on, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google, Multichannel Video Program Distributors or any mobile communications carrier.
+build	Set up Android SDK	2026-02-18T05:16:37.9426553Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9429470Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through the Google TV platform and/or applications for the Google TV platform, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+build	Set up Android SDK	2026-02-18T05:16:37.9431954Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9434957Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under this License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+build	Set up Android SDK	2026-02-18T05:16:37.9437454Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9437691Z 5. Your Developer Credentials
+build	Set up Android SDK	2026-02-18T05:16:37.9437965Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9440093Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9442078Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9442255Z 6. Privacy and Information
+build	Set up Android SDK	2026-02-18T05:16:37.9442507Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9446336Z 6.1 In order to continually innovate and improve the Google TV Add-on, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the Google TV Add-on are being used and how they are being used. Before any of this information is collected, the Google TV Add-on will notify you and seek your consent. If you withhold consent, the information will not be collected.
+build	Set up Android SDK	2026-02-18T05:16:37.9449625Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9450996Z 6.2 The data collected is examined in the aggregate to improve the Google TV Add-on and is maintained in accordance with Google's Privacy Policy.
+build	Set up Android SDK	2026-02-18T05:16:37.9451987Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9452384Z 7. Third Party Applications for the Google TV Platform
+build	Set up Android SDK	2026-02-18T05:16:37.9452797Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9457458Z 7.1 If you use the Google TV Add-on to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+build	Set up Android SDK	2026-02-18T05:16:37.9461649Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9465271Z 7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+build	Set up Android SDK	2026-02-18T05:16:37.9468189Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9470483Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, this License Agreement does not affect your legal relationship with these third parties.
+build	Set up Android SDK	2026-02-18T05:16:37.9472260Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9472454Z 8. Using Google TV APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9472683Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9476258Z 8.1 If you use any Google TV API to retrieve data from Google, you acknowledge that the data (“Google TV API Content”) may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service. Some portions of the Google TV API Content are licensed to Google by third parties, including but not limited to Tribune Media Services
+build	Set up Android SDK	2026-02-18T05:16:37.9478513Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9479524Z 8.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9480608Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9480996Z 8.3 Except as explicitly permitted in Section 3 (Google TV Add-on License from Google), you must:
+build	Set up Android SDK	2026-02-18T05:16:37.9481359Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9482090Z (a) not modify nor format the Google TV API Content except to the extent reasonably and technically necessary to optimize the display such Google TV API Content in your application;
+build	Set up Android SDK	2026-02-18T05:16:37.9482723Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9483523Z (b) not edit the Google TV API Content in a manner that renders the Google TV API Content inaccurate of alters its inherent meaning (provided that displaying excerpts will not violate the foregoing); or
+build	Set up Android SDK	2026-02-18T05:16:37.9484212Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9484576Z (c) not create any commercial audience measurement tool or service using the Google TV API Content
+build	Set up Android SDK	2026-02-18T05:16:37.9484949Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9485096Z 9. Terminating this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9485459Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9485873Z 9.1 This License Agreement will continue to apply until terminated by either you or Google as set out below.
+build	Set up Android SDK	2026-02-18T05:16:37.9486269Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9486840Z 9.2 If you want to terminate this License Agreement, you may do so by ceasing your use of the Google TV Add-on and any relevant developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9487349Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9487604Z 9.3 Google may at any time, terminate this License Agreement with you if:
+build	Set up Android SDK	2026-02-18T05:16:37.9487889Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9488119Z (A) you have breached any provision of this License Agreement; or
+build	Set up Android SDK	2026-02-18T05:16:37.9488367Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9488520Z (B) Google is required to do so by law; or
+build	Set up Android SDK	2026-02-18T05:16:37.9488699Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9489519Z (C) the partner with whom Google offered certain parts of Google TV Add-on (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the Google TV Add-on to you; or
+build	Set up Android SDK	2026-02-18T05:16:37.9490520Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9491891Z (D) Google decides to no longer providing the Google TV Add-on or certain parts of the Google TV Add-on to users in the country in which you are resident or from which you use the service, or the provision of the Google TV Add-on or certain Google TV Add-on services to you by Google is, in Google's sole discretion, no longer commercially viable.
+build	Set up Android SDK	2026-02-18T05:16:37.9493014Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9494841Z 9.4 When this License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst this License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+build	Set up Android SDK	2026-02-18T05:16:37.9496328Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9496433Z 10. DISCLAIMER OF WARRANTIES
+build	Set up Android SDK	2026-02-18T05:16:37.9496584Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9497388Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE GOOGLE TV ADD-ON IS AT YOUR SOLE RISK AND THAT THE GOOGLE TV ADD-ON IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+build	Set up Android SDK	2026-02-18T05:16:37.9498065Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9499220Z 10.2 YOUR USE OF THE GOOGLE TV ADD-ON AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE GOOGLE TV ADD-ON IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9500178Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9501394Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+build	Set up Android SDK	2026-02-18T05:16:37.9502343Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9502452Z 11. LIMITATION OF LIABILITY
+build	Set up Android SDK	2026-02-18T05:16:37.9502631Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9504423Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+build	Set up Android SDK	2026-02-18T05:16:37.9505875Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9505965Z 12. Indemnification
+build	Set up Android SDK	2026-02-18T05:16:37.9506089Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9509167Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the Google TV Add-on, (b) any application you develop on the Google TV Add-on that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9512013Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9512156Z 13. Changes to the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9512328Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9512752Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9513153Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9513247Z 14. General Legal Terms
+build	Set up Android SDK	2026-02-18T05:16:37.9513386Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9514738Z 14.1 This License Agreement constitute the whole legal agreement between you and Google and govern your use of the Google TV Add-on (excluding any services which Google may provide to you under a separate written agreement), and completely replace any prior agreements between you and Google in relation to the Google TV Add-on.
+build	Set up Android SDK	2026-02-18T05:16:37.9515999Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9517290Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in this License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+build	Set up Android SDK	2026-02-18T05:16:37.9518371Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9519787Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of this License Agreement is invalid, then that provision will be removed from this License Agreement without affecting the rest of this License Agreement. The remaining provisions of this License Agreement will continue to be valid and enforceable.
+build	Set up Android SDK	2026-02-18T05:16:37.9521180Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9523497Z 14.4 You acknowledge and agree that Google’s API data licensors and each member of the group of companies of which Google is the parent shall be third party beneficiaries to this License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of this License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9525110Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9526299Z 14.5 EXPORT RESTRICTIONS. THE GOOGLE TV ADD-ON IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE GOOGLE TV ADD-ON. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9527288Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9528680Z 14.6 The rights granted in this License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under this License Agreement without the prior written approval of the other party.
+build	Set up Android SDK	2026-02-18T05:16:37.9529847Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9532325Z 14.7 This License Agreement, and your relationship with Google under this License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from this License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+build	Set up Android SDK	2026-02-18T05:16:37.9534212Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9534219Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9534300Z August 15, 2011
+build	Set up Android SDK	2026-02-18T05:16:37.9534543Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9534799Z Accept? (y/N): 
+build	Set up Android SDK	2026-02-18T05:16:37.9535051Z 2/6: License android-googlexr-license:
+build	Set up Android SDK	2026-02-18T05:16:37.9535346Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9536694Z To get started with the Android XR Emulator System Image SDK, you must agree to the following terms and conditions. As described below, please note that this is a preview, emulated version of the Android XR OS, subject to change, that you use at your own risk.
+build	Set up Android SDK	2026-02-18T05:16:37.9537565Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9537798Z This is the Android XR Emulator System Image SDK License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9538051Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9538125Z 1. Introduction
+build	Set up Android SDK	2026-02-18T05:16:37.9538237Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9540070Z 1.1 The Android Android XR Emulator System Image SDK (referred to in the License Agreement as the "SDK" and specifically including the Android system files,, packaged APIs, library files (if and when they are made available), and Google applications and APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9542125Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9543025Z 1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: https://source.android.com/, as updated from time to time.
+build	Set up Android SDK	2026-02-18T05:16:37.9543771Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9544627Z 1.3 "Google" means Google LLC, organized under the laws of the State of Delaware, USA, and operating under the laws of the USA with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+build	Set up Android SDK	2026-02-18T05:16:37.9545362Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9545504Z 2. Accepting this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9545674Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9546197Z 2.1 In order to use the SDK, you must first agree to the License Agreement. You may not use the SDK if you do not accept the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9546692Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9547064Z 2.2 By clicking to accept and/or using this SDK, you hereby agree to the terms of the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9547434Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9548430Z 2.3 You may not use the SDK and may not accept the License Agreement if you are a person barred from receiving the SDK under the laws of the United States or other countries, including the country in which you are resident or from which you use the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9549275Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9550967Z 2.4 If you are agreeing to be bound by the License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the SDK on behalf of your employer or other entity.
+build	Set up Android SDK	2026-02-18T05:16:37.9552205Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9552308Z 3. SDK License from Google
+build	Set up Android SDK	2026-02-18T05:16:37.9552458Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9553385Z 3.1 Subject to the terms of the License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable, non-exclusive, and non-sublicensable license to use the SDK solely to develop applications for Android XR.
+build	Set up Android SDK	2026-02-18T05:16:37.9554196Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9555065Z 3.2 You may not use this SDK to develop applications for other platforms or to develop another SDK. You are of course free to develop applications for other platforms provided that this SDK is not used for that purpose.
+build	Set up Android SDK	2026-02-18T05:16:37.9555816Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9557417Z 3.3 You agree that Google or third parties own all legal right, title and interest in and to the SDK, including any Intellectual Property Rights that subsist in the SDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9558736Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9561278Z 3.4 You may not use the SDK for any purpose not expressly permitted by the License Agreement. Except to the extent required by applicable third party licenses, you may not (a) copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the SDK or any part of the SDK; or (b) load any part of the SDK onto a mobile handset or any other hardware device except a personal computer, combine any part of the SDK with other software, or distribute any software or device incorporating a part of the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9563578Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9565313Z 3.5 Use, reproduction and distribution of components of the SDK licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement. You agree to remain a licensee in good standing in regard to such open source software licenses under all the rights granted and to refrain from any actions that may terminate, suspend, or breach such rights.
+build	Set up Android SDK	2026-02-18T05:16:37.9566872Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9568597Z 3.6 You agree that the form and nature of the SDK that Google provides may change without prior notice to you and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. You agree that Google may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9570006Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9570861Z 3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+build	Set up Android SDK	2026-02-18T05:16:37.9571467Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9572194Z 3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9572846Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9572940Z 4. Use of the SDK by You
+build	Set up Android SDK	2026-02-18T05:16:37.9573081Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9574473Z 4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the SDK, including any intellectual property rights that subsist in those applications.
+build	Set up Android SDK	2026-02-18T05:16:37.9575412Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9576868Z 4.2 You agree to use the SDK and write applications only for purposes that are permitted by (a) the License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+build	Set up Android SDK	2026-02-18T05:16:37.9578053Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9581485Z 4.3 You agree that if you use the SDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9584093Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9586324Z 4.4 You agree that you will not engage in any activity with the SDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google or any mobile communications carrier.
+build	Set up Android SDK	2026-02-18T05:16:37.9588504Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9589949Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+build	Set up Android SDK	2026-02-18T05:16:37.9591659Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9593280Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+build	Set up Android SDK	2026-02-18T05:16:37.9594592Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9595794Z 4.7 The SDK is in development, and your testing and feedback are an important part of the development process. By using the SDK, you acknowledge that implementation of some features are still under development and that you should not rely on the SDK having the full functionality of a stable release.
+build	Set up Android SDK	2026-02-18T05:16:37.9596943Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9597060Z 5. Your Developer Credentials
+build	Set up Android SDK	2026-02-18T05:16:37.9597217Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9598366Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9599386Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9599490Z 6. Privacy and Information
+build	Set up Android SDK	2026-02-18T05:16:37.9599634Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9601812Z 6.1 In order to continually innovate and improve the SDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the SDK are being used and how they are being used. Before any of this information is collected, the SDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+build	Set up Android SDK	2026-02-18T05:16:37.9603426Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9604269Z 6.2 The data collected is examined in the aggregate to improve the SDK and is maintained in accordance with Google's Privacy Policy, which is located at the following URL: https://policies.google.com/privacy
+build	Set up Android SDK	2026-02-18T05:16:37.9604999Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9605378Z 6.3 Anonymized and aggregated sets of the data may be shared with Google partners to improve the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9605751Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9605856Z 7. Third Party Applications
+build	Set up Android SDK	2026-02-18T05:16:37.9606012Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9608446Z 7.1 If you use the SDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+build	Set up Android SDK	2026-02-18T05:16:37.9610561Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9612572Z 7.2 You should be aware that the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+build	Set up Android SDK	2026-02-18T05:16:37.9614207Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9615296Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, the License Agreement does not affect your legal relationship with these third parties.
+build	Set up Android SDK	2026-02-18T05:16:37.9616367Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9616462Z 8. Using Android APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9616590Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9616683Z 8.1 Google Data APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9616804Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9618831Z 8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+build	Set up Android SDK	2026-02-18T05:16:37.9620634Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9624261Z 8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so. If you use the Android Recognition Service API, documented at the following URL: https://developer.android.com/reference/android/speech/RecognitionService, as updated from time to time, you acknowledge that the use of the API is subject to the Data Processing Addendum for Products where Google is a Data Processor, which is located at the following URL: https://privacy.google.com/businesses/gdprprocessorterms/, as updated from time to time. By clicking to accept, you hereby agree to the terms of the Data Processing Addendum for Products where Google is a Data Processor.
+build	Set up Android SDK	2026-02-18T05:16:37.9627033Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9627174Z 9. Terminating this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9627349Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9627746Z 9.1 The License Agreement will continue to apply until terminated by either you or Google as set out below.
+build	Set up Android SDK	2026-02-18T05:16:37.9628148Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9628644Z 9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the SDK and any relevant developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9629113Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9631914Z 9.3 Google may at any time, terminate the License Agreement with you if: (A) you have breached any provision of the License Agreement; or (B) Google is required to do so by law; or (C) the partner with whom Google offered certain parts of SDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the SDK to you; or (D) Google decides to no longer provide the SDK or certain parts of the SDK to users in the country in which you are resident or from which you use the service, or the provision of the SDK or certain SDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+build	Set up Android SDK	2026-02-18T05:16:37.9634029Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9635858Z 9.4 When the License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst the License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+build	Set up Android SDK	2026-02-18T05:16:37.9637340Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9637449Z 10. DISCLAIMER OF WARRANTIES
+build	Set up Android SDK	2026-02-18T05:16:37.9637597Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9638284Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE SDK IS AT YOUR SOLE RISK AND THAT THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+build	Set up Android SDK	2026-02-18T05:16:37.9638891Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9639930Z 10.2 YOUR USE OF THE SDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9641010Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9642071Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+build	Set up Android SDK	2026-02-18T05:16:37.9643097Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9643200Z 11. LIMITATION OF LIABILITY
+build	Set up Android SDK	2026-02-18T05:16:37.9643343Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9645141Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+build	Set up Android SDK	2026-02-18T05:16:37.9646710Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9646808Z 12. Indemnification
+build	Set up Android SDK	2026-02-18T05:16:37.9646928Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9649897Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the SDK, (b) any application you develop on the SDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9652437Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9652573Z 13. Changes to the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9652746Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9653688Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the SDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the SDK is made available.
+build	Set up Android SDK	2026-02-18T05:16:37.9654508Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9654600Z 14. General Legal Terms
+build	Set up Android SDK	2026-02-18T05:16:37.9654734Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9655982Z 14.1 The License Agreement constitutes the whole legal agreement between you and Google and governs your use of the SDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9657018Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9658303Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+build	Set up Android SDK	2026-02-18T05:16:37.9659375Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9660955Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+build	Set up Android SDK	2026-02-18T05:16:37.9662137Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9663959Z 14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9665450Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9666516Z 14.5 EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9667574Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9668962Z 14.6 The rights granted in the License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under the License Agreement without the prior written approval of the other party.
+build	Set up Android SDK	2026-02-18T05:16:37.9670113Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9672609Z 14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+build	Set up Android SDK	2026-02-18T05:16:37.9676271Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9676572Z Accept? (y/N): 
+build	Set up Android SDK	2026-02-18T05:16:37.9676952Z 3/6: License android-sdk-arm-dbt-license:
+build	Set up Android SDK	2026-02-18T05:16:37.9677501Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9677938Z Terms and Conditions
+build	Set up Android SDK	2026-02-18T05:16:37.9678166Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9678546Z This is the Android Software Development Kit License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9678978Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9679122Z 1. Introduction
+build	Set up Android SDK	2026-02-18T05:16:37.9679318Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9682283Z 1.1 The Android Software Development Kit (referred to in the License Agreement as the "SDK" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9685131Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9686777Z 1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+build	Set up Android SDK	2026-02-18T05:16:37.9688227Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9691140Z 1.3 A "compatible implementation" means any Android device that (i) complies with the Android Compatibility Definition document, which can be found at the Android compatibility website (http://source.android.com/compatibility) and which may be updated from time to time; and (ii) successfully passes the Android Compatibility Test Suite (CTS).
+build	Set up Android SDK	2026-02-18T05:16:37.9693301Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9694357Z 1.4 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+build	Set up Android SDK	2026-02-18T05:16:37.9695342Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9695354Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9695578Z 2. Accepting the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9695864Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9697108Z 2.1 In order to use the SDK, you must first agree to the License Agreement. You may not use the SDK if you do not accept the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9697745Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9698058Z 2.2 By clicking to accept, you hereby agree to the terms of the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9698378Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9699376Z 2.3 You may not use the SDK and may not accept the License Agreement if you are a person barred from receiving the SDK under the laws of the United States or other countries, including the country in which you are resident or from which you use the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9700223Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9701962Z 2.4 If you are agreeing to be bound by the License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the SDK on behalf of your employer or other entity.
+build	Set up Android SDK	2026-02-18T05:16:37.9703384Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9703391Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9703500Z 3. SDK License from Google
+build	Set up Android SDK	2026-02-18T05:16:37.9703645Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9704689Z 3.1 Subject to the terms of the License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable, non-exclusive, and non-sublicensable license to use the SDK solely to develop applications for compatible implementations of Android.
+build	Set up Android SDK	2026-02-18T05:16:37.9705569Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9706922Z 3.2 You may not use this SDK to develop applications for other platforms (including non-compatible implementations of Android) or to develop another SDK. You are of course free to develop applications for other platforms, including non-compatible implementations of Android, provided that this SDK is not used for that purpose.
+build	Set up Android SDK	2026-02-18T05:16:37.9709086Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9712323Z 3.3 You agree that Google or third parties own all legal right, title and interest in and to the SDK, including any Intellectual Property Rights that subsist in the SDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9714078Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9715492Z 3.4 You may not use the SDK for any purpose not expressly permitted by the License Agreement. Except to the extent required by applicable third party licenses, you may not copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the SDK or any part of the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9716647Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9717481Z 3.5 Use, reproduction and distribution of components of the SDK licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9718214Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9719924Z 3.6 You agree that the form and nature of the SDK that Google provides may change without prior notice to you and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. You agree that Google may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9721542Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9722223Z 3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+build	Set up Android SDK	2026-02-18T05:16:37.9722818Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9723552Z 3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9724203Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9724210Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9724316Z 4. Use of the SDK by You
+build	Set up Android SDK	2026-02-18T05:16:37.9724454Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9725512Z 4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the SDK, including any intellectual property rights that subsist in those applications.
+build	Set up Android SDK	2026-02-18T05:16:37.9726423Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9727845Z 4.2 You agree to use the SDK and write applications only for purposes that are permitted by (a) the License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+build	Set up Android SDK	2026-02-18T05:16:37.9729025Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9732386Z 4.3 You agree that if you use the SDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9735163Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9736620Z 4.4 You agree that you will not engage in any activity with the SDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google or any mobile communications carrier.
+build	Set up Android SDK	2026-02-18T05:16:37.9737923Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9739324Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+build	Set up Android SDK	2026-02-18T05:16:37.9740745Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9742372Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+build	Set up Android SDK	2026-02-18T05:16:37.9743680Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9745480Z 4.7 This software enables the execution of intellectual property owned by Arm Limited. You agree that your use of the software, that allows execution of ARM Instruction Set Architecture (“ISA”) compliant executables for application development and debug only on x86 desktop, laptop, customer on-premise servers, and customer-procured cloud-based environments.
+build	Set up Android SDK	2026-02-18T05:16:37.9746727Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9746838Z 5. Your Developer Credentials
+build	Set up Android SDK	2026-02-18T05:16:37.9746995Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9748150Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9749125Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9749225Z 6. Privacy and Information
+build	Set up Android SDK	2026-02-18T05:16:37.9749374Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9751498Z 6.1 In order to continually innovate and improve the SDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the SDK are being used and how they are being used. Before any of this information is collected, the SDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+build	Set up Android SDK	2026-02-18T05:16:37.9753103Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9753600Z 6.2 The data collected is examined in the aggregate to improve the SDK and is maintained in accordance with Google's Privacy Policy.
+build	Set up Android SDK	2026-02-18T05:16:37.9754062Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9754077Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9754181Z 7. Third Party Applications
+build	Set up Android SDK	2026-02-18T05:16:37.9754327Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9756743Z 7.1 If you use the SDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+build	Set up Android SDK	2026-02-18T05:16:37.9758833Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9760987Z 7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+build	Set up Android SDK	2026-02-18T05:16:37.9762592Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9764549Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, the License Agreement does not affect your legal relationship with these third parties.
+build	Set up Android SDK	2026-02-18T05:16:37.9765669Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9765677Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9765790Z 8. Using Android APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9765920Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9766009Z 8.1 Google Data APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9766156Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9768188Z 8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+build	Set up Android SDK	2026-02-18T05:16:37.9769826Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9773505Z 8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so. If you use the Android Recognition Service API, documented at the following URL: https://developer.android.com/reference/android/speech/RecognitionService, as updated from time to time, you acknowledge that the use of the API is subject to the Data Processing Addendum for Products where Google is a Data Processor, which is located at the following URL: https://privacy.google.com/businesses/gdprprocessorterms/, as updated from time to time. By clicking to accept, you hereby agree to the terms of the Data Processing Addendum for Products where Google is a Data Processor.
+build	Set up Android SDK	2026-02-18T05:16:37.9776378Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9776386Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9776542Z 9. Terminating the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9776862Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9777627Z 9.1 The License Agreement will continue to apply until terminated by either you or Google as set out below.
+build	Set up Android SDK	2026-02-18T05:16:37.9778383Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9779021Z 9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the SDK and any relevant developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9779507Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9782347Z 9.3 Google may at any time, terminate the License Agreement with you if: (A) you have breached any provision of the License Agreement; or (B) Google is required to do so by law; or (C) the partner with whom Google offered certain parts of SDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the SDK to you; or (D) Google decides to no longer provide the SDK or certain parts of the SDK to users in the country in which you are resident or from which you use the service, or the provision of the SDK or certain SDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+build	Set up Android SDK	2026-02-18T05:16:37.9784431Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9786297Z 9.4 When the License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst the License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+build	Set up Android SDK	2026-02-18T05:16:37.9788625Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9788643Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9788855Z 10. DISCLAIMER OF WARRANTIES
+build	Set up Android SDK	2026-02-18T05:16:37.9789047Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9789760Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE SDK IS AT YOUR SOLE RISK AND THAT THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+build	Set up Android SDK	2026-02-18T05:16:37.9790665Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9791977Z 10.2 YOUR USE OF THE SDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9794047Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9822763Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+build	Set up Android SDK	2026-02-18T05:16:37.9824087Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9824100Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9824234Z 11. LIMITATION OF LIABILITY
+build	Set up Android SDK	2026-02-18T05:16:37.9824402Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9826226Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+build	Set up Android SDK	2026-02-18T05:16:37.9827694Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9827709Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9827804Z 12. Indemnification
+build	Set up Android SDK	2026-02-18T05:16:37.9827930Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9831122Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the SDK, (b) any application you develop on the SDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9833511Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9833518Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9833665Z 13. Changes to the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9833843Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9834790Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the SDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the SDK is made available.
+build	Set up Android SDK	2026-02-18T05:16:37.9835600Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9835605Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9835700Z 14. General Legal Terms
+build	Set up Android SDK	2026-02-18T05:16:37.9835837Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9837653Z 14.1 The License Agreement constitutes the whole legal agreement between you and Google and governs your use of the SDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9838846Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9840137Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+build	Set up Android SDK	2026-02-18T05:16:37.9841373Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9843002Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+build	Set up Android SDK	2026-02-18T05:16:37.9844161Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9845975Z 14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9847547Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9848612Z 14.5 EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9849514Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9851144Z 14.6 The rights granted in the License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under the License Agreement without the prior written approval of the other party.
+build	Set up Android SDK	2026-02-18T05:16:37.9852319Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9854621Z 14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+build	Set up Android SDK	2026-02-18T05:16:37.9856482Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9856488Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9856568Z January 16, 2019
+build	Set up Android SDK	2026-02-18T05:16:37.9856816Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9857073Z Accept? (y/N): 
+build	Set up Android SDK	2026-02-18T05:16:37.9857342Z 4/6: License android-sdk-preview-license:
+build	Set up Android SDK	2026-02-18T05:16:37.9857666Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9859403Z To get started with the Android SDK Preview, you must agree to the following terms and conditions. As described below, please note that this is a preview version of the Android SDK, subject to change, that you use at your own risk. The Android SDK Preview is not a stable release, and may contain errors and defects that can result in serious damage to your computer systems, devices and data.
+build	Set up Android SDK	2026-02-18T05:16:37.9861008Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9861287Z This is the Android SDK Preview License Agreement (the "License Agreement").
+build	Set up Android SDK	2026-02-18T05:16:37.9861588Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9861666Z 1. Introduction
+build	Set up Android SDK	2026-02-18T05:16:37.9861782Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9863747Z 1.1 The Android SDK Preview (referred to in the License Agreement as the “Preview” and specifically including the Android system files, packaged APIs, and Preview library files, if and when they are made available) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9865111Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9865977Z 1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+build	Set up Android SDK	2026-02-18T05:16:37.9866721Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9867342Z 1.3 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+build	Set up Android SDK	2026-02-18T05:16:37.9868044Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9868176Z 2. Accepting the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9868350Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9868911Z 2.1 In order to use the Preview, you must first agree to the License Agreement. You may not use the Preview if you do not accept the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9869425Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9869814Z 2.2 By clicking to accept and/or using the Preview, you hereby agree to the terms of the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9870193Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9871574Z 2.3 You may not use the Preview and may not accept the License Agreement if you are a person barred from receiving the Preview under the laws of the United States or other countries including the country in which you are resident or from which you use the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9872635Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9874443Z 2.4 If you will use the Preview internally within your company or organization you agree to be bound by the License Agreement on behalf of your employer or other entity, and you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the Preview on behalf of your employer or other entity.
+build	Set up Android SDK	2026-02-18T05:16:37.9875915Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9876041Z 3. Preview License from Google
+build	Set up Android SDK	2026-02-18T05:16:37.9876200Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9877468Z 3.1 Subject to the terms of the License Agreement, Google grants you a royalty-free, non-assignable, non-exclusive, non-sublicensable, limited, revocable license to use the Preview, personally or internally within your company or organization, solely to develop applications to run on the Android platform.
+build	Set up Android SDK	2026-02-18T05:16:37.9878545Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9880186Z 3.2 You agree that Google or third parties owns all legal right, title and interest in and to the Preview, including any Intellectual Property Rights that subsist in the Preview. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9881780Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9884247Z 3.3 You may not use the Preview for any purpose not expressly permitted by the License Agreement. Except to the extent required by applicable third party licenses, you may not: (a) copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the Preview or any part of the Preview; or (b) load any part of the Preview onto a mobile handset or any other hardware device except a personal computer, combine any part of the Preview with other software, or distribute any software or device incorporating a part of the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9886241Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9887268Z 3.4 You agree that you will not take any actions that may cause or result in the fragmentation of Android, including but not limited to distributing, participating in the creation of, or promoting in any way a software development kit derived from the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9888147Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9889881Z 3.5 Use, reproduction and distribution of components of the Preview licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement. You agree to remain a licensee in good standing in regard to such open source software licenses under all the rights granted and to refrain from any actions that may terminate, suspend, or breach such rights.
+build	Set up Android SDK	2026-02-18T05:16:37.9891611Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9893449Z 3.6 You agree that the form and nature of the Preview that Google provides may change without prior notice to you and that future versions of the Preview may be incompatible with applications developed on previous versions of the Preview. You agree that Google may stop (permanently or temporarily) providing the Preview (or any features within the Preview) to you or to users generally at Google's sole discretion, without prior notice to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9895077Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9895759Z 3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+build	Set up Android SDK	2026-02-18T05:16:37.9896361Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9897097Z 3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9897753Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9897857Z 4. Use of the Preview by You
+build	Set up Android SDK	2026-02-18T05:16:37.9898006Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9899237Z 4.1 Google agrees that nothing in the License Agreement gives Google any right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the Preview, including any intellectual property rights that subsist in those applications.
+build	Set up Android SDK	2026-02-18T05:16:37.9900616Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9902083Z 4.2 You agree to use the Preview and write applications only for purposes that are permitted by (a) the License Agreement, and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+build	Set up Android SDK	2026-02-18T05:16:37.9903304Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9906341Z 4.3 You agree that if you use the Preview to develop applications, you will protect the privacy and legal rights of users. If users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If users provide you with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, each user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9908772Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9909968Z 4.4 You agree that you will not engage in any activity with the Preview, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of Google or any third party.
+build	Set up Android SDK	2026-02-18T05:16:37.9911160Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9912570Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+build	Set up Android SDK	2026-02-18T05:16:37.9913740Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9915336Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+build	Set up Android SDK	2026-02-18T05:16:37.9916642Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9918614Z 4.7 The Preview is in development, and your testing and feedback are an important part of the development process. By using the Preview, you acknowledge that implementation of some features are still under development and that you should not rely on the Preview having the full functionality of a stable release. You agree not to publicly distribute or ship any application using this Preview as this Preview will no longer be supported after the official Android SDK is released.
+build	Set up Android SDK	2026-02-18T05:16:37.9920216Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9920427Z 5. Your Developer Credentials
+build	Set up Android SDK	2026-02-18T05:16:37.9920714Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9921882Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9922868Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9922971Z 6. Privacy and Information
+build	Set up Android SDK	2026-02-18T05:16:37.9923118Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9925152Z 6.1 In order to continually innovate and improve the Preview, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the Preview are being used and how they are being used. Before any of this information is collected, the Preview will notify you and seek your consent. If you withhold consent, the information will not be collected.
+build	Set up Android SDK	2026-02-18T05:16:37.9926954Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9927713Z 6.2 The data collected is examined in the aggregate to improve the Preview and is maintained in accordance with Google's Privacy Policy located at http://www.google.com/policies/privacy/.
+build	Set up Android SDK	2026-02-18T05:16:37.9928381Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9928490Z 7. Third Party Applications
+build	Set up Android SDK	2026-02-18T05:16:37.9928644Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9931334Z 7.1 If you use the Preview to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+build	Set up Android SDK	2026-02-18T05:16:37.9933330Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9935338Z 7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+build	Set up Android SDK	2026-02-18T05:16:37.9936945Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9937621Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party.
+build	Set up Android SDK	2026-02-18T05:16:37.9938217Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9938307Z 8. Using Google APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9938442Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9938517Z 8.1 Google APIs
+build	Set up Android SDK	2026-02-18T05:16:37.9938626Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9940850Z 8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+build	Set up Android SDK	2026-02-18T05:16:37.9942544Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9943559Z 8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:37.9944407Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9944546Z 9. Terminating the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9944725Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9945128Z 9.1 the License Agreement will continue to apply until terminated by either you or Google as set out below.
+build	Set up Android SDK	2026-02-18T05:16:37.9945672Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9946186Z 9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the Preview and any relevant developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:37.9946661Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9947047Z 9.3 Google may at any time, terminate the License Agreement, with or without cause, upon notice to you.
+build	Set up Android SDK	2026-02-18T05:16:37.9947417Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9948750Z 9.4 The License Agreement will automatically terminate without notice or other action upon the earlier of: (A) when Google ceases to provide the Preview or certain parts of the Preview to users in the country in which you are resident or from which you use the service; and (B) Google issues a final release version of the Android SDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9949857Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9950936Z 9.5 When the License Agreement is terminated, the license granted to you in the License Agreement will terminate, you will immediately cease all use of the Preview, and the provisions of paragraphs 10, 11, 12 and 14 shall survive indefinitely.
+build	Set up Android SDK	2026-02-18T05:16:37.9951892Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9951971Z 10. DISCLAIMERS
+build	Set up Android SDK	2026-02-18T05:16:37.9952085Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9952822Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE PREVIEW IS AT YOUR SOLE RISK AND THAT THE PREVIEW IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+build	Set up Android SDK	2026-02-18T05:16:37.9953462Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9955756Z 10.2 YOUR USE OF THE PREVIEW AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE PREVIEW IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE. WITHOUT LIMITING THE FOREGOING, YOU UNDERSTAND THAT THE PREVIEW IS NOT A STABLE RELEASE AND MAY CONTAIN ERRORS, DEFECTS AND SECURITY VULNERABILITIES THAT CAN RESULT IN SIGNIFICANT DAMAGE, INCLUDING THE COMPLETE, IRRECOVERABLE LOSS OF USE OF YOUR COMPUTER SYSTEM OR OTHER DEVICE.
+build	Set up Android SDK	2026-02-18T05:16:37.9957613Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9958654Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+build	Set up Android SDK	2026-02-18T05:16:37.9959548Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9959649Z 11. LIMITATION OF LIABILITY
+build	Set up Android SDK	2026-02-18T05:16:37.9959800Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9961708Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+build	Set up Android SDK	2026-02-18T05:16:37.9963191Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9963281Z 12. Indemnification
+build	Set up Android SDK	2026-02-18T05:16:37.9963401Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9966582Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys’ fees) arising out of or accruing from (a) your use of the Preview, (b) any application you develop on the Preview that infringes any Intellectual Property Rights of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you of the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9968790Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9968920Z 13. Changes to the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:37.9969089Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9970082Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the Preview. When these changes are made, Google will make a new version of the License Agreement available on the website where the Preview is made available.
+build	Set up Android SDK	2026-02-18T05:16:37.9971366Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9971475Z 14. General Legal Terms
+build	Set up Android SDK	2026-02-18T05:16:37.9971613Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9972899Z 14.1 the License Agreement constitutes the whole legal agreement between you and Google and governs your use of the Preview (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the Preview.
+build	Set up Android SDK	2026-02-18T05:16:37.9973984Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9975271Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+build	Set up Android SDK	2026-02-18T05:16:37.9976492Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9977900Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+build	Set up Android SDK	2026-02-18T05:16:37.9979075Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9981130Z 14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9982636Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9983765Z 14.5 EXPORT RESTRICTIONS. THE PREVIEW IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE PREVIEW. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+build	Set up Android SDK	2026-02-18T05:16:37.9984722Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9986069Z 14.6 The License Agreement may not be assigned or transferred by you without the prior written approval of Google, and any attempted assignment without such approval will be void. You shall not delegate your responsibilities or obligations under the License Agreement without the prior written approval of Google.
+build	Set up Android SDK	2026-02-18T05:16:37.9987158Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9989476Z 14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+build	Set up Android SDK	2026-02-18T05:16:37.9991468Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9991543Z June 2014.
+build	Set up Android SDK	2026-02-18T05:16:37.9991772Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9992015Z Accept? (y/N): 
+build	Set up Android SDK	2026-02-18T05:16:37.9992259Z 5/6: License google-gdk-license:
+build	Set up Android SDK	2026-02-18T05:16:37.9992548Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:37.9992930Z This is a Developer Preview of the GDK that is subject to change.
+build	Set up Android SDK	2026-02-18T05:16:37.9993191Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9993281Z Terms and Conditions
+build	Set up Android SDK	2026-02-18T05:16:37.9993406Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9993587Z This is the Glass Development Kit License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:37.9993804Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9993878Z 1. Introduction
+build	Set up Android SDK	2026-02-18T05:16:37.9993991Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9995590Z 1.1 The Glass Development Kit (referred to in this License Agreement as the "GDK" and specifically including the Android system files, packaged APIs, and GDK library files, if and when they are made available) is licensed to you subject to the terms of this License Agreement. This License Agreement forms a legally binding contract between you and Google in relation to your use of the GDK.
+build	Set up Android SDK	2026-02-18T05:16:37.9997057Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9997361Z 1.2 "Glass" means Glass devices and the Glass software stack for use on Glass devices.
+build	Set up Android SDK	2026-02-18T05:16:37.9997678Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9997684Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9998540Z 1.3 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+build	Set up Android SDK	2026-02-18T05:16:37.9999272Z 
+build	Set up Android SDK	2026-02-18T05:16:37.9999883Z 1.4 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+build	Set up Android SDK	2026-02-18T05:16:38.0000553Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0000684Z 2. Accepting this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:38.0000977Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0001509Z 2.1 In order to use the GDK, you must first agree to this License Agreement. You may not use the GDK if you do not accept this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0002004Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0002298Z 2.2 By clicking to accept, you hereby agree to the terms of this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0002606Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0003991Z 2.3 You may not use the GDK and may not accept the License Agreement if you are a person barred from receiving the GDK under the laws of the United States or other countries including the country in which you are resident or from which you use the GDK.
+build	Set up Android SDK	2026-02-18T05:16:38.0005416Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0008292Z 2.4 If you are agreeing to be bound by this License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to this License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the GDK on behalf of your employer or other entity.
+build	Set up Android SDK	2026-02-18T05:16:38.0009821Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0009939Z 3. GDK License from Google
+build	Set up Android SDK	2026-02-18T05:16:38.0010089Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0011361Z 3.1 Subject to the terms of this License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable and non-exclusive license to use the GDK solely to develop applications to run on the Glass platform for Glass devices.
+build	Set up Android SDK	2026-02-18T05:16:38.0012787Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0015373Z 3.2 You agree that Google or third parties own all legal right, title and interest in and to the GDK, including any Intellectual Property Rights that subsist in the GDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+build	Set up Android SDK	2026-02-18T05:16:38.0016719Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0019263Z 3.3 You may not use the GDK for any purpose not expressly permitted by this License Agreement. Except to the extent required by applicable third party licenses, you may not: (a) copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the GDK or any part of the GDK; or (b) load any part of the GDK onto a mobile handset or wearable computing device or any other hardware device except a Glass device personal computer, combine any part of the GDK with other software, or distribute any software or device incorporating a part of the GDK.
+build	Set up Android SDK	2026-02-18T05:16:38.0021563Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0022580Z 3.4 You agree that you will not take any actions that may cause or result in the fragmentation of Glass, including but not limited to distributing, participating in the creation of, or promoting in any way a software development kit derived from the GDK.
+build	Set up Android SDK	2026-02-18T05:16:38.0023428Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0024263Z 3.5 Use, reproduction and distribution of components of the GDK licensed under an open source software license are governed solely by the terms of that open source software license and not this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0025000Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0026891Z 3.6 You agree that the form and nature of the GDK that Google provides may change without prior notice to you and that future versions of the GDK may be incompatible with applications developed on previous versions of the GDK. You agree that Google may stop (permanently or temporarily) providing the GDK (or any features within the GDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+build	Set up Android SDK	2026-02-18T05:16:38.0028296Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0029218Z 3.7 Nothing in this License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+build	Set up Android SDK	2026-02-18T05:16:38.0030107Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0031428Z 3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the GDK.
+build	Set up Android SDK	2026-02-18T05:16:38.0032261Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0032276Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0033755Z 3.9 Your use of any Android system files, packaged APIs, or other components of the GDK which are part of the Android Software Development Kit is subject to the terms of the Android Software Development Kit License Agreement located at http://developer.android.com/sdk/terms.html. These terms are hereby incorporated by reference into this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0035536Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0035656Z 4. Use of the GDK by You
+build	Set up Android SDK	2026-02-18T05:16:38.0035852Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0037241Z 4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under this License Agreement in or to any software applications that you develop using the GDK, including any intellectual property rights that subsist in those applications.
+build	Set up Android SDK	2026-02-18T05:16:38.0038178Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0040978Z 4.2 You agree to use the GDK and write applications only for purposes that are permitted by (a) this License Agreement, (b) the Glass Platform Developer Policies (located at https://developers.google.com/glass/policies, and hereby incorporated into this License Agreement by reference), and (c) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+build	Set up Android SDK	2026-02-18T05:16:38.0042833Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0046068Z 4.3 You agree that if you use the GDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:38.0048647Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0049939Z 4.4 You agree that you will not engage in any activity with the GDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google.
+build	Set up Android SDK	2026-02-18T05:16:38.0051223Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0052986Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Glass and/or applications for Glass, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+build	Set up Android SDK	2026-02-18T05:16:38.0054354Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0055962Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under this License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+build	Set up Android SDK	2026-02-18T05:16:38.0057449Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0057456Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0058981Z 4.7 The GDK is in development, and your testing and feedback are an important part of the development process. By using the GDK, you acknowledge that implementation of some features are still under development and that you should not rely on the GDK, Glass devices, Glass system software, Google Mirror API, or Glass services having the full functionality of a stable release.
+build	Set up Android SDK	2026-02-18T05:16:38.0060614Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0060733Z 5. Your Developer Credentials
+build	Set up Android SDK	2026-02-18T05:16:38.0060898Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0062048Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:38.0063027Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0063135Z 6. Privacy and Information
+build	Set up Android SDK	2026-02-18T05:16:38.0063277Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0063283Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0065240Z 6.1 In order to continually innovate and improve the GDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the GDK are being used and how they are being used. Before any of this information is collected, the GDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+build	Set up Android SDK	2026-02-18T05:16:38.0066831Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0067333Z 6.2 The data collected is examined in the aggregate to improve the GDK and is maintained in accordance with Google's Privacy Policy.
+build	Set up Android SDK	2026-02-18T05:16:38.0067800Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0067901Z 7. Third Party Applications
+build	Set up Android SDK	2026-02-18T05:16:38.0068055Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0070663Z 7.1 If you use the GDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+build	Set up Android SDK	2026-02-18T05:16:38.0072617Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0075783Z 7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+build	Set up Android SDK	2026-02-18T05:16:38.0078246Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0079360Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, this License Agreement does not affect your legal relationship with these third parties.
+build	Set up Android SDK	2026-02-18T05:16:38.0080477Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0080577Z 8. Using Google APIs
+build	Set up Android SDK	2026-02-18T05:16:38.0080708Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0080791Z 8.1 Google APIs
+build	Set up Android SDK	2026-02-18T05:16:38.0080979Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0083801Z 8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+build	Set up Android SDK	2026-02-18T05:16:38.0085644Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0086650Z 8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so.
+build	Set up Android SDK	2026-02-18T05:16:38.0087505Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0087642Z 9. Terminating this License Agreement
+build	Set up Android SDK	2026-02-18T05:16:38.0087818Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0088230Z 9.1 This License Agreement will continue to apply until terminated by either you or Google as set out below.
+build	Set up Android SDK	2026-02-18T05:16:38.0088735Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0089236Z 9.2 If you want to terminate this License Agreement, you may do so by ceasing your use of the GDK and any relevant developer credentials.
+build	Set up Android SDK	2026-02-18T05:16:38.0089713Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0092672Z 9.3 Google may at any time, terminate this License Agreement with you if: (A) you have breached any provision of this License Agreement; or (B) Google is required to do so by law; or (C) the partner with whom Google offered certain parts of GDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the GDK to you; or (D) Google decides to no longer provide the GDK or certain parts of the GDK to users in the country in which you are resident or from which you use the service, or the provision of the GDK or certain GDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+build	Set up Android SDK	2026-02-18T05:16:38.0094778Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0096615Z 9.4 When this License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst this License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+build	Set up Android SDK	2026-02-18T05:16:38.0098096Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0098201Z 10. DISCLAIMER OF WARRANTIES
+build	Set up Android SDK	2026-02-18T05:16:38.0098360Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0099043Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE GDK IS AT YOUR SOLE RISK AND THAT THE GDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+build	Set up Android SDK	2026-02-18T05:16:38.0099638Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0101041Z 10.2 YOUR USE OF THE GDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE GDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+build	Set up Android SDK	2026-02-18T05:16:38.0101950Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0102998Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+build	Set up Android SDK	2026-02-18T05:16:38.0103899Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0104005Z 11. LIMITATION OF LIABILITY
+build	Set up Android SDK	2026-02-18T05:16:38.0104157Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0105961Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+build	Set up Android SDK	2026-02-18T05:16:38.0107429Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0107518Z 12. Indemnification
+build	Set up Android SDK	2026-02-18T05:16:38.0107639Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0110898Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the GDK, (b) any application you develop on the GDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0113454Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0113600Z 13. Changes to the License Agreement
+build	Set up Android SDK	2026-02-18T05:16:38.0113774Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0114715Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the GDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the GDK is made available.
+build	Set up Android SDK	2026-02-18T05:16:38.0115634Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0115729Z 14. General Legal Terms
+build	Set up Android SDK	2026-02-18T05:16:38.0115867Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0117107Z 14.1 This License Agreement constitutes the whole legal agreement between you and Google and governs your use of the GDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the GDK.
+build	Set up Android SDK	2026-02-18T05:16:38.0118160Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0119440Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in this License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+build	Set up Android SDK	2026-02-18T05:16:38.0120795Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0122221Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of this License Agreement is invalid, then that provision will be removed from this License Agreement without affecting the rest of this License Agreement. The remaining provisions of this License Agreement will continue to be valid and enforceable.
+build	Set up Android SDK	2026-02-18T05:16:38.0123405Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0125240Z 14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to this License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of this License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to this License Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0126730Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0127797Z 14.5 EXPORT RESTRICTIONS. THE GDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE GDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+build	Set up Android SDK	2026-02-18T05:16:38.0128704Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0130096Z 14.6 The rights granted in this License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under this License Agreement without the prior written approval of the other party.
+build	Set up Android SDK	2026-02-18T05:16:38.0131523Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0133854Z 14.7 This License Agreement, and your relationship with Google under this License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from this License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+build	Set up Android SDK	2026-02-18T05:16:38.0135936Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0136036Z November 19, 2013
+build	Set up Android SDK	2026-02-18T05:16:38.0136278Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:38.0136537Z Accept? (y/N): 
+build	Set up Android SDK	2026-02-18T05:16:38.0136803Z 6/6: License mips-android-sysimage-license:
+build	Set up Android SDK	2026-02-18T05:16:38.0137127Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:38.0139650Z MIPS Technologies, Inc. (“MIPS”) Internal Evaluation License Agreement for MIPS Android™ System Images for Android Software Development Kit (SDK): This Internal Evaluation License Agreement (this "Agreement") is entered into by and between MIPS and you (as an individual developer or a legal entity -- identified below as “Recipient”). MIPS shall make the Evaluation Software available to Recipient as described in accordance with the terms and conditions set forth below.
+build	Set up Android SDK	2026-02-18T05:16:38.0141672Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0144134Z By clicking on the “Accept” button, downloading, installing, or otherwise using the Evaluation Materials (defined below), you agree to be bound by the terms of this Agreement effective as of the date you click “Accept” (the “Effective Date”), and if doing so on behalf of an entity, you represent that you are authorized to bind the entity to the terms and conditions of this Agreement. If you do not agree to be bound by the terms and conditions of this Agreement, do not download, install, or use the Evaluation Materials.
+build	Set up Android SDK	2026-02-18T05:16:38.0145860Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0146092Z 1. DEFINITIONS. These terms shall have the following meanings:
+build	Set up Android SDK	2026-02-18T05:16:38.0146342Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0147051Z 1.1 “MIPS” shall mean MIPS Technologies, Inc., a Delaware corporation having a principal place of business at: 955 East Arques Ave., Sunnyvale, CA 94085
+build	Set up Android SDK	2026-02-18T05:16:38.0147600Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0148296Z 1.2 “Evaluation Software” shall mean MIPS Android™ emulator system images for Android Software Development Kit (SDK), as made available to Recipient.
+build	Set up Android SDK	2026-02-18T05:16:38.0148845Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0150542Z 1.3 “Evaluation Materials" means, collectively, the Evaluation Software (in source and/or object code form) and documentation (including, without limitation, any design documents, specifications, reference manuals, and other related materials) related to the Evaluation Software as made available to Recipient.
+build	Set up Android SDK	2026-02-18T05:16:38.0151703Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0156437Z 1.4 “Open Source Software” means any software that requires (as a condition of use, modification and/or distribution of such software) that such software or other software incorporated into, derived from or distributed with such software (a) be disclosed or distributed in source code form; or (b) be licensed by the user to third parties for the purpose of making and/or distributing derivative works; or (c) be redistributable at no charge. Open Source Software includes, without limitation, software licensed or distributed under any of the following licenses or distribution models, or licenses or distribution models substantially similar to any of the following: (a) GNU’s General Public License (GPL) or Lesser/Library GPL (LGPL), (b) the Artistic License (e.g., PERL), (c) the Mozilla Public License, (d) the Netscape Public License, (e) the Sun Community Source License (SCSL), (f) the Sun Industry Source License (SISL), (g) the Apache Software license and (h) the Common Public License (CPL).
+build	Set up Android SDK	2026-02-18T05:16:38.0159764Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0161363Z 1.5 “Pre-Release Materials” means “alpha” or “beta” designated pre-release features, which may not be fully functional, which MIPS may substantially modify in producing any production version of the Evaluation Materials, and/or which is still under development by MIPS and/or MIPS’ suppliers.
+build	Set up Android SDK	2026-02-18T05:16:38.0162395Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0164789Z 2. PURPOSE. MIPS desires to make the Evaluation Materials available to Recipient solely for Recipient's internal evaluation of the Evaluation Software to evaluate the desirability of cooperating with MIPS in developing products that are compatible with the Evaluation Software and/or to advise MIPS as to possible modifications to the Evaluation Software. Recipient may not disclose, distribute, modify (except to facilitate the above-mentioned internal evaluation), or make commercial use of the Evaluation Materials or any modifications of the Evaluation Materials.
+build	Set up Android SDK	2026-02-18T05:16:38.0166908Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0168619Z THE EVALUATION MATERIALS ARE PROVIDED FOR EVALUATION PURPOSES ONLY AND MAY NOT BE MODIFIED (EXCEPT TO FACILITATE THE INTERNAL EVALUATION) OR DISTRIBUTED BY RECIPIENT OR INCORPORATED INTO RECIPIENT’S PRODUCTS OR SOFTWARE. PLEASE CONTACT A MIPS SALES REPRESENTATIVE TO LEARN ABOUT THE AVAILABILITY AND COST OF A COMMERCIAL VERSION OF THE EVALUATION SOFTWARE.
+build	Set up Android SDK	2026-02-18T05:16:38.0169866Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0171248Z 3. TITLE. Title to the Evaluation Materials remains with MIPS or its suppliers. Recipient shall not mortgage, pledge or encumber the Evaluation Materials in any way. Recipient shall return all Evaluation Materials, keeping no copies, upon termination or expiration of this Agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0172382Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0176989Z 4. LICENSE. MIPS grants Recipient a royalty-free, personal, nontransferable, nonexclusive license under its copyrights to use the Evaluation Software only for the purposes described in paragraph 2 above and only for a period beginning on the Effective Date and extending to the first anniversary of the Effective Date (the “Evaluation Period”). Unless otherwise communicated in writing by MIPS to Recipient, to the extent the Evaluation Software is provided in more than one delivery or release (each, a “Release”) the license grant in this Section 4 and the Evaluation Period shall apply to each Release, in which case the Evaluation Period shall begin on the date that the Release is made generally available and continue to the first anniversary of such date. Recipient may not make modifications to the Evaluation Software. Recipient shall not disassemble, reverse-engineer, or decompile any software that is not provided to Recipient in source code form.
+build	Set up Android SDK	2026-02-18T05:16:38.0180228Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0180400Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0181964Z EXCEPT AS PROVIDED HEREIN, NO OTHER LICENSE, EXPRESS OR IMPLIED, BY ESTOPPEL OR OTHERWISE, TO ANY OTHER MIPS INTELLECTUAL PROPERTY RIGHTS IS GRANTED TO THE RECIPIENT. OTHER THAN AS EXPLICITLY SET FORTH IN PARAGRAPH 2 ABOVE, NO RIGHT TO COPY, TO REPRODUCE, TO MODIFY, OR TO CREATE DERIVATIVE WORKS OF, THE EVALUATION MATERIALS IS GRANTED HEREIN.
+build	Set up Android SDK	2026-02-18T05:16:38.0183130Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0184185Z 5. NO OBLIGATION. Recipient shall have no duty to purchase or license any product from MIPS. MIPS and its suppliers shall have no obligation to provide support for, or develop a non-evaluation version of, the Evaluation Software or to license any version of it.
+build	Set up Android SDK	2026-02-18T05:16:38.0185088Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0189732Z 6. MODIFICATIONS. This Agreement does not obligate Recipient to provide MIPS with comments or suggestions regarding Evaluation Materials. However, should Recipient provide MIPS with comments or suggestions for the modification, correction, improvement or enhancement of (a) the Evaluation Materials or (b) MIPS products or processes which may embody the Evaluation Materials, then Recipient agrees to grant and hereby grants to MIPS a non-exclusive, irrevocable, worldwide, fully paid-up, royalty-free license, with the right to sublicense MIPS’ licensees and customers, under Recipient’s Intellectual property rights, to use and disclose such comments and suggestions in any manner MIPS chooses and to display, perform, copy, make, have made, use, sell, offer to sell, import, and otherwise dispose of MIPS’ and its sublicensee’s products embodying such comments and suggestions in any manner and via any media MIPS chooses, without reference to the source.
+build	Set up Android SDK	2026-02-18T05:16:38.0193207Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0195289Z 7. WARRANTY DISCLAIMER. MIPS AND ITS SUPPLIERS MAKE NO WARRANTIES WITH RESPECT TO EVALUATION MATERIALS, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ANY IMPLIED WARRANTY OF NONINFRINGEMENT WITH RESPECT TO THIRD PARTY INTELLECTUAL PROPERTY. RECIPIENT ACKNOWLEDGES AND AGREES THAT THE EVALUATION MATERIALS ARE PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND.
+build	Set up Android SDK	2026-02-18T05:16:38.0196933Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0199336Z 8. LIMITATION OF LIABILITY. MIPS AND ITS SUPPLIERS SHALL NOT BE LIABLE FOR ANY PROPERTY DAMAGE, PERSONAL INJURY, LOSS OF PROFITS, INTERRUPTION OF BUSINESS OR FOR ANY DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL OR INCIDENTAL DAMAGES, HOWEVER CAUSED OR ALLEGED, WHETHER FOR BREACH OF WARRANTY, CONTRACT, STRICT LIABILITY OR OTHERWISE, INCLUDING WITHOUT LIMITATION, UNDER TORT OR OTHER LEGAL THEORY. MIPS AND ITS SUPPLIERS DISCLAIM ANY AND ALL LIABILITY, INCLUDING LIABILITY FOR INFRINGEMENT OF ANY INTELLECTUAL PROPERTY RIGHTS OF ANY KIND RELATING TO THE EVALUATION MATERIALS.
+build	Set up Android SDK	2026-02-18T05:16:38.0201524Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0202419Z 9. EXPIRATION. MIPS may terminate this Agreement immediately after a breach by Recipient or otherwise at MIPS’ reasonable discretion and upon five (5) business days’ notice to Recipient.
+build	Set up Android SDK	2026-02-18T05:16:38.0203091Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0203166Z 10. GENERAL.
+build	Set up Android SDK	2026-02-18T05:16:38.0203279Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0207295Z 10.1 Controlling Law. This Agreement shall be governed by California law excluding its choice of law rules. With the exception of MIPS’ rights to enforce its intellectual property rights and any confidentiality obligations under this Agreement or any licenses distributed with the Evaluation Materials, all disputes and any claims arising under or relating to this Agreement shall be subject to the exclusive jurisdiction and venue of the state and federal courts located in Santa Clara County, California. Each party hereby agrees to jurisdiction and venue in the courts set forth in the preceding sentence. The parties agree that the United Nations Convention on Contracts for the International Sale of Goods is specifically excluded from application to this Agreement. The parties consent to the personal jurisdiction of the above courts.
+build	Set up Android SDK	2026-02-18T05:16:38.0210146Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0212286Z 10.2 Remedies. Recipient acknowledges and agrees that any breach of confidentiality obligations under this Agreement or any licenses distributed with the Evaluation Materials, as well as any disclosure, commercialization, or public use of the Evaluation Materials, would cause irreparable injury to MIPS, and therefore Recipient agrees to consent to, and hereby consents to, the grant of an injunction by any court of competent jurisdiction in the event of an actual or threatened breach.
+build	Set up Android SDK	2026-02-18T05:16:38.0213961Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0216447Z 10.3 Assignment. Recipient may not delegate, assign or transfer this Agreement, the license granted or any of Recipient’s rights, obligations, or duties hereunder, expressly, by implication, by operation of law, by way of merger (regardless of whether Recipient is the surviving entity) or acquisition, or otherwise and any attempt to do so, without MIPS’ express prior written consent, shall be ineffective, null and void. MIPS may freely assign this Agreement, and its rights and obligations hereunder, in its sole discretion.
+build	Set up Android SDK	2026-02-18T05:16:38.0218236Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0220160Z 10.4 Entire Agreement. This Agreement constitutes the entire agreement between Recipient and MIPS and supersedes in their entirety any and all oral or written agreements previously existing between Recipient and MIPS with respect to the subject matter hereof. This Agreement may only be amended or supplemented by a writing that refers explicitly to this Agreement and that is signed or otherwise accepted by duly authorized representatives of Recipient and MIPS.
+build	Set up Android SDK	2026-02-18T05:16:38.0222096Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0224004Z 10.5 Severability. In the event that any provision of this Agreement is finally adjudicated to be unenforceable or invalid under any applicable law, such unenforceability or invalidity shall not render this Agreement unenforceable or invalid as a whole, and, in such event, such unenforceable or invalid provision shall be interpreted so as to best accomplish the objectives of such provision within the limits of applicable law or applicable court decisions.
+build	Set up Android SDK	2026-02-18T05:16:38.0225722Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0231960Z 10.6 Export Regulations / Export Control. Recipient shall not export, either directly or indirectly, any product, service or technical data or system incorporating the Evaluation Materials without first obtaining any required license or other necessary approval from the U.S. Department of Commerce or any other governing agency or department of the United States Government. In the event any product is exported from the United States or re-exported from a foreign destination by Recipient, Recipient shall ensure that the distribution and export/re-export or import of the product is in compliance with all applicable laws, regulations, orders, or other restrictions of the U.S. Export Administration Regulations and the appropriate foreign government. Recipient agrees that neither it nor any of its subsidiaries will export/re-export any technical data, process, product, or service, directly or indirectly, to any country for which the United States government or any agency thereof or the foreign government from where it is shipping requires an export license, or other governmental approval, without first obtaining such license or approval. Recipient also agrees to implement measures to ensure that foreign national employees are authorized to receive any information controlled by U.S. export control laws. An export is "deemed" to take place when information is released to a foreign national wherever located.
+build	Set up Android SDK	2026-02-18T05:16:38.0237036Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0241899Z 10.7 Special Terms for Pre-Release Materials. If so indicated in the description of the Evaluation Software, the Evaluation Software may contain Pre-Release Materials. Recipient hereby understands, acknowledges and agrees that: (i) Pre-Release Materials may not be fully tested and may contain bugs or errors; (ii) Pre-Release materials are not suitable for commercial release in their current state; (iii) regulatory approvals for Pre-Release Materials (such as UL or FCC) have not been obtained, and Pre-Release Materials may therefore not be certified for use in certain countries or environments or may not be suitable for certain applications and (iv) MIPS can provide no assurance that it will ever produce or make generally available a production version of the Pre-Release Materials . MIPS is not under any obligation to develop and/or release or offer for sale or license a final product based upon the Pre-Release Materials and may unilaterally elect to abandon the Pre-Release Materials or any such development platform at any time and without any obligation or liability whatsoever to Recipient or any other person.
+build	Set up Android SDK	2026-02-18T05:16:38.0245801Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0246639Z ANY PRE-RELEASE MATERIALS ARE NON-QUALIFIED AND, AS SUCH, ARE PROVIDED “AS IS” AND “AS AVAILABLE”, POSSIBLY WITH FAULTS, AND WITHOUT REPRESENTATION OR WARRANTY OF ANY KIND.
+build	Set up Android SDK	2026-02-18T05:16:38.0247251Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0249938Z 10.8 Open Source Software. In the event Open Source software is included with Evaluation Software, such Open Source software is licensed pursuant to the applicable Open Source software license agreement identified in the Open Source software comments in the applicable source code file(s) and/or file header as indicated in the Evaluation Software. Additional detail may be available (where applicable) in the accompanying on-line documentation. With respect to the Open Source software, nothing in this Agreement limits any rights under, or grants rights that supersede, the terms of any applicable Open Source software license agreement.
+build	Set up Android SDK	2026-02-18T05:16:38.0252319Z ---------------------------------------
+build	Set up Android SDK	2026-02-18T05:16:38.0252655Z Accept? (y/N): All SDK package licenses accepted
+build	Set up Android SDK	2026-02-18T05:16:38.0252871Z 
+build	Set up Android SDK	2026-02-18T05:16:38.0253188Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager platform-tools
+build	Set up Android SDK	2026-02-18T05:16:38.7198562Z Loading package information...                                                  
+build	Set up Android SDK	2026-02-18T05:16:38.8182106Z Loading local repository...                                                     
+build	Set up Android SDK	2026-02-18T05:16:38.8187063Z [                                       ] 3% Loading local repository...        
+build	Set up Android SDK	2026-02-18T05:16:38.8282345Z [                                       ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.1657435Z [=                                      ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.2341057Z [=                                      ] 4% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.2672694Z [=                                      ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.3161076Z [==                                     ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.4065419Z [==                                     ] 6% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.4882935Z [==                                     ] 7% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:39.4885424Z [==                                     ] 7% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:39.5016735Z [===                                    ] 8% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:39.5078180Z [===                                    ] 10% Computing updates...              
+build	Set up Android SDK	2026-02-18T05:16:39.5085663Z [=======================================] 100% Computing updates...             
+build	Set up Android SDK	2026-02-18T05:16:39.5087792Z 
+build	Set up Android SDK	2026-02-18T05:16:39.5553813Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager platforms;android-34
+build	Set up Android SDK	2026-02-18T05:16:40.2707711Z Loading package information...                                                  
+build	Set up Android SDK	2026-02-18T05:16:40.3711512Z Loading local repository...                                                     
+build	Set up Android SDK	2026-02-18T05:16:40.3712566Z [                                       ] 3% Loading local repository...        
+build	Set up Android SDK	2026-02-18T05:16:40.3806465Z [                                       ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:40.6559923Z [=                                      ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:40.7803522Z [=                                      ] 4% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:40.8274336Z [=                                      ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:40.8974545Z [==                                     ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:40.9693256Z [==                                     ] 6% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:41.0602737Z [==                                     ] 7% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:41.0620762Z [==                                     ] 7% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:41.0805794Z [===                                    ] 8% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:41.0881307Z [===                                    ] 10% Computing updates...              
+build	Set up Android SDK	2026-02-18T05:16:41.0882206Z [=======================================] 100% Computing updates...             
+build	Set up Android SDK	2026-02-18T05:16:41.0882605Z 
+build	Set up Android SDK	2026-02-18T05:16:41.1288676Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager build-tools;34.0.0
+build	Set up Android SDK	2026-02-18T05:16:41.8842498Z Loading package information...                                                  
+build	Set up Android SDK	2026-02-18T05:16:41.9804071Z Loading local repository...                                                     
+build	Set up Android SDK	2026-02-18T05:16:41.9806902Z [                                       ] 3% Loading local repository...        
+build	Set up Android SDK	2026-02-18T05:16:41.9901794Z [                                       ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.2971291Z [=                                      ] 3% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.3447100Z [=                                      ] 4% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.3668831Z [=                                      ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.4080927Z [==                                     ] 5% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.4695189Z [==                                     ] 6% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.5164380Z [==                                     ] 7% Fetch remote repository...         
+build	Set up Android SDK	2026-02-18T05:16:42.5165543Z [==                                     ] 7% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:42.5297317Z [===                                    ] 8% Computing updates...               
+build	Set up Android SDK	2026-02-18T05:16:42.5354378Z [===                                    ] 10% Computing updates...              
+build	Set up Android SDK	2026-02-18T05:16:42.5355799Z [=======================================] 100% Computing updates...             
+build	Set up Android SDK	2026-02-18T05:16:42.5359451Z 
+build	Set up Bun	﻿2026-02-18T05:16:42.5749500Z ##[group]Run oven-sh/setup-bun@v1
+build	Set up Bun	2026-02-18T05:16:42.5749781Z with:
+build	Set up Bun	2026-02-18T05:16:42.5749949Z   bun-version: latest
+build	Set up Bun	2026-02-18T05:16:42.5750151Z   no-cache: false
+build	Set up Bun	2026-02-18T05:16:42.5750501Z env:
+build	Set up Bun	2026-02-18T05:16:42.5750786Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Set up Bun	2026-02-18T05:16:42.5751264Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Set up Bun	2026-02-18T05:16:42.5751639Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Set up Bun	2026-02-18T05:16:42.5751920Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Set up Bun	2026-02-18T05:16:42.5752171Z ##[endgroup]
+build	Set up Bun	2026-02-18T05:16:42.6887724Z Downloading a new version of Bun: https://bun.sh/download/latest/linux/x64?avx2=true&profile=false
+build	Set up Bun	2026-02-18T05:16:43.9468388Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/7643719b-4223-423a-8bc9-624170d8a079
+build	Set up Bun	2026-02-18T05:16:44.6954454Z [command]/home/runner/.bun/bin/bun --revision
+build	Set up Bun	2026-02-18T05:16:44.6992438Z 1.3.9+cf6cdbbba
+build	Install Monorepo Dependencies	﻿2026-02-18T05:16:44.7118629Z ##[group]Run cd opencode
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7118957Z [36;1mcd opencode[0m
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7119172Z [36;1mbun install[0m
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7177721Z shell: /usr/bin/bash -e {0}
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7177987Z env:
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7178282Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7178776Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7179179Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7179471Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7179733Z ##[endgroup]
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7296711Z bun install v1.3.9 (cf6cdbbb)
+build	Install Monorepo Dependencies	2026-02-18T05:16:44.7531938Z Resolving dependencies
+build	Install Monorepo Dependencies	2026-02-18T05:16:45.3159004Z Resolved, downloaded and extracted [362]
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6395461Z Saved lockfile
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6395773Z 
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6395912Z $ husky
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6734601Z .git can't be found
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6735107Z + @actions/artifact@5.0.1 (v6.1.0 available)
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6735668Z + @tsconfig/bun@1.0.9 (v1.0.10 available)
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6735976Z + husky@9.1.7
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6736211Z + prettier@3.6.2
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6736427Z + semver@7.7.4
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6736631Z + sst@3.17.23
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6736828Z + turbo@2.5.6
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6737089Z + @aws-sdk/client-s3@3.933.0
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6737458Z + typescript@5.8.2 (v5.9.3 available)
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6737650Z 
+build	Install Monorepo Dependencies	2026-02-18T05:16:53.6737832Z 3798 packages installed [8.94s]
+build	Build Frontend	﻿2026-02-18T05:16:53.7729817Z ##[group]Run cd opencode/packages/app
+build	Build Frontend	2026-02-18T05:16:53.7730163Z [36;1mcd opencode/packages/app[0m
+build	Build Frontend	2026-02-18T05:16:53.7730641Z [36;1mbun run build[0m
+build	Build Frontend	2026-02-18T05:16:53.7780599Z shell: /usr/bin/bash -e {0}
+build	Build Frontend	2026-02-18T05:16:53.7780848Z env:
+build	Build Frontend	2026-02-18T05:16:53.7781147Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Build Frontend	2026-02-18T05:16:53.7781666Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Build Frontend	2026-02-18T05:16:53.7782072Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Build Frontend	2026-02-18T05:16:53.7782347Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Build Frontend	2026-02-18T05:16:53.7782606Z ##[endgroup]
+build	Build Frontend	2026-02-18T05:16:53.7875263Z $ vite build
+build	Build Frontend	2026-02-18T05:16:54.6368254Z [36mvite v7.1.4 [32mbuilding for production...[36m[39m
+build	Build Frontend	2026-02-18T05:16:54.7883467Z transforming...
+build	Build Frontend	2026-02-18T05:16:55.8540713Z [32m✓[39m 33 modules transformed.
+build	Build Frontend	2026-02-18T05:16:55.8578916Z [31m✗[39m Build failed in 1.19s
+build	Build Frontend	2026-02-18T05:16:55.8579532Z [31merror during build:
+build	Build Frontend	2026-02-18T05:16:55.8582049Z [31m[vite:load-fallback] Could not load /home/runner/work/opencode-android-apk/opencode-android-apk/opencode/packages/app/src/components/connect-server (imported by src/app.tsx): ENOENT: no such file or directory, open '/home/runner/work/opencode-android-apk/opencode-android-apk/opencode/packages/app/src/components/connect-server'[31m
+build	Build Frontend	2026-02-18T05:16:55.8583697Z     at async open (node:internal/fs/promises:634:25)
+build	Build Frontend	2026-02-18T05:16:55.8584662Z     at async Object.readFile (node:internal/fs/promises:1236:14)
+build	Build Frontend	2026-02-18T05:16:55.8586060Z     at async Object.handler (file:///home/runner/work/opencode-android-apk/opencode-android-apk/opencode/node_modules/.bun/vite@7.1.4+4ba328f847b7c2e8/node_modules/vite/dist/node/chunks/dep-C6pp_iVS.js:33964:21)
+build	Build Frontend	2026-02-18T05:16:55.8588004Z     at async PluginDriver.hookFirstAndGetPlugin (file:///home/runner/work/opencode-android-apk/opencode-android-apk/opencode/node_modules/.bun/rollup@4.57.1/node_modules/rollup/dist/es/shared/node-entry.js:22430:28)
+build	Build Frontend	2026-02-18T05:16:55.8590367Z     at async file:///home/runner/work/opencode-android-apk/opencode-android-apk/opencode/node_modules/.bun/rollup@4.57.1/node_modules/rollup/dist/es/shared/node-entry.js:21422:33
+build	Build Frontend	2026-02-18T05:16:55.8592411Z     at async Queue.work (file:///home/runner/work/opencode-android-apk/opencode-android-apk/opencode/node_modules/.bun/rollup@4.57.1/node_modules/rollup/dist/es/shared/node-entry.js:22658:32)[39m
+build	Build Frontend	2026-02-18T05:16:55.8738344Z error: script "build" exited with code 1
+build	Build Frontend	2026-02-18T05:16:55.8759032Z ##[error]Process completed with exit code 1.
+build	Post Set up JDK 17	﻿2026-02-18T05:16:55.8884200Z Post job cleanup.
+build	Post Checkout code	﻿2026-02-18T05:16:56.0634153Z Post job cleanup.
+build	Post Checkout code	2026-02-18T05:16:56.1649815Z [command]/usr/bin/git version
+build	Post Checkout code	2026-02-18T05:16:56.1686465Z git version 2.52.0
+build	Post Checkout code	2026-02-18T05:16:56.1736608Z Temporarily overriding HOME='/home/runner/work/_temp/fc6f211a-491b-4986-8171-d120e2515781' before making global git config changes
+build	Post Checkout code	2026-02-18T05:16:56.1738405Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Checkout code	2026-02-18T05:16:56.1753295Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/opencode-android-apk/opencode-android-apk
+build	Post Checkout code	2026-02-18T05:16:56.1791167Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Checkout code	2026-02-18T05:16:56.1826719Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Checkout code	2026-02-18T05:16:56.2074061Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Checkout code	2026-02-18T05:16:56.2096445Z http.https://github.com/.extraheader
+build	Post Checkout code	2026-02-18T05:16:56.2110421Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build	Post Checkout code	2026-02-18T05:16:56.2142669Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Post Checkout code	2026-02-18T05:16:56.2377543Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Post Checkout code	2026-02-18T05:16:56.2413716Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Complete job	﻿2026-02-18T05:16:56.2750666Z Cleaning up orphan processes
