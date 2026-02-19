@@ -1,20 +1,28 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "OpenCode Dev",
-  "identifier": "ai.opencode.desktop.dev",
+  "productName": "OpenCode Mobile",
+  "identifier": "ai.opencode.mobile",
   "mainBinaryName": "OpenCode",
   "version": "../package.json",
   "build": {
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "bun run build",
-    "frontendDist": "../dist"
+    "frontendDist": "../dist",
+    "devtools": true
   },
   "app": {
     "windows": [
       {
         "label": "main",
-        "create": false
+        "title": "OpenCode",
+        "width": 400,
+        "height": 700,
+        "minWidth": 320,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "create": true
       }
     ],
     "withGlobalTauri": true,
@@ -32,8 +40,8 @@
       "icons/dev/icon.ico"
     ],
     "active": true,
-    "targets": ["deb", "rpm", "dmg", "nsis", "app"],
-    "externalBin": ["sidecars/opencode-cli"],
+    "targets": ["apk"],
+    "externalBin": [],
     "linux": {
       "rpm": {
         "compression": {
@@ -50,6 +58,19 @@
         "headerImage": "assets/nsis-header.bmp",
         "sidebarImage": "assets/nsis-sidebar.bmp"
       }
+    },
+    "android": {
+      "icon": [
+        "icons/prod/android/mipmap-mdpi/ic_launcher.png",
+        "icons/prod/android/mipmap-hdpi/ic_launcher.png",
+        "icons/prod/android/mipmap-xhdpi/ic_launcher.png",
+        "icons/prod/android/mipmap-xxhdpi/ic_launcher.png",
+        "icons/prod/android/mipmap-xxxhdpi/ic_launcher.png"
+      ],
+      "package": "ai.opencode.mobile",
+      "versionCode": 1,
+      "minSdkVersion": 24,
+      "targetSdkVersion": 34
     }
   },
   "plugins": {

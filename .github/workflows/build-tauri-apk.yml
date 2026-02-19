@@ -1,0 +1,80 @@
+name: Build Tauri Android APK
+
+on:
+  push:
+    branches:
+      - tauri-android
+    tags:
+      - 'v1.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install dependencies
+        working-directory: ./opencode
+        run: bun install --frozen-lockfile
+
+      - name: Install Tauri CLI
+        working-directory: ./opencode/packages/desktop
+        run: bun add -D @tauri-apps/cli@^2
+
+      - name: Build Tauri APK
+        working-directory: ./opencode/packages/desktop
+        run: |
+          bun run tauri build -- --target aarch64-linux-android --no-bundle
+
+      - name: Find APK
+        id: find-apk
+        run: |
+          APK_PATH=$(find src-tauri/target -name "*.apk" | head -n 1)
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "Found APK: $APK_PATH"
+
+      - name: Rename APK
+        run: |
+          cp "${{ steps.find-apk.outputs.APK_PATH }}" ./opencode-mobile-${{ github.ref_name }}.apk
+          ls -lh ./opencode-mobile-*.apk
+
+      - name: Upload to Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./opencode-mobile-*.apk
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-mobile-apk
+          path: ./opencode-mobile-*.apk
