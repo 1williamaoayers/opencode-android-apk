@@ -61,6 +61,14 @@ jobs:
         working-directory: ./opencode/packages/desktop
         run: bun add -D @tauri-apps/cli@^2
 
+      - name: Initialize Android project
+        working-directory: ./opencode/packages/desktop
+        run: |
+          export NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
+          export ANDROID_NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
+          export PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
+          bun run tauri android init
+
       - name: Build Tauri APK
         working-directory: ./opencode/packages/desktop
         run: |
