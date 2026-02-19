@@ -481,9 +481,17 @@ render(() => {
 
 type ServerReadyData = { url: string; password: string | null }
 
+const isAndroid = () => ostype() === "android"
+
 // Gate component that waits for the server to be ready
 function ServerGate(props: { children: (data: Accessor<ServerReadyData>) => JSX.Element }) {
-  const [serverData] = createResource(() => commands.awaitInitialization(new Channel<InitStep>() as any))
+  const getServerData = () => {
+    if (isAndroid()) {
+      return { url: "https://opencode.ai", password: null }
+    }
+    return commands.awaitInitialization(new Channel<InitStep>() as any)
+  }
+  const [serverData] = createResource(getServerData)
   if (serverData.state === "errored") throw serverData.error
 
   return (

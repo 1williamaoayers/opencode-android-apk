@@ -8,6 +8,9 @@ import "./styles.css"
 import { createEffect, createMemo, createSignal, onCleanup, onMount } from "solid-js"
 import { commands, events, InitStep } from "./bindings"
 import { Channel } from "@tauri-apps/api/core"
+import { type as ostype } from "@tauri-apps/plugin-os"
+
+const isAndroid = () => ostype() === "android"
 
 const root = document.getElementById("root")!
 const lines = ["Just a moment...", "Migrating your database", "This may take a couple of minutes"]
@@ -27,7 +30,11 @@ render(() => {
 
   const channel = new Channel<InitStep>()
   channel.onmessage = (next) => setStep(next)
-  commands.awaitInitialization(channel as any).catch(() => undefined)
+  if (!isAndroid()) {
+    commands.awaitInitialization(channel as any).catch(() => undefined)
+  } else {
+    setStep({ phase: "done" })
+  }
 
   onMount(() => {
     setLine(0)

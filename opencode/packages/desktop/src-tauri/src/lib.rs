@@ -113,6 +113,7 @@ fn get_logs() -> String {
     logging::tail()
 }
 
+#[cfg(not(target_os = "android"))]
 #[tauri::command]
 #[specta::specta]
 async fn await_initialization(
@@ -141,6 +142,20 @@ async fn await_initialization(
         .await
         .0
         .map_err(|_| "Failed to get server status".to_string())?
+}
+
+#[cfg(target_os = "android")]
+#[tauri::command]
+#[specta::specta]
+async fn await_initialization(
+    events: Channel<InitStep>,
+) -> Result<ServerReadyData, String> {
+    let _ = events.send(InitStep::Done);
+
+    Ok(ServerReadyData {
+        url: "https://opencode.ai".to_string(),
+        password: None,
+    })
 }
 
 #[tauri::command]
@@ -538,7 +553,6 @@ pub fn run() {
 
 fn make_specta_builder() -> tauri_specta::Builder<tauri::Wry> {
     tauri_specta::Builder::<tauri::Wry>::new()
-        // Then register them (separated by a comma)
         .commands(tauri_specta::collect_commands![
             kill_sidecar,
             cli::install_cli,
