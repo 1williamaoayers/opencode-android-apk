@@ -67,6 +67,7 @@ jobs:
           export NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
           export ANDROID_NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
           export PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
+          export LIBRARY_PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android:$LIBRARY_PATH"
           bun run tauri build --target aarch64-linux-android
 
       - name: Find APK
