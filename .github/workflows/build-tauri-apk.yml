@@ -64,9 +64,10 @@ jobs:
       - name: Build Tauri APK
         working-directory: ./opencode/packages/desktop
         run: |
+          export NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
+          export ANDROID_NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
+          export PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
           bun run tauri build --target aarch64-linux-android
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Find APK
         id: find-apk
