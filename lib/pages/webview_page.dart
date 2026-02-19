@@ -244,7 +244,6 @@ class _WebViewPageState extends State<WebViewPage> {
                       allowContentAccess: true,
                       supportZoom: true,
                       mediaPlaybackRequiresUserGesture: false,
-                      cacheMode: WebSettings.LOAD_DEFAULT,
                       loadWithOverviewMode: true,
                       allowsInlineMediaPlayback: true,
                       preferredContentMode: UserPreferredContentMode.RECOMMENDED,
