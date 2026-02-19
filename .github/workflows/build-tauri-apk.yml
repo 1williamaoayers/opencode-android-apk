@@ -80,7 +80,10 @@ jobs:
       - name: Find APK
         id: find-apk
         run: |
-          APK_PATH=$(find src-tauri/target -name "*.apk" | head -n 1)
+          APK_PATH=$(find opencode/packages/desktop/src-tauri/gen/android -name "*.apk" | grep -v unsigned | head -n 1)
+          if [ -z "$APK_PATH" ]; then
+            APK_PATH=$(find opencode/packages/desktop/src-tauri/gen/android -name "*.apk" | head -n 1)
+          fi
           echo "APK_PATH=$APK_PATH" >> $GITHUB_OUTPUT
           echo "Found APK: $APK_PATH"
 
