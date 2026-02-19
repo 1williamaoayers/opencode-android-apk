@@ -459,8 +459,6 @@ pub fn run() {
 }
 
 #[cfg(not(target_os = "android"))]
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
     let builder = make_specta_builder();
 
     #[cfg(debug_assertions)] // <- Only export on non-release builds
