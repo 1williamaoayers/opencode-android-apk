@@ -8,8 +8,7 @@
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "bun run build",
-    "frontendDist": "../dist",
-    "devtools": true
+    "frontendDist": "../dist"
   },
   "app": {
     "windows": [
@@ -40,7 +39,7 @@
       "icons/dev/icon.ico"
     ],
     "active": true,
-    "targets": ["apk"],
+    "targets": "all",
     "externalBin": [],
     "linux": {
       "rpm": {
@@ -58,19 +57,6 @@
         "headerImage": "assets/nsis-header.bmp",
         "sidebarImage": "assets/nsis-sidebar.bmp"
       }
-    },
-    "android": {
-      "icon": [
-        "icons/prod/android/mipmap-mdpi/ic_launcher.png",
-        "icons/prod/android/mipmap-hdpi/ic_launcher.png",
-        "icons/prod/android/mipmap-xhdpi/ic_launcher.png",
-        "icons/prod/android/mipmap-xxhdpi/ic_launcher.png",
-        "icons/prod/android/mipmap-xxxhdpi/ic_launcher.png"
-      ],
-      "package": "ai.opencode.mobile",
-      "versionCode": 1,
-      "minSdkVersion": 24,
-      "targetSdkVersion": 34
     }
   },
   "plugins": {
