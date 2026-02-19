@@ -487,8 +487,10 @@ const isAndroid = () => ostype() === "android"
 function ServerGate(props: { children: (data: Accessor<ServerReadyData>) => JSX.Element }) {
   const getServerData = () => {
     if (isAndroid()) {
-      return { url: "https://opencode.ai", password: null }
+      return { url: "", password: null }
     }
+    return commands.awaitInitialization(new Channel<InitStep>() as any)
+  }
     return commands.awaitInitialization(new Channel<InitStep>() as any)
   }
   const [serverData] = createResource(getServerData)
