@@ -4,6 +4,24 @@
 - Local `main` ref may not exist; use `dev` or `origin/dev` for diffs.
 - Prefer automation: execute requested actions without confirmation unless blocked by missing info or safety/irreversibility.
 
+## GitHub Actions Build Rules
+
+### Before Push
+- Always verify code syntax locally before pushing to avoid wasting CI resources
+- Review all conditional compilation blocks carefully
+- Check for matching `#[cfg(...)]` and `#[cfg_attr(...)]` attributes
+
+### During Build Wait
+- When waiting for GitHub Actions builds, report progress every 60 seconds
+- Use `gh run list --branch <branch> --limit 3` to check status
+- If build fails, analyze error logs before making fixes
+
+### Build Failure Handling
+1. First check error logs with `gh run view <run_id> --log-failed`
+2. Analyze root cause before making changes
+3. Apply minimal fix needed
+4. Push and wait for next build
+
 ## Style Guide
 
 ### General Principles
