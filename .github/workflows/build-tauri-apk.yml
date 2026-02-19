@@ -27,6 +27,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Setup Android NDK
+        uses: android-actions/setup-android-ndk@v1
+        with:
+          ndk-version: r26b
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
