@@ -27,10 +27,18 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Android NDK
-        uses: android-actions/setup-android-ndk@v1
-        with:
-          ndk-version: r26b
+      - name: Install Android NDK
+        run: |
+          mkdir -p $ANDROID_HOME/ndk
+          cd $ANDROID_HOME/ndk
+          curl -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r26b-linux.zip
+          unzip -q ndk.zip
+          mv android-ndk-r26b 26b
+          rm ndk.zip
+
+      - name: Set NDK env
+        run: |
+          echo "NDK_HOME=$ANDROID_HOME/ndk/26b" >> $GITHUB_ENV
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
