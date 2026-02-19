@@ -39,6 +39,12 @@ fn configure_display_backend() -> Option<String> {
     Some(decision.note)
 }
 
+#[cfg(target_os = "android")]
+fn main() {
+    opencode_lib::run()
+}
+
+#[cfg(not(target_os = "android"))]
 fn main() {
     // Ensure loopback connections are never sent through proxy settings.
     // Some VPNs/proxies set HTTP_PROXY/HTTPS_PROXY/ALL_PROXY without excluding localhost.

@@ -4,6 +4,7 @@ use crate::{
 };
 use std::{ops::Deref, time::Duration};
 use tauri::{AppHandle, Manager, Runtime, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
+#[cfg(not(target_os = "android"))]
 use tauri_plugin_window_state::AppHandleExt;
 use tokio::sync::mpsc;
 
@@ -145,6 +146,7 @@ impl LoadingWindow {
     }
 }
 
+#[cfg(not(target_os = "android"))]
 fn base_window_config<'a, R: Runtime, M: Manager<R>>(
     window_builder: WebviewWindowBuilder<'a, R, M>,
     _app: &AppHandle,
@@ -170,5 +172,15 @@ fn base_window_config<'a, R: Runtime, M: Manager<R>>(
         .hidden_title(true)
         .traffic_light_position(tauri::LogicalPosition::new(12.0, 18.0));
 
+    window_builder
+}
+
+#[cfg(target_os = "android")]
+fn base_window_config<'a, R: Runtime, M: Manager<R>>(
+    window_builder: WebviewWindowBuilder<'a, R, M>,
+    _app: &AppHandle,
+    _decorations: bool,
+) -> WebviewWindowBuilder<'a, R, M> {
+    // Android: simplified config, no decorations
     window_builder
 }
