@@ -146,17 +146,23 @@ async fn await_initialization(
 fn check_app_exists(app_name: &str) -> bool {
     #[cfg(target_os = "windows")]
     {
-        check_windows_app(app_name)
+        return check_windows_app(app_name);
     }
 
     #[cfg(target_os = "macos")]
     {
-        check_macos_app(app_name)
+        return check_macos_app(app_name);
     }
 
     #[cfg(target_os = "linux")]
     {
-        check_linux_app(app_name)
+        return check_linux_app(app_name);
+    }
+
+    #[cfg(target_os = "android")]
+    {
+        // Android: always return false, no external app launching
+        return false;
     }
 }
 

@@ -34,6 +34,7 @@ impl Deref for MainWindow {
     }
 }
 
+#[cfg(not(target_os = "android"))]
 impl MainWindow {
     pub const LABEL: &str = "main";
 
@@ -84,6 +85,25 @@ impl MainWindow {
     }
 }
 
+#[cfg(target_os = "android")]
+impl MainWindow {
+    pub const LABEL: &str = "main";
+
+    pub fn create(app: &AppHandle) -> Result<Self, tauri::Error> {
+        let decorations = use_decorations();
+        let window_builder = base_window_config(
+            WebviewWindowBuilder::new(app, Self::LABEL, WebviewUrl::App("/".into())),
+            app,
+            decorations,
+        )
+        .visible(true);
+
+        let window = window_builder.build()?;
+        Ok(Self(window))
+    }
+}
+
+#[cfg(not(target_os = "android"))]
 fn setup_window_state_listener(app: &AppHandle, window: &WebviewWindow) {
     let (tx, mut rx) = mpsc::channel::<()>(1);
 
@@ -116,6 +136,11 @@ fn setup_window_state_listener(app: &AppHandle, window: &WebviewWindow) {
     });
 }
 
+#[cfg(target_os = "android")]
+fn setup_window_state_listener(_app: &AppHandle, _window: &WebviewWindow) {
+    // No-op on Android
+}
+
 pub struct LoadingWindow(WebviewWindow);
 
 impl Deref for LoadingWindow {
@@ -126,6 +151,7 @@ impl Deref for LoadingWindow {
     }
 }
 
+#[cfg(not(target_os = "android"))]
 impl LoadingWindow {
     pub const LABEL: &str = "loading";
 
@@ -140,6 +166,25 @@ impl LoadingWindow {
         .center()
         .resizable(false)
         .inner_size(640.0, 480.0)
+        .visible(true);
+
+        Ok(Self(window_builder.build()?))
+    }
+}
+
+#[cfg(target_os = "android")]
+impl LoadingWindow {
+    pub const LABEL: &str = "loading";
+
+    pub fn create(app: &AppHandle) -> Result<Self, tauri::Error> {
+        let decorations = use_decorations();
+
+        let window_builder = base_window_config(
+            WebviewWindowBuilder::new(app, Self::LABEL, tauri::WebviewUrl::App("/loading".into())),
+            app,
+            decorations,
+        )
+        .resizable(false)
         .visible(true);
 
         Ok(Self(window_builder.build()?))
