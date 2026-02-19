@@ -39,6 +39,8 @@ jobs:
       - name: Set NDK env
         run: |
           echo "NDK_HOME=$ANDROID_HOME/ndk/26b" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26b" >> $GITHUB_ENV
+          echo "CC_aarch64_linux_android=$ANDROID_HOME/ndk/26b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang" >> $GITHUB_ENV
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
