@@ -39,8 +39,10 @@ jobs:
       - name: Get previous release tag
         id: prev_release
         run: |
-          if git describe --tags --abbrev=0 >/dev/null 2>&1; then
-            PREV_TAG=$(git describe --tags --abbrev=0)
+          # 获取远程最新 tag
+          git fetch --tags
+          if git describe --tags --abbrev=0 origin/master >/dev/null 2>&1; then
+            PREV_TAG=$(git describe --tags --abbrev=0 origin/master)
             echo "previous_tag=$PREV_TAG" >> $GITHUB_OUTPUT
           else
             echo "previous_tag=v0.0.0" >> $GITHUB_OUTPUT
@@ -82,7 +84,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git tag ${{ steps.version.outputs.new_version }}
-          git push origin ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }} || echo "Tag already exists, skipping"
 
       - name: Upload APK to Release
         uses: softprops/action-gh-release@v2
