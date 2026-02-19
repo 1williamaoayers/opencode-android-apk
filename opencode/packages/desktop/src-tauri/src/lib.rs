@@ -437,6 +437,8 @@ fn wsl_path(path: String, mode: Option<WslPathMode>) -> Result<String, String> {
 #[cfg(target_os = "android")]
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let builder = make_specta_builder();
+
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_store::Builder::new().build())
@@ -447,6 +449,7 @@ pub fn run() {
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_notification::init())
+        .invoke_handler(builder.invoke_handler())
         .setup(|app| {
             let handle = app.handle().clone();
             let log_dir = app
