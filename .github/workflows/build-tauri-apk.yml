@@ -87,16 +87,25 @@ jobs:
           echo "APK_PATH=$APK_PATH" >> $GITHUB_OUTPUT
           echo "Found APK: $APK_PATH"
 
-      - name: Rename APK
+      - name: Sign APK
         run: |
-          cp "${{ steps.find-apk.outputs.APK_PATH }}" ./opencode-mobile-${{ github.ref_name }}.apk
-          ls -lh ./opencode-mobile-*.apk
+          # 生成签名密钥（如果不存在）
+          if [ ! -f keystore.jks ]; then
+            keytool -genkey -v -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias opencode -dname "CN=OpenCode, OU=Mobile, O=OpenCode, L=Unknown, ST=Unknown, C=US" -storepass opencode -keypass opencode
+          fi
+          # 找到APK并签名
+          APK_PATH="${{ steps.find-apk.outputs.APK_PATH }}"
+          SIGNED_APK="./opencode-mobile-${{ github.ref_name }}-signed.apk"
+          ${ANDROID_HOME}/build-tools/34.0.0/apksigner sign --ks keystore.jks --ks-pass pass:opencode --key-pass pass:opencode --out "$SIGNED_APK" "$APK_PATH"
+          ls -lh "$SIGNED_APK"
+          # 验证签名
+          ${ANDROID_HOME}/build-tools/34.0.0/apksigner verify "$SIGNED_APK"
 
       - name: Upload to Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: ./opencode-mobile-*.apk
+          files: ./opencode-mobile-*-signed.apk
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
           make_latest: true
@@ -107,4 +116,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: opencode-mobile-apk
-          path: ./opencode-mobile-*.apk
+          path: ./opencode-mobile-*-signed.apk
