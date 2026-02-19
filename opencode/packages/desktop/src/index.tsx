@@ -491,8 +491,6 @@ function ServerGate(props: { children: (data: Accessor<ServerReadyData>) => JSX.
     }
     return commands.awaitInitialization(new Channel<InitStep>() as any)
   }
-    return commands.awaitInitialization(new Channel<InitStep>() as any)
-  }
   const [serverData] = createResource(getServerData)
   if (serverData.state === "errored") throw serverData.error
 
