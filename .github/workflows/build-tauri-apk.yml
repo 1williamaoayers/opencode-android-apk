@@ -31,7 +31,7 @@ jobs:
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r25b
+          ndk-version: r26b
           local-cache: true
 
       - name: Restore Android Symlinks
@@ -67,6 +67,7 @@ jobs:
           export NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
           export ANDROID_NDK_HOME="${{ steps.setup-ndk.outputs.ndk-path }}"
           export PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/aarch64-linux-android/bin:${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
+          export LIBRARY_PATH="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android:${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/lib/aarch64-linux-android:$LIBRARY_PATH"
           bun run tauri build --target aarch64-linux-android
 
       - name: Find APK
