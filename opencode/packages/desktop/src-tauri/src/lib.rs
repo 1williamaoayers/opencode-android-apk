@@ -577,6 +577,7 @@ fn test_export_types() {
 #[derive(tauri_specta::Event, serde::Deserialize, specta::Type)]
 struct LoadingWindowComplete;
 
+#[cfg(not(target_os = "android"))]
 async fn initialize(app: AppHandle) {
     tracing::info!("Initializing app");
 
