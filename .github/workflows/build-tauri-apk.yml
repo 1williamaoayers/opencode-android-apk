@@ -27,24 +27,21 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android NDK
-        run: |
-          mkdir -p $ANDROID_HOME/ndk
-          cd $ANDROID_HOME/ndk
-          curl -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r26b-linux.zip
-          unzip -q ndk.zip
-          mv android-ndk-r26b 26b
-          rm ndk.zip
+      - name: Setup NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r25b
+          local-cache: true
 
-      - name: Set NDK env
+      - name: Restore Android Symlinks
         run: |
-          NDK_TOOLCHAIN="$ANDROID_HOME/ndk/26b/toolchains/llvm/prebuilt/linux-x86_64/bin"
-          echo "NDK_HOME=$ANDROID_HOME/ndk/26b" >> $GITHUB_ENV
-          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26b" >> $GITHUB_ENV
-          echo "PATH=$NDK_TOOLCHAIN:$PATH" >> $GITHUB_ENV
-          echo "CC_aarch64_linux_android=$NDK_TOOLCHAIN/aarch64-linux-android33-clang" >> $GITHUB_ENV
-          echo "AR_aarch64_linux_android=$NDK_TOOLCHAIN/aarch64-linux-android-ar" >> $GITHUB_ENV
-          echo "CXX_aarch64_linux_android=$NDK_TOOLCHAIN/aarch64-linux-android33-clang++" >> $GITHUB_ENV
+          directory="${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          find "$directory" -type l | while read link; do
+              current_target=$(readlink "$link")
+              new_target="$directory/$(basename "$current_target")"
+              ln -sf "$new_target" "$link"
+          done
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -68,6 +65,8 @@ jobs:
         working-directory: ./opencode/packages/desktop
         run: |
           bun run tauri build --target aarch64-linux-android
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Find APK
         id: find-apk
