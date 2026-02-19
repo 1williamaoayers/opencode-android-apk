@@ -19,16 +19,25 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.opencode.mobile"
+        applicationId = "com.ocode.app"
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("ocode.keystore")
+            storePassword = "ocode123"
+            keyAlias = "ocode"
+            keyPassword = "ocode123"
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
