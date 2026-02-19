@@ -8,6 +8,7 @@ mod logging;
 mod markdown;
 mod server;
 mod window_customizer;
+#[cfg(not(target_os = "android"))]
 mod windows;
 
 use crate::cli::CommandChild;
@@ -35,6 +36,7 @@ use tokio::{
 use crate::cli::{sqlite_migration::SqliteMigrationProgress, sync_cli};
 use crate::constants::*;
 use crate::server::get_saved_server_url;
+#[cfg(not(target_os = "android"))]
 use crate::windows::{LoadingWindow, MainWindow};
 
 #[derive(Clone, serde::Serialize, specta::Type, Debug)]
