@@ -530,7 +530,6 @@ pub fn run() {
             }
         });
 }
-}
 
 fn make_specta_builder() -> tauri_specta::Builder<tauri::Wry> {
     tauri_specta::Builder::<tauri::Wry>::new()
