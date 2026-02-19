@@ -1,6 +1,10 @@
 name: Build Android APK
 
 on:
+  push:
+    branches:
+      - master
+      - main
   workflow_dispatch:
 
 permissions:
@@ -32,6 +36,32 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Get previous release tag
+        id: prev_release
+        run: |
+          if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+            PREV_TAG=$(git describe --tags --abbrev=0)
+            echo "previous_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+          else
+            echo "previous_tag=v0.0.0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Bump version
+        id: version
+        run: |
+          PREV_TAG=${{ steps.prev_release.outputs.previous_tag }}
+          # 提取版本号并递增
+          VERSION=$(echo $PREV_TAG | sed 's/^v//')
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+          
+          # 自动递增 patch 版本
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="v$MAJOR.$MINOR.$PATCH"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Bumping version: $PREV_TAG -> $NEW_VERSION"
+
       - name: Build Release APK
         run: flutter build apk --release
 
@@ -47,12 +77,19 @@ jobs:
             exit 1
           fi
 
+      - name: Create Git Tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }}
+
       - name: Upload APK to Release
         uses: softprops/action-gh-release@v2
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
-          name: Release ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
+          name: ${{ steps.version.outputs.new_version }}
+          tag_name: ${{ steps.version.outputs.new_version }}
           make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
