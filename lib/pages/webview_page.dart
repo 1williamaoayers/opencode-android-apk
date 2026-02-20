@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:mime/mime.dart';
-import '../utils/resource_cache.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -25,12 +23,10 @@ class _WebViewPageState extends State<WebViewPage> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    ResourceCache.init();
     
     _pullToRefreshController = PullToRefreshController(
       settings: PullToRefreshSettings(
         color: const Color(0xFF007ACC),
-        backgroundColor: const Color(0xFF1E1E1E),
       ),
       onRefresh: () async {
         await _controller?.reload();
@@ -92,8 +88,8 @@ class _WebViewPageState extends State<WebViewPage> {
                   javaScriptCanOpenWindowsAutomatically: true,
                   domStorageEnabled: true,
                   databaseEnabled: true,
-                  useShouldInterceptRequest: true,
-                  transparentBackground: true,
+                  clearCache: true,
+                  cacheMode: WebSettings.LOAD_DEFAULT,
                   safeBrowsingEnabled: false,
                   mixedContentMode: MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
                   useHybridComposition: true,
@@ -101,15 +97,13 @@ class _WebViewPageState extends State<WebViewPage> {
                   allowContentAccess: true,
                   supportZoom: true,
                   mediaPlaybackRequiresUserGesture: false,
-                  loadWithOverviewMode: false,
                   allowsInlineMediaPlayback: true,
-                  preferredContentMode: UserPreferredContentMode.DESKTOP,
-                  verticalScrollBarEnabled: true,
-                  horizontalScrollBarEnabled: true,
                 ),
                 pullToRefreshController: _pullToRefreshController,
                 onWebViewCreated: (controller) {
                   _controller = controller;
+                  // 清除所有缓存
+                  controller.clearCache();
                 },
                 onProgressChanged: (controller, progress) {
                   if (mounted) {
@@ -118,38 +112,6 @@ class _WebViewPageState extends State<WebViewPage> {
                       _loading = progress < 100;
                     });
                   }
-                },
-                shouldInterceptRequest: (controller, request) async {
-                  final uri = request.url;
-                  
-                  if (ResourceCache.isCacheable(uri)) {
-                    final cachedData = await ResourceCache.load(uri);
-                    if (cachedData != null) {
-                      return WebResourceResponse(
-                        data: cachedData,
-                        contentType: lookupMimeType(uri.path) ?? 'application/octet-stream',
-                        contentEncoding: 'binary',
-                        headers: {
-                          'Access-Control-Allow-Origin': '*',
-                          'Cache-Control': 'max-age=31536000',
-                        },
-                      );
-                    }
-                    
-                    final downloadedData = await ResourceCache.downloadAndCache(uri);
-                    if (downloadedData != null) {
-                      return WebResourceResponse(
-                        data: downloadedData,
-                        contentType: lookupMimeType(uri.path) ?? 'application/octet-stream',
-                        contentEncoding: 'binary',
-                        headers: {
-                          'Access-Control-Allow-Origin': '*',
-                        },
-                      );
-                    }
-                  }
-                  
-                  return null;
                 },
                 onReceivedError: (controller, request, error) {
                   debugPrint('WebView Error: ${error.description}');
