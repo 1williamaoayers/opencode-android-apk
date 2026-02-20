@@ -214,32 +214,30 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
 
-              // ─── Small circle icon toggle (top title-bar empty area) ──────
-              // The web UI's top bar has ≡ on far-left and search on far-right.
-              // The middle zone (roughly left:60~320) is always empty — safe to
-              // overlay a small 30px circle button there without blocking any
-              // web UI controls.
-              Positioned(
-                top: 10,
-                left: 90,
-                child: GestureDetector(
-                  onTap: _toggleViewMode,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.12),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.22),
-                        width: 1.0,
+              // ─── Toggle: left-edge center, transparent ghost circle ──────
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: GestureDetector(
+                    onTap: _toggleViewMode,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.18),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.28),
+                          width: 1.0,
+                        ),
                       ),
-                    ),
-                    child: Icon(
-                      _isDesktopMode ? Icons.smartphone_rounded : Icons.desktop_windows_rounded,
-                      color: Colors.white.withValues(alpha: 0.70),
-                      size: 15,
+                      child: Icon(
+                        _isDesktopMode ? Icons.smartphone_rounded : Icons.desktop_windows_rounded,
+                        color: Colors.white.withValues(alpha: 0.85),
+                        size: 16,
+                      ),
                     ),
                   ),
                 ),
