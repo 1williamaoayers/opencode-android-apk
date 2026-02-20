@@ -173,7 +173,7 @@ class _WebViewPageState extends State<WebViewPage> {
                 onReceivedError: (controller, request, error) {
                 debugPrint('WebView Error: ${error.description}');
                 // 只在主框架加载失败时才显示满屏红底错误
-                if (request.isForMainFrame) {
+                if (request.isForMainFrame == true) {
                   if (mounted) {
                     setState(() {
                       _errorMessage = error.description;
