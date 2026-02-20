@@ -111,6 +111,8 @@ jobs:
           TAG=$(git describe --tags --abbrev=0 origin/master 2>/dev/null || echo "${{ steps.version.outputs.new_version }}")
           echo "Uploading release for tag: $TAG"
           
+          # Create release if not exists, then upload
+          gh release create "$TAG" --title "$TAG" --notes "Auto-built APK" || true
           gh release upload "$TAG" build/app/outputs/flutter-apk/app-release.apk --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
