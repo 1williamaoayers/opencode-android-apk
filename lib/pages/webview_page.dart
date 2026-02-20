@@ -49,16 +49,6 @@ class _WebViewPageState extends State<WebViewPage> {
     super.dispose();
   }
 
-  Map<String, String>? _buildHeaders() {
-    if (widget.username != null && widget.username!.isNotEmpty && 
-        widget.password != null && widget.password!.isNotEmpty) {
-      final credentials = '${widget.username}:${widget.password}';
-      final basicAuth = base64Encode(utf8.encode(credentials));
-      return {'Authorization': 'Basic $basicAuth'};
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -102,7 +92,6 @@ class _WebViewPageState extends State<WebViewPage> {
               InAppWebView(
                 initialUrlRequest: URLRequest(
                   url: WebUri(widget.url),
-                  headers: _buildHeaders(),
                 ),
                 initialSettings: InAppWebViewSettings(
                   javaScriptEnabled: true,
@@ -122,6 +111,17 @@ class _WebViewPageState extends State<WebViewPage> {
                 pullToRefreshController: _pullToRefreshController,
                 onWebViewCreated: (controller) {
                   _controller = controller;
+                },
+                onReceivedHttpAuthRequest: (controller, challenge) async {
+                  if (widget.username != null && widget.username!.isNotEmpty && 
+                      widget.password != null && widget.password!.isNotEmpty) {
+                    return HttpAuthResponse(
+                      username: widget.username!,
+                      password: widget.password!,
+                      action: HttpAuthResponseAction.PROCEED,
+                    );
+                  }
+                  return HttpAuthResponse(action: HttpAuthResponseAction.CANCEL);
                 },
                 onLoadStop: (controller, url) async {
                   // Inject CSS to optimize mobile layout automatically
