@@ -254,49 +254,50 @@ class _WebViewPageState extends State<WebViewPage> {
                   curve: Curves.easeOut,
                   child: GestureDetector(
                     onTap: () {
-                      // If faded out, first tap just reveals, second tap toggles
+                      // If faded, first tap reveals; second tap toggles
                       if (_buttonOpacity < 0.5) {
                         _resetHideTimer();
                       } else {
                         _toggleViewMode();
                       }
                     },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: _isDesktopMode
-                          ? const Color(0xFF007ACC).withOpacity(0.92)
-                          : const Color(0xFF3C8A2E).withOpacity(0.92),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.35),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          _isDesktopMode ? Icons.desktop_windows_rounded : Icons.smartphone_rounded,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          _isDesktopMode ? '桌面视图' : '手机视图',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.3,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: _isDesktopMode
+                            ? const Color(0xFF007ACC).withValues(alpha: 0.92)
+                            : const Color(0xFF3C8A2E).withValues(alpha: 0.92),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.35),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            _isDesktopMode ? Icons.desktop_windows_rounded : Icons.smartphone_rounded,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            _isDesktopMode ? '桌面视图' : '手机视图',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.3,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
