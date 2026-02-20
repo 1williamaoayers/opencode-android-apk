@@ -141,21 +141,36 @@ class _WebViewPageState extends State<WebViewPage> {
                   // Inject CSS to optimize mobile layout automatically
                   await controller.evaluateJavascript(source: """
                     (function() {
+                      // 1. Force strict mobile viewport boundaries
+                      var meta = document.querySelector('meta[name="viewport"]');
+                      if (!meta) {
+                        meta = document.createElement('meta');
+                        meta.name = 'viewport';
+                        document.head.appendChild(meta);
+                      }
+                      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover';
+
+                      // 2. Inject mobile specific CSS hacks (Injection Strategy)
                       if (document.getElementById('opencode-mobile-tweaks')) return;
                       var style = document.createElement('style');
                       style.id = 'opencode-mobile-tweaks';
                       style.innerHTML = `
                         /* Global Touch Optimizations */
-                        * { -webkit-tap-highlight-color: transparent; }
+                        * { -webkit-tap-highlight-color: transparent !important; }
                         
-                        /* Hide desktop-specific scrollbars where possible to save space */
-                        ::-webkit-scrollbar { width: 4px; height: 4px; }
+                        /* Enforce exact device screen height to prevent soft-keyboard squeeze */
+                        html, body, #root { 
+                          height: 100dvh !important;
+                          min-height: 100dvh !important;
+                          max-height: 100dvh !important;
+                          overflow: hidden !important; 
+                        }
                         
-                        /* Adjust monaco editor or similar to not break layout on mobile */
-                        .monaco-editor { width: 100% !important; }
+                        /* Hide bulky desktop-specific scrollbars */
+                        ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
                         
-                        /* Example: hide bulky sidebars if they use standard classes, 
-                           OpenCode specific tweaks can be added here */
+                        /* Give deep chat input areas safe-area spacing at the very bottom */
+                        .pb-4 { padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important; }
                       `;
                       document.head.appendChild(style);
                     })();
