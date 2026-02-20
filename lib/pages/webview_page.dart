@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,14 +27,16 @@ class _WebViewPageState extends State<WebViewPage> {
   bool _loading = true;
   DateTime? _lastBackPressTime;
   String? _errorMessage;
-  // true = Desktop Mode (1200px wide, see all 3 panels)
-  // false = Mobile Mode (device-width, best for typing)
   bool _isDesktopMode = true;
+  // Auto-hide toggle button
+  double _buttonOpacity = 1.0;
+  Timer? _hideTimer;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    _resetHideTimer(); // Start the auto-hide countdown immediately
 
     _pullToRefreshController = PullToRefreshController(
       settings: PullToRefreshSettings(
@@ -48,8 +51,17 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   void dispose() {
+    _hideTimer?.cancel();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
+  }
+
+  void _resetHideTimer() {
+    _hideTimer?.cancel();
+    if (mounted) setState(() => _buttonOpacity = 1.0);
+    _hideTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted) setState(() => _buttonOpacity = 0.12);
+    });
   }
 
   Map<String, String>? _buildHeaders() {
@@ -108,6 +120,7 @@ class _WebViewPageState extends State<WebViewPage> {
     setState(() {
       _isDesktopMode = !_isDesktopMode;
     });
+    _resetHideTimer(); // Show the button again briefly after switching
     await _applyViewport();
   }
 
@@ -231,12 +244,23 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
 
-              // ─── Toggle Button (bottom-left, away from web UI action buttons) ──
+              // ─── Toggle Button (auto-hides to 12% opacity after 3s) ───
               Positioned(
                 bottom: 20,
                 left: 16,
-                child: GestureDetector(
-                  onTap: _toggleViewMode,
+                child: AnimatedOpacity(
+                  opacity: _buttonOpacity,
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.easeOut,
+                  child: GestureDetector(
+                    onTap: () {
+                      // If faded out, first tap just reveals, second tap toggles
+                      if (_buttonOpacity < 0.5) {
+                        _resetHideTimer();
+                      } else {
+                        _toggleViewMode();
+                      }
+                    },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
