@@ -116,6 +116,8 @@ class _WebViewPageState extends State<WebViewPage> {
                   allowFileAccess: true,
                   allowContentAccess: true,
                   supportZoom: true,
+                  builtInZoomControls: true,
+                  displayZoomControls: false,
                   mediaPlaybackRequiresUserGesture: false,
                   allowsInlineMediaPlayback: true,
                 ),
@@ -141,16 +143,17 @@ class _WebViewPageState extends State<WebViewPage> {
                   // Inject CSS to optimize mobile layout automatically
                   await controller.evaluateJavascript(source: """
                     (function() {
-                      // 1. Force strict mobile viewport boundaries
+                      // 1. Trick the web app into rendering the desktop view & allow zooming
                       var meta = document.querySelector('meta[name="viewport"]');
                       if (!meta) {
                         meta = document.createElement('meta');
                         meta.name = 'viewport';
                         document.head.appendChild(meta);
                       }
-                      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover';
+                      // width=1200 forces tailwind desktop breakpoint, user-scalable=yes allows zoom
+                      meta.content = 'width=1200, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover';
 
-                      // 2. Inject mobile specific CSS hacks (Injection Strategy)
+                      // 2. Inject mobile specific CSS hacks (Pan & Zoom Strategy)
                       if (document.getElementById('opencode-mobile-tweaks')) return;
                       var style = document.createElement('style');
                       style.id = 'opencode-mobile-tweaks';
@@ -158,15 +161,7 @@ class _WebViewPageState extends State<WebViewPage> {
                         /* Global Touch Optimizations */
                         * { -webkit-tap-highlight-color: transparent !important; }
                         
-                        /* Enforce exact device screen height to prevent soft-keyboard squeeze */
-                        html, body, #root { 
-                          height: 100dvh !important;
-                          min-height: 100dvh !important;
-                          max-height: 100dvh !important;
-                          overflow: hidden !important; 
-                        }
-                        
-                        /* Hide bulky desktop-specific scrollbars */
+                        /* Hide bulky desktop-specific scrollbars but keep scrolling functional */
                         ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
                         
                         /* Give deep chat input areas safe-area spacing at the very bottom */
