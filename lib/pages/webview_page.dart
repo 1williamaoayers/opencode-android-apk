@@ -171,16 +171,19 @@ class _WebViewPageState extends State<WebViewPage> {
                   }
                 },
                 onReceivedError: (controller, request, error) {
-                  debugPrint('WebView Error: ${error.description}');
+                debugPrint('WebView Error: ${error.description}');
+                // 只在主框架加载失败时才显示满屏红底错误
+                if (request.isForMainFrame) {
                   if (mounted) {
                     setState(() {
                       _errorMessage = error.description;
                     });
                   }
-                },
-                onReceivedHttpError: (controller, request, errorResponse) {
-                  debugPrint('HTTP Error: ${errorResponse.statusCode} - ${errorResponse.reasonPhrase}');
-                },
+                }
+              },
+              onReceivedHttpError: (controller, request, errorResponse) {
+                debugPrint('HTTP Error: ${errorResponse.statusCode} - ${errorResponse.reasonPhrase}');
+              },
               ),
               
               if (_loading)
