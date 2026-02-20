@@ -33,3 +33,7 @@ opencode/node_modules/
 opencode/.turbo/
 opencode/packages/*/node_modules/
 opencode/packages/*/.turbo/
+
+# Playwright test artifacts
+playwright-test/node_modules/
+playwright-test/package-lock.json
