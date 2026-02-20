@@ -98,7 +98,6 @@ class _WebViewPageState extends State<WebViewPage> {
                   supportZoom: true,
                   mediaPlaybackRequiresUserGesture: false,
                   allowsInlineMediaPlayback: true,
-                  disablesWebViewContextMenu: false,
                 ),
                 pullToRefreshController: _pullToRefreshController,
                 onWebViewCreated: (controller) {
