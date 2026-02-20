@@ -42,10 +42,10 @@ jobs:
       - name: Get previous release tag
         id: prev_release
         run: |
-          # 获取远程最新 tag
-          git fetch --tags
-          if git describe --tags --abbrev=0 origin/master >/dev/null 2>&1; then
-            PREV_TAG=$(git describe --tags --abbrev=0 origin/master)
+          # 获取完整 git 历史
+          git fetch --unshallow --tags
+          if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+            PREV_TAG=$(git describe --tags --abbrev=0)
             echo "previous_tag=$PREV_TAG" >> $GITHUB_OUTPUT
           else
             echo "previous_tag=v0.0.0" >> $GITHUB_OUTPUT
