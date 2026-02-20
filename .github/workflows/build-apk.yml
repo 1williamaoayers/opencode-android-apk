@@ -86,15 +86,29 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git tag ${{ steps.version.outputs.new_version }}
-          git push origin ${{ steps.version.outputs.new_version }} || echo "Tag already exists, skipping"
+          
+          NEW_VERSION="${{ steps.version.outputs.new_version }}"
+          TAG_EXISTS=$(git ls-remote --tags origin $NEW_VERSION 2>/dev/null | wc -l)
+          
+          if [ "$TAG_EXISTS" -gt 0 ]; then
+            # Tag exists, increment until we find a free one
+            VERSION_NUM=$(echo $NEW_VERSION | sed 's/^v//')
+            while [ "$TAG_EXISTS" -gt 0 ]; do
+              VERSION_NUM=$(echo $VERSION_NUM | awk -F. '{print $1"."$2"."$3+1}')
+              NEW_VERSION="v$VERSION_NUM"
+              TAG_EXISTS=$(git ls-remote --tags origin $NEW_VERSION 2>/dev/null | wc -l)
+            done
+            echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "Bumped to: $NEW_VERSION"
+          fi
+          
+          git tag $NEW_VERSION
+          git push origin $NEW_VERSION || echo "Push failed but continuing..."
 
       - name: Upload APK to Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: build/app/outputs/flutter-apk/app-release.apk
-          name: ${{ steps.version.outputs.new_version }}
-          tag_name: ${{ steps.version.outputs.new_version }}
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the actual tag that was pushed
+          TAG=$(git describe --tags --abbrev=0 origin/master 2>/dev/null || echo "${{ steps.version.outputs.new_version }}")
+          echo "Uploading release for tag: $TAG"
+          
+          gh release upload "$TAG" build/app/outputs/flutter-apk/app-release.apk --clobber || echo "Release upload failed"
