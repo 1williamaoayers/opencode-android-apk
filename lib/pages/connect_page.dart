@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../utils/storage.dart';
 import 'webview_page.dart';
 
@@ -11,7 +13,11 @@ class ConnectPage extends StatefulWidget {
 
 class _ConnectPageState extends State<ConnectPage> {
   final _urlController = TextEditingController();
-  List<String> _history = [];
+  final _userController = TextEditingController();
+  final _pwdController = TextEditingController();
+  List<ServerConfig> _history = [];
+  bool _connecting = false;
+  final _dio = Dio();
 
   @override
   void initState() {
@@ -20,11 +26,15 @@ class _ConnectPageState extends State<ConnectPage> {
   }
 
   Future<void> _loadData() async {
-    final lastUrl = await Storage.getLastUrl();
+    final lastConfig = await Storage.getLastConfig();
     final history = await Storage.getHistory();
     if (mounted) {
       setState(() {
-        if (lastUrl != null) _urlController.text = lastUrl;
+        if (lastConfig != null) {
+          _urlController.text = lastConfig.url;
+          _userController.text = lastConfig.username ?? '';
+          _pwdController.text = lastConfig.password ?? '';
+        }
         _history = history;
       });
     }
@@ -36,31 +46,81 @@ class _ConnectPageState extends State<ConnectPage> {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'http://$url';
     }
-    // 移除末尾斜杠
     if (url.endsWith('/')) url = url.substring(0, url.length - 1);
     return url;
   }
 
-  Future<void> _connect([String? urlOverride]) async {
-    final url = _normalizeUrl(urlOverride ?? _urlController.text);
+  Future<void> _connect([ServerConfig? configOverride]) async {
+    final url = _normalizeUrl(configOverride?.url ?? _urlController.text);
+    final user = configOverride?.username ?? _userController.text.trim();
+    final pwd = configOverride?.password ?? _pwdController.text.trim();
+
     if (url.isEmpty) {
       _showError('请输入服务器地址');
       return;
     }
 
-    // 保存到历史
-    await Storage.addToHistory(url);
+    setState(() => _connecting = true);
 
-    if (mounted) {
-      // 直接跳转 WebView，不做健康检查（WebView 自带加载进度条）
+    try {
+      // Pre-flight check
+      final String? basicAuth = (user.isNotEmpty && pwd.isNotEmpty)
+          ? 'Basic ${base64Encode(utf8.encode('$user:$pwd'))}'
+          : null;
+
+      _dio.options.headers = {};
+      if (basicAuth != null) {
+        _dio.options.headers['Authorization'] = basicAuth;
+      }
+      
+      _dio.options.connectTimeout = const Duration(seconds: 5);
+      _dio.options.receiveTimeout = const Duration(seconds: 5);
+      _dio.options.validateStatus = (status) => true; // Handle all statuses
+
+      final response = await _dio.get(url);
+
+      if (!mounted) return;
+
+      if (response.statusCode == 401) {
+        _showError('认证失败：用户名或密码错误');
+        setState(() => _connecting = false);
+        return;
+      } else if (response.statusCode == null || response.statusCode! >= 500) {
+        _showError('无法连接到服务器 (${response.statusCode ?? '网络异常'})');
+        setState(() => _connecting = false);
+        return;
+      }
+
+      // Success, save history and navigate
+      final finalConfig = ServerConfig(
+        url: url,
+        username: user.isEmpty ? null : user,
+        password: pwd.isEmpty ? null : pwd,
+      );
+
+      await Storage.addToHistory(finalConfig);
+
+      setState(() => _connecting = false);
+      
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => WebViewPage(url: url),
+          builder: (_) => WebViewPage(
+            url: url,
+            username: finalConfig.username,
+            password: finalConfig.password,
+          ),
         ),
       );
-      // 返回后刷新历史
+      
       _loadData();
+
+    } catch (e) {
+      debugPrint('Connection error: $e');
+      if (mounted) {
+        _showError('连接超时或无法访问该地址');
+        setState(() => _connecting = false);
+      }
     }
   }
 
@@ -83,6 +143,8 @@ class _ConnectPageState extends State<ConnectPage> {
   @override
   void dispose() {
     _urlController.dispose();
+    _userController.dispose();
+    _pwdController.dispose();
     super.dispose();
   }
 
@@ -99,7 +161,6 @@ class _ConnectPageState extends State<ConnectPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Logo
                   const Text(
                     'OpenCode',
                     textAlign: TextAlign.center,
@@ -121,36 +182,62 @@ class _ConnectPageState extends State<ConnectPage> {
                   ),
                   const SizedBox(height: 48),
 
-                  // URL Input
                   TextField(
                     controller: _urlController,
                     decoration: const InputDecoration(
                       labelText: 'Server URL',
-                      hintText: 'http://192.168.1.x:3306',
+                      hintText: 'http://192.168.1.x:3000',
                       prefixIcon: Icon(Icons.dns_outlined, size: 20),
                     ),
                     keyboardType: TextInputType.url,
-                    textInputAction: TextInputAction.go,
-                    onSubmitted: (_) => _connect(),
+                    textInputAction: TextInputAction.next,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '输入 OpenCode 服务器地址，包含端口号',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white.withOpacity(0.3),
-                    ),
+                  const SizedBox(height: 16),
+                  
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _userController,
+                          decoration: const InputDecoration(
+                            labelText: 'Username (Optional)',
+                            prefixIcon: Icon(Icons.person_outline, size: 20),
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: TextField(
+                          controller: _pwdController,
+                          decoration: const InputDecoration(
+                            labelText: 'Password (Optional)',
+                            prefixIcon: Icon(Icons.lock_outline, size: 20),
+                          ),
+                          obscureText: true,
+                          textInputAction: TextInputAction.go,
+                          onSubmitted: (_) => _connect(),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
 
-                  // Connect Button
                   ElevatedButton(
-                    onPressed: () => _connect(),
-                    child: const Text('Connect'),
+                    onPressed: _connecting ? null : () => _connect(),
+                    child: _connecting
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
+                        : const Text('Connect'),
                   ),
                   const SizedBox(height: 32),
 
-                  // History
                   if (_history.isNotEmpty) ...[
                     Row(
                       children: [
@@ -171,7 +258,7 @@ class _ConnectPageState extends State<ConnectPage> {
                     ),
                     const SizedBox(height: 8),
                     ...List.generate(_history.length, (i) {
-                      final url = _history[i];
+                      final config = _history[i];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 4),
                         child: Material(
@@ -179,8 +266,8 @@ class _ConnectPageState extends State<ConnectPage> {
                           borderRadius: BorderRadius.circular(6),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
-                            onTap: () => _connect(url),
-                            onLongPress: () => _deleteHistory(url),
+                            onTap: () => _connect(config),
+                            onLongPress: () => _deleteHistory(config.url),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 14, vertical: 12),
@@ -190,10 +277,23 @@ class _ConnectPageState extends State<ConnectPage> {
                                       size: 16, color: Color(0xFF007ACC)),
                                   const SizedBox(width: 10),
                                   Expanded(
-                                    child: Text(
-                                      url,
-                                      style: const TextStyle(fontSize: 14),
-                                      overflow: TextOverflow.ellipsis,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          config.url,
+                                          style: const TextStyle(fontSize: 14),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        if (config.username != null)
+                                          Text(
+                                            'User: ${config.username}',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              color: Colors.white.withOpacity(0.4),
+                                            ),
+                                          ),
+                                      ],
                                     ),
                                   ),
                                   Icon(Icons.chevron_right,
@@ -219,7 +319,7 @@ class _ConnectPageState extends State<ConnectPage> {
 
                   const SizedBox(height: 40),
                   Text(
-                    'v1.0.0',
+                    'v1.1.0',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,
@@ -235,3 +335,4 @@ class _ConnectPageState extends State<ConnectPage> {
     );
   }
 }
+

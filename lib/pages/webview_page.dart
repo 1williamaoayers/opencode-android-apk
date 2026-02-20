@@ -1,12 +1,19 @@
-// OpenCode Mobile WebView
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
+  final String? username;
+  final String? password;
 
-  const WebViewPage({super.key, required this.url});
+  const WebViewPage({
+    super.key,
+    required this.url,
+    this.username,
+    this.password,
+  });
 
   @override
   State<WebViewPage> createState() => _WebViewPageState();
@@ -40,6 +47,16 @@ class _WebViewPageState extends State<WebViewPage> {
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
+  }
+
+  Map<String, String>? _buildHeaders() {
+    if (widget.username != null && widget.username!.isNotEmpty && 
+        widget.password != null && widget.password!.isNotEmpty) {
+      final credentials = '${widget.username}:${widget.password}';
+      final basicAuth = base64Encode(utf8.encode(credentials));
+      return {'Authorization': 'Basic $basicAuth'};
+    }
+    return null;
   }
 
   @override
@@ -83,7 +100,10 @@ class _WebViewPageState extends State<WebViewPage> {
           child: Stack(
             children: [
               InAppWebView(
-                initialUrlRequest: URLRequest(url: WebUri(widget.url)),
+                initialUrlRequest: URLRequest(
+                  url: WebUri(widget.url),
+                  headers: _buildHeaders(),
+                ),
                 initialSettings: InAppWebViewSettings(
                   javaScriptEnabled: true,
                   javaScriptCanOpenWindowsAutomatically: true,
@@ -102,6 +122,30 @@ class _WebViewPageState extends State<WebViewPage> {
                 pullToRefreshController: _pullToRefreshController,
                 onWebViewCreated: (controller) {
                   _controller = controller;
+                },
+                onLoadStop: (controller, url) async {
+                  // Inject CSS to optimize mobile layout automatically
+                  await controller.evaluateJavascript(source: """
+                    (function() {
+                      if (document.getElementById('opencode-mobile-tweaks')) return;
+                      var style = document.createElement('style');
+                      style.id = 'opencode-mobile-tweaks';
+                      style.innerHTML = `
+                        /* Global Touch Optimizations */
+                        * { -webkit-tap-highlight-color: transparent; }
+                        
+                        /* Hide desktop-specific scrollbars where possible to save space */
+                        ::-webkit-scrollbar { width: 4px; height: 4px; }
+                        
+                        /* Adjust monaco editor or similar to not break layout on mobile */
+                        .monaco-editor { width: 100% !important; }
+                        
+                        /* Example: hide bulky sidebars if they use standard classes, 
+                           OpenCode specific tweaks can be added here */
+                      `;
+                      document.head.appendChild(style);
+                    })();
+                  """);
                 },
                 onProgressChanged: (controller, progress) {
                   if (mounted) {
@@ -125,7 +169,6 @@ class _WebViewPageState extends State<WebViewPage> {
                 },
               ),
               
-              // 进度条
               if (_loading)
                 Positioned(
                   top: 0,
@@ -139,7 +182,6 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
               
-              // 错误显示
               if (_errorMessage != null && !_loading)
                 Positioned(
                   bottom: 16,
