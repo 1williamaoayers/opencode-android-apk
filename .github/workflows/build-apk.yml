@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Analyze code
+        run: flutter analyze
+
       - name: Get previous release tag
         id: prev_release
         run: |

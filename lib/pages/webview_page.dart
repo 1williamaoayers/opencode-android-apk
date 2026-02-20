@@ -89,7 +89,6 @@ class _WebViewPageState extends State<WebViewPage> {
                   domStorageEnabled: true,
                   databaseEnabled: true,
                   clearCache: true,
-                  cacheMode: WebSettings.LOAD_DEFAULT,
                   safeBrowsingEnabled: false,
                   mixedContentMode: MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
                   useHybridComposition: true,

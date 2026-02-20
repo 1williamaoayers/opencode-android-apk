@@ -202,6 +202,11 @@ const table = sqliteTable("session", {
 - 仔细检查条件编译块
 - 检查 `#[cfg(...)]` 和 `#[cfg_attr(...)]` 属性匹配
 
+### 构建等待
+- 每60秒检查一次构建状态并报告
+- 使用: `gh run list --limit 3`
+- 发现失败立即查看日志并修复
+
 ### 构建失败处理
 1. 使用 `gh run view <run_id> --log-failed` 查看错误日志
 2. 分析根因后再修复
