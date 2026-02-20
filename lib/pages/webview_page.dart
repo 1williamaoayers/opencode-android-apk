@@ -91,6 +91,11 @@ class _WebViewPageState extends State<WebViewPage> {
             * { -webkit-tap-highlight-color: transparent !important; }
             ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
             .pb-4 { padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important; }
+            /* Improve font sharpness in scaled-down desktop viewport */
+            body, * {
+              -webkit-font-smoothing: antialiased !important;
+              text-rendering: optimizeLegibility !important;
+            }
           `;
           document.head.appendChild(style);
         }
@@ -226,10 +231,10 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
 
-              // ─── Toggle Button (bottom-right) ────────────────────────────
+              // ─── Toggle Button (bottom-left, away from web UI action buttons) ──
               Positioned(
                 bottom: 20,
-                right: 16,
+                left: 16,
                 child: GestureDetector(
                   onTap: _toggleViewMode,
                   child: AnimatedContainer(
