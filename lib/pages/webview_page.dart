@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -38,6 +38,9 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
     );
 
     WidgetsBinding.instance.addObserver(this);
+
+    // Keep screen and CPU alive so Android never kills our WebSocket
+    WakelockPlus.enable();
   }
 
   @override
@@ -67,34 +70,17 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
     if (controller == null) return;
 
     // Give WebView a moment to fully resume
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 800));
 
-    // Inject JS to check and reconnect dead WebSockets.
-    // OpenCode uses WebSocket for real-time communication.
-    // If the socket is closed, we reload the page to re-establish.
-    await controller.evaluateJavascript(source: """
-      (function() {
-        // Check if there are any indicators of a dead connection
-        var indicators = document.querySelectorAll('[class*="disconnect"], [class*="offline"], [data-status="disconnected"]');
-        var redDots = document.querySelectorAll('[style*="red"], .text-danger, .text-red');
-        
-        // Also try to trigger reconnection via OpenCode's own mechanisms
-        if (window.__OPENCODE_WS__ && window.__OPENCODE_WS__.readyState > 1) {
-          // WebSocket is CLOSING or CLOSED, reload
-          location.reload();
-        }
-        
-        // Fallback: check generic WebSocket objects
-        try {
-          var allWs = performance.getEntriesByType('resource').filter(r => r.initiatorType === 'websocket' || r.name.startsWith('ws'));
-        } catch(e) {}
-      })();
-    """);
+    // Reload the page to re-establish all WebSocket connections.
+    // This is the most reliable approach — OpenCode will re-init cleanly.
+    await controller.reload();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    WakelockPlus.disable();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
@@ -200,8 +186,6 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
                   displayZoomControls: false,
                   mediaPlaybackRequiresUserGesture: false,
                   allowsInlineMediaPlayback: true,
-                  // Keep WebView alive when app is in background
-                  keepAliveWhenAppGoesBackground: true,
                 ),
                 pullToRefreshController: _pullToRefreshController,
                 onWebViewCreated: (controller) {
