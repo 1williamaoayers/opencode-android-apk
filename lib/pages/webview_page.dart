@@ -23,6 +23,8 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
   DateTime? _lastBackPressTime;
   String? _errorMessage;
   bool _isDesktopMode = true;
+  bool _isReconnecting = false;
+  DateTime? _pausedAt;
 
   @override
   void initState() {
@@ -52,29 +54,73 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.paused:
       case AppLifecycleState.inactive:
-        // Do NOT pause the WebView — keep it alive in the background
-        // so WebSocket connections survive brief app switches.
+        _pausedAt = DateTime.now();
         break;
       case AppLifecycleState.resumed:
-        // Force resume and reconnect
         controller.resume();
-        _reconnectWebSockets();
+        final pauseDuration = _pausedAt != null
+            ? DateTime.now().difference(_pausedAt!)
+            : Duration.zero;
+        _pausedAt = null;
+        // Only check connection if we were away for more than 3 seconds
+        if (pauseDuration.inSeconds > 3) {
+          _smartReconnect();
+        }
         break;
       default:
         break;
     }
   }
 
-  Future<void> _reconnectWebSockets() async {
+  /// Silently checks if the server is still reachable.
+  /// If dead, shows a brief dark overlay and reloads seamlessly.
+  /// If alive, does nothing — user sees zero interruption.
+  Future<void> _smartReconnect() async {
     final controller = _controller;
     if (controller == null) return;
 
-    // Give WebView a moment to fully resume
-    await Future.delayed(const Duration(milliseconds: 800));
+    // Give WebView engine a moment to resume
+    await Future.delayed(const Duration(milliseconds: 300));
 
-    // Reload the page to re-establish all WebSocket connections.
-    // This is the most reliable approach — OpenCode will re-init cleanly.
-    await controller.reload();
+    // Ask JS to check if the connection is still alive
+    final result = await controller.evaluateJavascript(source: """
+      (async function() {
+        try {
+          var resp = await fetch(window.location.href, {method: 'HEAD', cache: 'no-store'});
+          return resp.ok ? 'alive' : 'dead';
+        } catch(e) {
+          return 'dead';
+        }
+      })();
+    """);
+
+    // result is a JSON-encoded string, e.g. '"alive"' or '"dead"'
+    final isAlive = result != null && result.toString().contains('alive');
+
+    if (!isAlive && mounted) {
+      // Show a dark overlay to mask any white flash during reload
+      setState(() => _isReconnecting = true);
+      await Future.delayed(const Duration(milliseconds: 100));
+      await controller.reload();
+      // The overlay will be removed when onLoadStop fires
+    }
+  }
+
+  /// Inject a JS heartbeat that pings the server every 15 seconds.
+  /// This keeps WebSocket connections alive by preventing Android
+  /// from considering the network idle.
+  Future<void> _injectHeartbeat() async {
+    final controller = _controller;
+    if (controller == null) return;
+
+    await controller.evaluateJavascript(source: """
+      (function() {
+        if (window.__0CODE_HEARTBEAT__) return; // Already injected
+        window.__0CODE_HEARTBEAT__ = setInterval(function() {
+          fetch(window.location.origin + '/', {method: 'HEAD', cache: 'no-store'}).catch(function(){});
+        }, 15000);
+      })();
+    """);
   }
 
   @override
@@ -196,6 +242,10 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
                 },
                 onLoadStop: (controller, url) async {
                   await _applyViewport();
+                  await _injectHeartbeat();
+                  if (mounted && _isReconnecting) {
+                    setState(() => _isReconnecting = false);
+                  }
                 },
                 onProgressChanged: (controller, progress) {
                   if (mounted) {
@@ -257,6 +307,24 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
                   ),
                 ),
               ),
+
+              // ─── Reconnecting overlay (masks any reload flash) ─────────
+              if (_isReconnecting)
+                Positioned.fill(
+                  child: Container(
+                    color: const Color(0xFF1E1E1E),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Color(0xFF007ACC),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
               // ─── Error card ───────────────────────────────────────────────
               if (_errorMessage != null && !_loading)
