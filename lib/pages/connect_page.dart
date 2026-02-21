@@ -58,8 +58,8 @@ class _ConnectPageState extends State<ConnectPage> {
 
     try {
       _dio.options.headers = {};
-      _dio.options.connectTimeout = const Duration(seconds: 5);
-      _dio.options.receiveTimeout = const Duration(seconds: 5);
+      _dio.options.connectTimeout = const Duration(seconds: 15);
+      _dio.options.receiveTimeout = const Duration(seconds: 15);
       _dio.options.validateStatus = (status) => true; // Handle all statuses
 
       final response = await _dio.get(url);
@@ -141,7 +141,7 @@ class _ConnectPageState extends State<ConnectPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Text(
-                    'OpenCode',
+                    '0code',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 36,
@@ -152,7 +152,7 @@ class _ConnectPageState extends State<ConnectPage> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Remote Development Client',
+                    'Local Development Client',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
