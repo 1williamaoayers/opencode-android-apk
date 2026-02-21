@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.opencode.mobile"
+    namespace = "com.zerocode.mobile"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 

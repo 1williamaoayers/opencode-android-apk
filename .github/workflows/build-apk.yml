@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - main
+      - local-0code
   workflow_dispatch:
 
 permissions:
@@ -56,14 +57,20 @@ jobs:
         run: |
           PREV_TAG=${{ steps.prev_release.outputs.previous_tag }}
           # 提取版本号并递增
-          VERSION=$(echo $PREV_TAG | sed 's/^v//')
+          VERSION=$(echo $PREV_TAG | sed 's/^v//' | sed 's/^0code-//')
           MAJOR=$(echo $VERSION | cut -d. -f1)
           MINOR=$(echo $VERSION | cut -d. -f2)
           PATCH=$(echo $VERSION | cut -d. -f3)
           
           # 自动递增 patch 版本
           PATCH=$((PATCH + 1))
-          NEW_VERSION="v$MAJOR.$MINOR.$PATCH"
+          
+          if [ "${{ github.ref_name }}" == "local-0code" ]; then
+            NEW_VERSION="v0code-$MAJOR.$MINOR.$PATCH"
+          else
+            NEW_VERSION="v$MAJOR.$MINOR.$PATCH"
+          fi
+          
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Bumping version: $PREV_TAG -> $NEW_VERSION"
 

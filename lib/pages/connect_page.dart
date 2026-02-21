@@ -13,8 +13,6 @@ class ConnectPage extends StatefulWidget {
 
 class _ConnectPageState extends State<ConnectPage> {
   final _urlController = TextEditingController();
-  final _userController = TextEditingController();
-  final _pwdController = TextEditingController();
   List<ServerConfig> _history = [];
   bool _connecting = false;
   final _dio = Dio();
@@ -32,8 +30,6 @@ class _ConnectPageState extends State<ConnectPage> {
       setState(() {
         if (lastConfig != null) {
           _urlController.text = lastConfig.url;
-          _userController.text = lastConfig.username ?? '';
-          _pwdController.text = lastConfig.password ?? '';
         }
         _history = history;
       });
@@ -52,8 +48,6 @@ class _ConnectPageState extends State<ConnectPage> {
 
   Future<void> _connect([ServerConfig? configOverride]) async {
     final url = _normalizeUrl(configOverride?.url ?? _urlController.text);
-    final user = configOverride?.username ?? _userController.text.trim();
-    final pwd = configOverride?.password ?? _pwdController.text.trim();
 
     if (url.isEmpty) {
       _showError('请输入服务器地址');
@@ -63,16 +57,7 @@ class _ConnectPageState extends State<ConnectPage> {
     setState(() => _connecting = true);
 
     try {
-      // Pre-flight check
-      final String? basicAuth = (user.isNotEmpty && pwd.isNotEmpty)
-          ? 'Basic ${base64Encode(utf8.encode('$user:$pwd'))}'
-          : null;
-
       _dio.options.headers = {};
-      if (basicAuth != null) {
-        _dio.options.headers['Authorization'] = basicAuth;
-      }
-      
       _dio.options.connectTimeout = const Duration(seconds: 5);
       _dio.options.receiveTimeout = const Duration(seconds: 5);
       _dio.options.validateStatus = (status) => true; // Handle all statuses
@@ -94,8 +79,6 @@ class _ConnectPageState extends State<ConnectPage> {
       // Success, save history and navigate
       final finalConfig = ServerConfig(
         url: url,
-        username: user.isEmpty ? null : user,
-        password: pwd.isEmpty ? null : pwd,
       );
 
       await Storage.addToHistory(finalConfig);
@@ -107,8 +90,6 @@ class _ConnectPageState extends State<ConnectPage> {
         MaterialPageRoute(
           builder: (_) => WebViewPage(
             url: url,
-            username: finalConfig.username,
-            password: finalConfig.password,
           ),
         ),
       );
@@ -143,8 +124,6 @@ class _ConnectPageState extends State<ConnectPage> {
   @override
   void dispose() {
     _urlController.dispose();
-    _userController.dispose();
-    _pwdController.dispose();
     super.dispose();
   }
 
@@ -190,36 +169,8 @@ class _ConnectPageState extends State<ConnectPage> {
                       prefixIcon: Icon(Icons.dns_outlined, size: 20),
                     ),
                     keyboardType: TextInputType.url,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _userController,
-                          decoration: const InputDecoration(
-                            labelText: 'Username (Optional)',
-                            prefixIcon: Icon(Icons.person_outline, size: 20),
-                          ),
-                          textInputAction: TextInputAction.next,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: TextField(
-                          controller: _pwdController,
-                          decoration: const InputDecoration(
-                            labelText: 'Password (Optional)',
-                            prefixIcon: Icon(Icons.lock_outline, size: 20),
-                          ),
-                          obscureText: true,
-                          textInputAction: TextInputAction.go,
-                          onSubmitted: (_) => _connect(),
-                        ),
-                      ),
-                    ],
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (_) => _connect(),
                   ),
                   const SizedBox(height: 24),
 

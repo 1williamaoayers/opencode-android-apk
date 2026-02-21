@@ -5,14 +5,10 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
-  final String? username;
-  final String? password;
 
   const WebViewPage({
     super.key,
     required this.url,
-    this.username,
-    this.password,
   });
 
   @override
@@ -46,16 +42,6 @@ class _WebViewPageState extends State<WebViewPage> {
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
-  }
-
-  Map<String, String>? _buildHeaders() {
-    if (widget.username != null && widget.username!.isNotEmpty &&
-        widget.password != null && widget.password!.isNotEmpty) {
-      final credentials = '${widget.username}:${widget.password}';
-      final basicAuth = base64Encode(utf8.encode(credentials));
-      return {'Authorization': 'Basic $basicAuth'};
-    }
-    return null;
   }
 
   Future<void> _applyViewport() async {
@@ -142,7 +128,6 @@ class _WebViewPageState extends State<WebViewPage> {
               InAppWebView(
                 initialUrlRequest: URLRequest(
                   url: WebUri(widget.url),
-                  headers: _buildHeaders(),
                 ),
                 initialSettings: InAppWebViewSettings(
                   javaScriptEnabled: true,
@@ -167,17 +152,6 @@ class _WebViewPageState extends State<WebViewPage> {
                 },
                 onReceivedServerTrustAuthRequest: (controller, challenge) async {
                   return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
-                },
-                onReceivedHttpAuthRequest: (controller, challenge) async {
-                  if (widget.username != null && widget.username!.isNotEmpty &&
-                      widget.password != null && widget.password!.isNotEmpty) {
-                    return HttpAuthResponse(
-                      username: widget.username!,
-                      password: widget.password!,
-                      action: HttpAuthResponseAction.PROCEED,
-                    );
-                  }
-                  return HttpAuthResponse(action: HttpAuthResponseAction.CANCEL);
                 },
                 onLoadStop: (controller, url) async {
                   await _applyViewport();
