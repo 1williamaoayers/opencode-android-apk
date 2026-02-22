@@ -523,12 +523,15 @@ export namespace Server {
               })
 
               // Send heartbeat every 10s to prevent stalled proxy streams.
+              // We append 2KB of padding (spaces) to force Android WebView's
+              // internal networking buffers to flush immediately, preventing
+              // 15-second client-side timeouts.
               const heartbeat = setInterval(() => {
                 stream.writeSSE({
                   data: JSON.stringify({
                     type: "server.heartbeat",
                     properties: {},
-                  }),
+                  }) + " ".repeat(2048),
                 })
               }, 10_000)
 

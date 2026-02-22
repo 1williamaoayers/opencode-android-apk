@@ -62,8 +62,9 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
             ? DateTime.now().difference(_pausedAt!)
             : Duration.zero;
         _pausedAt = null;
-        // Only check connection if we were away for more than 3 seconds
-        if (pauseDuration.inSeconds > 3) {
+        // Check connection more aggressively (e.g., if away for more than 1 second)
+        // since Android aggressively caches active sockets, leading to silent drops.
+        if (pauseDuration.inSeconds > 1) {
           _smartReconnect();
         }
         break;
@@ -82,10 +83,12 @@ class _WebViewPageState extends State<WebViewPage> with WidgetsBindingObserver {
     // Give WebView engine a moment to resume
     await Future.delayed(const Duration(milliseconds: 300));
 
-    // Ask JS to check if the connection is still alive
+    // Ask JS to check if the connection is still alive,
+    // and simultaneously fire a visibilitychange event to wake up JS SDK internal watchdogs
     final result = await controller.evaluateJavascript(source: """
       (async function() {
         try {
+          document.dispatchEvent(new Event('visibilitychange'));
           var resp = await fetch(window.location.href, {method: 'HEAD', cache: 'no-store'});
           return resp.ok ? 'alive' : 'dead';
         } catch(e) {
