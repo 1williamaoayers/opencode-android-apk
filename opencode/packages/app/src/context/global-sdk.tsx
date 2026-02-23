@@ -27,7 +27,10 @@ export const { use: useGlobalSDK, provider: GlobalSDKProvider } = createSimpleCo
       }
     })()
 
+    const isMobile = platform.platform !== "desktop" && platform.platform !== "web"
+
     const eventFetch = (() => {
+      if (isMobile) return
       if (!platform.fetch) return
       try {
         const url = new URL(server.url)
@@ -182,10 +185,23 @@ export const { use: useGlobalSDK, provider: GlobalSDKProvider } = createSimpleCo
       }
     })().finally(flush)
 
+    let lastVisibility = typeof document !== "undefined" ? document.visibilityState : "visible"
+
     const onVisibility = () => {
       if (typeof document === "undefined") return
-      if (document.visibilityState !== "visible") return
-      if (Date.now() - lastEventAt < HEARTBEAT_TIMEOUT_MS) return
+      const now = Date.now()
+      const timeSinceLastEvent = now - lastEventAt
+      const currentState = document.visibilityState
+
+      if (currentState === "visible" && lastVisibility === "hidden") {
+        attempt?.abort()
+        lastVisibility = currentState
+        return
+      }
+
+      lastVisibility = currentState
+      if (currentState !== "visible") return
+      if (timeSinceLastEvent < HEARTBEAT_TIMEOUT_MS) return
       attempt?.abort()
     }
     if (typeof document !== "undefined") {
