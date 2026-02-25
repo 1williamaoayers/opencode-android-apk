@@ -679,6 +679,20 @@ export default function Page() {
     void sync.session.todo(id)
   })
 
+  createEffect(
+    on(
+      () => globalSync.data.ready,
+      (ready, prev) => {
+        const id = params.id
+        if (!id || !ready || prev === undefined) return
+        const s = status()
+        if (s && s.type !== "idle") {
+          void sync.session.sync(id)
+        }
+      }
+    )
+  )
+
   createEffect(() => {
     if (!view().terminal.opened()) {
       setUi("autoCreated", false)

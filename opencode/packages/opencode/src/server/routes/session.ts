@@ -724,6 +724,8 @@ export const SessionRoutes = lazy(() =>
       async (c) => {
         c.status(200)
         c.header("Content-Type", "application/json")
+        c.header("X-Accel-Buffering", "no")
+        c.header("Cache-Control", "no-cache")
         return stream(c, async (stream) => {
           const sessionID = c.req.valid("param").sessionID
           const body = c.req.valid("json")

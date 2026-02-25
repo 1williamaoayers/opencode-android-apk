@@ -67,6 +67,7 @@ export const GlobalRoutes = lazy(() =>
       async (c) => {
         log.info("global event connected")
         c.header("X-Accel-Buffering", "no")
+        c.header("Cache-Control", "no-cache")
         c.header("X-Content-Type-Options", "nosniff")
         return streamSSE(c, async (stream) => {
           stream.writeSSE({
