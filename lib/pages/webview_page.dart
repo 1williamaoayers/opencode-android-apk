@@ -214,6 +214,34 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
 
+              // ─── Refresh: left-edge upper-third, transparent ghost circle ─
+              Align(
+                alignment: const Alignment(-1, -0.33),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: GestureDetector(
+                    onTap: () => _controller?.reload(),
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.18),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.28),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.refresh_rounded,
+                        color: Colors.white.withValues(alpha: 0.85),
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
               // ─── Toggle: left-edge center, transparent ghost circle ──────
               Align(
                 alignment: Alignment.centerLeft,
