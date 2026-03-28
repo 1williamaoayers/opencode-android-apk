@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.ocode.app.refresh"
+        applicationId = "com.ocode.app.v2"
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
