@@ -19,6 +19,9 @@ class _ConnectPageState extends State<ConnectPage> {
   bool _connecting = false;
   final _dio = Dio();
 
+  // 是否在 UI 中配置了账号密码（由历史记录或上次配置决定）
+  bool _requireAuth = false;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,7 @@ class _ConnectPageState extends State<ConnectPage> {
           _urlController.text = lastConfig.url;
           _userController.text = lastConfig.username ?? '';
           _pwdController.text = lastConfig.password ?? '';
+          _requireAuth = (lastConfig.username != null && lastConfig.username!.isNotEmpty);
         }
         _history = history;
       });
@@ -52,84 +56,83 @@ class _ConnectPageState extends State<ConnectPage> {
 
   Future<void> _connect([ServerConfig? configOverride]) async {
     final url = _normalizeUrl(configOverride?.url ?? _urlController.text);
-    final user = configOverride?.username ?? _userController.text.trim();
-    final pwd = configOverride?.password ?? _pwdController.text.trim();
+
+    // 仅当 configOverride 带了 username，或本地 UI 配置了 _requireAuth 时才读账号密码
+    final String user;
+    final String pwd;
+    if (configOverride != null) {
+      user = configOverride.username ?? '';
+      pwd = configOverride.password ?? '';
+    } else if (_requireAuth) {
+      user = _userController.text.trim();
+      pwd = _pwdController.text.trim();
+    } else {
+      user = '';
+      pwd = '';
+    }
 
     if (url.isEmpty) {
       _showError('请输入服务器地址');
       return;
     }
 
+    // 若需要验证但账号密码为空，提示
+    if (_requireAuth && (user.isEmpty || pwd.isEmpty)) {
+      _showError('请输入账号和密码');
+      return;
+    }
+
     setState(() => _connecting = true);
 
     try {
-      // Pre-flight check
       final String? basicAuth = (user.isNotEmpty && pwd.isNotEmpty)
           ? 'Basic ${base64Encode(utf8.encode('$user:$pwd'))}'
           : null;
 
-      _dio.options.headers = {};
+      _dio.options
+        ..connectTimeout = const Duration(seconds: 8)
+        ..receiveTimeout = const Duration(seconds: 8);
+
       if (basicAuth != null) {
         _dio.options.headers['Authorization'] = basicAuth;
-      }
-      
-      _dio.options.connectTimeout = const Duration(seconds: 5);
-      _dio.options.receiveTimeout = const Duration(seconds: 5);
-      _dio.options.validateStatus = (status) => true; // Handle all statuses
-
-      final response = await _dio.get(url);
-
-      if (!mounted) return;
-
-      if (response.statusCode == 401) {
-        _showError('认证失败：用户名或密码错误');
-        setState(() => _connecting = false);
-        return;
-      } else if (response.statusCode == null || response.statusCode! >= 500) {
-        _showError('无法连接到服务器 (${response.statusCode ?? '网络异常'})');
-        setState(() => _connecting = false);
-        return;
+      } else {
+        _dio.options.headers.remove('Authorization');
       }
 
-      // Success, save history and navigate
-      final finalConfig = ServerConfig(
+      await _dio.get(url);
+
+      final config = ServerConfig(
         url: url,
-        username: user.isEmpty ? null : user,
-        password: pwd.isEmpty ? null : pwd,
+        username: user.isNotEmpty ? user : null,
+        password: pwd.isNotEmpty ? pwd : null,
       );
+      await Storage.addToHistory(config);
 
-      await Storage.addToHistory(finalConfig);
-
-      setState(() => _connecting = false);
-      
-      await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => WebViewPage(
-            url: url,
-            username: finalConfig.username,
-            password: finalConfig.password,
-          ),
-        ),
-      );
-      
-      _loadData();
-
-    } catch (e) {
-      debugPrint('Connection error: $e');
       if (mounted) {
-        _showError('连接超时或无法访问该地址');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => WebViewPage(
+              url: url,
+              username: user.isNotEmpty ? user : null,
+              password: pwd.isNotEmpty ? pwd : null,
+            ),
+          ),
+        );
+      }
+    } on Exception catch (e) {
+      if (mounted) {
         setState(() => _connecting = false);
+        _showError(e.toString().replaceAll('DioException [', '').split(']:').first);
       }
     }
   }
 
-  void _showError(String message) {
-    if (!mounted) return;
+  void _showError(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red.shade700,
+        content: Text(msg),
+        backgroundColor: Colors.red.shade800,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -137,7 +140,8 @@ class _ConnectPageState extends State<ConnectPage> {
 
   Future<void> _deleteHistory(String url) async {
     await Storage.removeFromHistory(url);
-    _loadData();
+    final history = await Storage.getHistory();
+    if (mounted) setState(() => _history = history);
   }
 
   @override
@@ -154,148 +158,184 @@ class _ConnectPageState extends State<ConnectPage> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'OpenCode',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xFF007ACC),
-                      letterSpacing: 1.5,
-                    ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Logo / Title
+                const Icon(
+                  Icons.terminal_rounded,
+                  size: 56,
+                  color: Color(0xFF007ACC),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'OpenCode',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Remote Development Client',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withOpacity(0.5),
-                    ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '连接到你的服务器',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white.withOpacity(0.5),
                   ),
-                  const SizedBox(height: 48),
+                ),
+                const SizedBox(height: 40),
 
+                // URL 输入框
+                TextField(
+                  controller: _urlController,
+                  keyboardType: TextInputType.url,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    labelText: '服务器地址',
+                    hintText: 'http://192.168.1.1:3000',
+                    prefixIcon: Icon(Icons.link_rounded),
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // 账号密码区域：仅当 _requireAuth 时显示
+                if (_requireAuth) ...
+                [
                   TextField(
-                    controller: _urlController,
+                    controller: _userController,
+                    autocorrect: false,
                     decoration: const InputDecoration(
-                      labelText: 'Server URL',
-                      hintText: 'http://192.168.1.x:3000',
-                      prefixIcon: Icon(Icons.dns_outlined, size: 20),
+                      labelText: '账号',
+                      prefixIcon: Icon(Icons.person_rounded),
                     ),
-                    keyboardType: TextInputType.url,
-                    textInputAction: TextInputAction.next,
                   ),
-                  const SizedBox(height: 16),
-                  
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _userController,
-                          decoration: const InputDecoration(
-                            labelText: 'Username (Optional)',
-                            prefixIcon: Icon(Icons.person_outline, size: 20),
-                          ),
-                          textInputAction: TextInputAction.next,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: TextField(
-                          controller: _pwdController,
-                          decoration: const InputDecoration(
-                            labelText: 'Password (Optional)',
-                            prefixIcon: Icon(Icons.lock_outline, size: 20),
-                          ),
-                          obscureText: true,
-                          textInputAction: TextInputAction.go,
-                          onSubmitted: (_) => _connect(),
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: _pwdController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: '密码',
+                      prefixIcon: Icon(Icons.lock_rounded),
+                    ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
+                ],
 
-                  ElevatedButton(
-                    onPressed: _connecting ? null : () => _connect(),
-                    child: _connecting
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        : const Text('Connect'),
-                  ),
+                // 切换是否需要账号密码
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _requireAuth,
+                      activeColor: const Color(0xFF007ACC),
+                      onChanged: (v) {
+                        setState(() {
+                          _requireAuth = v ?? false;
+                          if (!_requireAuth) {
+                            _userController.clear();
+                            _pwdController.clear();
+                          }
+                        });
+                      },
+                    ),
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        _requireAuth = !_requireAuth;
+                        if (!_requireAuth) {
+                          _userController.clear();
+                          _pwdController.clear();
+                        }
+                      }),
+                      child: Text(
+                        '需要账号密码登录',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                // 连接按钮
+                ElevatedButton(
+                  onPressed: _connecting ? null : _connect,
+                  child: _connecting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text('连接'),
+                ),
+
+                // 历史记录
+                if (_history.isNotEmpty) ...
+                [
                   const SizedBox(height: 32),
-
-                  if (_history.isNotEmpty) ...[
-                    Row(
-                      children: [
-                        Icon(Icons.history,
-                            size: 14,
-                            color: Colors.white.withOpacity(0.3)),
-                        const SizedBox(width: 6),
-                        Text(
-                          'RECENT SERVERS',
-                          style: TextStyle(
-                            fontSize: 11,
-                            letterSpacing: 1.5,
-                            color: Colors.white.withOpacity(0.3),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                  Text(
+                    '最近连接',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white.withOpacity(0.4),
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(height: 8),
-                    ...List.generate(_history.length, (i) {
-                      final config = _history[i];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
+                  ),
+                  const SizedBox(height: 8),
+                  ..._history.map((cfg) {
+                    final hasAuth = cfg.username != null && cfg.username!.isNotEmpty;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: GestureDetector(
+                        onLongPress: () => _deleteHistory(cfg.url),
                         child: Material(
                           color: Colors.white.withOpacity(0.05),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(8),
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () => _connect(config),
-                            onLongPress: () => _deleteHistory(config.url),
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: () => _connect(cfg),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 14, vertical: 12),
+                                  horizontal: 14, vertical: 10),
                               child: Row(
                                 children: [
-                                  const Icon(Icons.computer,
-                                      size: 16, color: Color(0xFF007ACC)),
-                                  const SizedBox(width: 10),
+                                  Icon(
+                                    hasAuth
+                                        ? Icons.lock_rounded
+                                        : Icons.lock_open_rounded,
+                                    size: 14,
+                                    color: Colors.white.withOpacity(0.3),
+                                  ),
+                                  const SizedBox(width: 8),
                                   Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          config.url,
-                                          style: const TextStyle(fontSize: 14),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        if (config.username != null)
-                                          Text(
-                                            'User: ${config.username}',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              color: Colors.white.withOpacity(0.4),
-                                            ),
-                                          ),
-                                      ],
+                                    child: Text(
+                                      cfg.url,
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.7),
+                                        fontSize: 13,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
+                                  if (hasAuth)
+                                    Text(
+                                      cfg.username!,
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.3),
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  const SizedBox(width: 4),
                                   Icon(Icons.chevron_right,
                                       size: 18,
                                       color: Colors.white.withOpacity(0.2)),
@@ -304,30 +344,30 @@ class _ConnectPageState extends State<ConnectPage> {
                             ),
                           ),
                         ),
-                      );
-                    }),
-                    const SizedBox(height: 4),
-                    Text(
-                      '长按删除记录',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.white.withOpacity(0.2),
                       ),
-                    ),
-                  ],
-
-                  const SizedBox(height: 40),
+                    );
+                  }),
+                  const SizedBox(height: 4),
                   Text(
-                    'v1.1.0',
+                    '长按删除记录',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white.withOpacity(0.15),
+                      fontSize: 11,
+                      color: Colors.white.withOpacity(0.2),
                     ),
                   ),
                 ],
-              ),
+
+                const SizedBox(height: 40),
+                Text(
+                  'v1.2.0',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.15),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -335,4 +375,3 @@ class _ConnectPageState extends State<ConnectPage> {
     );
   }
 }
-
